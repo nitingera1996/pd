@@ -16,10 +16,10 @@
 		<br/>
 		<div id="blog">
 		{% if category %}
-		    {% if blogs %}
+		    {% if zipped_data %}
 			<u1>
-			    {% for blog in blogs %}
-				    <span style='float:right;'>{{ blog.time_added }}</span>
+			    {% for blog,b_time in zipped_data %}
+				    <span style='float:right;'>{{ b_time }}</span>
                     <h3><a href="{% url 'blog' blog.slug %}"><strong>{{ blog.title }}</strong></a></h3>
                     <p class='text-left'> -{{ blog.written_by }}</p>
                     <p>{{ blog.text }}</p>

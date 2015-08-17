@@ -54,12 +54,15 @@ def populate():
     _cat = add_cat(name="Science & Reserch",likes=0)
     _cat = add_cat(name="Gear & Gadgets",likes=0)
     _cat = add_cat(name="Hobbies & Fun",likes=0)
+    b = Blog.objects.get_or_create(category=_cat,title="Hobbies Blog1",written_by=user1)[0]
+    b.text="Blog Text"
+    b.likes=3
+    b.save()
     _cat = add_cat(name="Psychology & Philosophy",likes=0)
     _cat = add_cat(name="Space",likes=0)
     b = Blog.objects.get_or_create(category=_cat,title="Space Blog1",written_by=user1)[0]
     b.text="Blog Text"
     b.likes=2
-    b.time_added=datetime.now().time()
     b.save()
     
 #for c in Category.objects.all():

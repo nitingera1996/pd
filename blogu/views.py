@@ -8,7 +8,19 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from registration.backends.simple.views import RegistrationView
 from django.contrib.auth.models import User
-from datetime import datetime,date
+from datetime import datetime,date,tzinfo,timedelta
+
+ZERO = timedelta(0)
+
+class UTC(tzinfo):
+  def utcoffset(self, dt):
+    return ZERO
+  def tzname(self, dt):
+    return "UTC"
+  def dst(self, dt):
+    return ZERO
+
+utc = UTC()
 
 class MyRegistrationView(RegistrationView):
     def get(self):
@@ -17,12 +29,30 @@ class MyRegistrationView(RegistrationView):
 def index(request):
     #request.session.set_test_cookie()
     context_dict = {}
+    #print datetime.now()
     blog_list = Blog.objects.order_by('-likes')[:10]
     context_dict['blogs']=blog_list
     comment_matrix=[]
     for blog in blog_list:
         comment_matrix.append(Comment.objects.filter(comment_to=blog).order_by('-likes')[:5])
     context_dict['comments']=comment_matrix
+    b_time=[]
+    for b in blog_list:
+        days=(datetime.now(utc)-b.datetime_added).days
+        seconds=(datetime.now(utc) - b.datetime_added).seconds
+        minutes=seconds/60
+        hours=minutes/60
+        if  days>= 1:
+            b_time.append(str(days)+" days ago")
+        elif minutes>60:
+            b_time.append(str(hours)+" hours ago")
+        elif seconds>60:
+            b_time.append(str(minutes)+" minutes ago")
+        else:
+            b_time.append("Just now")
+    zipped_data=zip(blog_list,b_time)
+    #print zipped_data
+    context_dict['zipped_data']=zipped_data
     response = render(request,'blogu/index.html',context_dict)
     return response
 
@@ -40,11 +70,27 @@ def category(request,category_name_slug):
         context_dict['blogs']=blogs
         context_dict['category']=category
         context_dict['category_name_slug']=category.slug
-        return render(request,'blogu/category.html',context_dict)
     except Category.DoesNotExist:
         context_dict['category_name']=category_name_slug
         pass
-	return render(request,'blogu/category.html',context_dict)
+    b_time=[]
+    for b in blogs:
+        days=(datetime.now(utc)-b.datetime_added).days
+        seconds=(datetime.now(utc) - b.datetime_added).seconds
+        minutes=seconds/60
+        hours=minutes/60
+        if  days>= 1:
+            b_time.append(str(days)+" days ago")
+        elif minutes>60:
+            b_time.append(str(hours)+" hours ago")
+        elif seconds>60:
+            b_time.append(str(minutes)+" minutes ago")
+        else:
+            b_time.append("Just now")
+    zipped_data=zip(blogs,b_time)
+    context_dict['zipped_data']=zipped_data
+    
+    return render(request,'blogu/category.html',context_dict)
 
 
 def get_category_list(max_results=0,startswith=''):
@@ -69,9 +115,18 @@ def blog(request,blog_title_slug):
         c=Comment.objects.filter(comment_to=b).order_by('-likes')
     except Blog.DoesNotExist:
         pass
-    if (datetime.now().date()-b.date_added).days >= 1:
-        b_time=str((datetime.now().date()-b.date_added).days)+" days ago"
-    print datetime.combine(date.today(),datetime.now().time()) - datetime.combine(date.today(), b.time_added).seconds
+    days=(datetime.now(utc)-b.datetime_added).days
+    seconds=(datetime.now(utc) - b.datetime_added).seconds
+    minutes=seconds/60
+    hours=minutes/60
+    if  days>= 1:
+        b_time=str(days)+" days ago"
+    elif minutes>60:
+        b_time=str(hours)+" hours ago"
+    elif seconds>60:
+        b_time=str(minutes)+" minutes ago"
+    else:
+        b_time="Just now"
     return render(request,'blogu/blog.html',{'blog':b,'comments':c,'b_time':b_time})
 
 

@@ -6,10 +6,10 @@
 		{% endif %}
 		
 		{% if blogs %}
-                {% for blog in blogs %}
+                {% for blog,b_time in zipped_data %}
                
                     <p style='text-align:left;'>{{ blog.category }}</p>
-                    <span style='float:right;'>{{ blog.time_added }}</span>
+                    <span style='float:right;'>{{ b_time }}</span>
                
                 <p class='text-left'> -{{ blog.written_by }}</p>
                 <h3><strong>{{ blog.title }}</strong></h3>
