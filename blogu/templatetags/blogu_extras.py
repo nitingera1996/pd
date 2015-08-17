@@ -5,7 +5,7 @@ register = template.Library()
 
 @register.inclusion_tag('blogu/cats.html')
 def get_category_list(cat=None):
-    print Category.objects.all()
+    #print Category.objects.all()
     return {'cats':Category.objects.all().order_by('name'), "act_cat": cat}
 
 @register.inclusion_tag('blogu/blogs.html')

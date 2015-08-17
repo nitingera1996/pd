@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from registration.backends.simple.views import RegistrationView
 from django.contrib.auth.models import User
-
+from datetime import datetime,date
 
 class MyRegistrationView(RegistrationView):
     def get(self):
@@ -44,12 +44,14 @@ def category(request,category_name_slug):
     except Category.DoesNotExist:
         context_dict['category_name']=category_name_slug
         pass
-	return render(request,'rango/category.html',context_dict)
+	return render(request,'blogu/category.html',context_dict)
 
 
 def get_category_list(max_results=0,startswith=''):
     cat_list=[]
-    if startswith:
+    if startswith=='':
+        cat_list = Category.objects.all()
+    elif startswith:
         #print "Hello"
         cat_list = Category.objects.filter(name__istartswith=startswith)
         #print cat_list1
@@ -61,10 +63,44 @@ def get_category_list(max_results=0,startswith=''):
 def blog(request,blog_title_slug):
     b=None
     c=None
+    b_time=None
     try:
         b=Blog.objects.get(slug=blog_title_slug)
         c=Comment.objects.filter(comment_to=b).order_by('-likes')
     except Blog.DoesNotExist:
         pass
-    return render(request,'blogu/blog.html',{'blog':b,'comments':c})
+    if (datetime.now().date()-b.date_added).days >= 1:
+        b_time=str((datetime.now().date()-b.date_added).days)+" days ago"
+    print datetime.combine(date.today(),datetime.now().time()) - datetime.combine(date.today(), b.time_added).seconds
+    return render(request,'blogu/blog.html',{'blog':b,'comments':c,'b_time':b_time})
 
+
+@login_required     
+def like_category(request):
+    if request.method=="GET":
+        category_id=request.GET["category_id"]
+        category1=Category.objects.get(id=int(category_id))
+        category1.likes+=1
+        category1.save()
+        return HttpResponse(category1.likes)
+
+def suggest_category(request):
+    str=request.GET["query_string"]
+    #print str
+    result=get_category_list(8,str)
+    cat_list=[]
+    for name in result:
+        cat=Category.objects.get(name=name)
+        cat_list.append(cat)
+    #print cat_list
+    return render(request,'blogu/category_list.html',{'cats':cat_list})
+    #return HttpResponse(cat_list)
+
+@login_required     
+def like_blog(request):
+    if request.method=="GET":
+        blog_id=request.GET["blog_id"]
+        blog=Blog.objects.get(id=int(blog_id))
+        blog.likes+=1
+        blog.save()
+        return HttpResponse(blog.likes)

@@ -29,7 +29,7 @@ class Blog(models.Model):
     text = models.TextField()
     likes=models.IntegerField(default=0)
     date_added=models.DateField(default='2015-01-01')
-    time_added=models.TimeField(default='00:00')
+    time_added=models.TimeField(default='00:00.00.000000')
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         if(self.likes<0):
