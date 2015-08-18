@@ -9,5 +9,5 @@ urlpatterns = patterns('',
         url(r'^like_category/$',views.like_category,name="like_category"),
         url(r'^suggest_category/$',views.suggest_category,name="suggest_category"),
         url(r'^like_blog/$',views.like_blog,name="like_blog"),
-        
+        url(r'^(?P<category_name_slug>[\w\-]+)/add_blog/$',views.add_blog,name="suggest_category"),
 		)

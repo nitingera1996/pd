@@ -4,7 +4,7 @@
 	    {% if c == act_cat %}
 		<li class="active"><a href="{% url 'category' c.slug %}">{{ c.name }}</a></li>
 		{% else %}
-	    <li><a href="{% url 'category' c.slug %}">{{ c.name }}</a></li>
+	    <li><a href="c.slug">{{ c.name }}</a></li>
 	    {% endif %}
 	{% endfor %}
 {% else %}

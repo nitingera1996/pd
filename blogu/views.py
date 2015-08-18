@@ -159,3 +159,6 @@ def like_blog(request):
         blog.likes+=1
         blog.save()
         return HttpResponse(blog.likes)
+
+def add_blog(request,category_name_slug):
+    pass
