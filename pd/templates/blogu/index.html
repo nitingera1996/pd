@@ -1,0 +1,27 @@
+{% extends 'blogu/base.html' %}
+{% load staticfiles %}
+{% block body_block %}
+	    {% if user.is_authenticated %}
+		{% else %}
+		{% endif %}
+		
+		{% if blogs %}
+                {% for blog,b_time in zipped_data %}
+               
+                    <p style='text-align:left;'>{{ blog.category }}</p>
+                    <span style='float:right;'>{{ b_time }}</span>
+               
+                <p class='text-left'> -{{ blog.written_by }}</p>
+                <h3><strong>{{ blog.title }}</strong></h3>
+                <p>{{ blog.text }}</p>
+                <br/>
+                {{ blog.likes }} like(s)
+                <br/>
+                <br/>
+                <hr noshade size=9>
+                {% endfor %}
+		{% else %}
+		    <strong>There are no blogs present.</strong>
+		{% endif %}
+		
+{% endblock %}

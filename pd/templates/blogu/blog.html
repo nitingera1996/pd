@@ -1,0 +1,39 @@
+{% extends "blogu/base.html" %}
+{% load staticfiles %}
+{% block body_block %}
+<h1>{{ blog.title }}</h1>
+		{% if blog.image %}
+		    <img src="{{ blog.image.url }}"/>
+		    {{ blog.image_description }}
+		{% endif %}
+<p style='text-align:left;'>{{ blog.category }}</p>
+{% if b_time %}
+<span style='float:right;'>{{ b_time }}</span>
+{% endif %}
+<p class='text-left'> -{{ blog.written_by }}</p>
+<br/>
+<p>{{ blog.text }}</p>
+<br/>
+<p>{{ blog.likes }} like(s)</p>
+<div>
+	<div class="panel">
+        {% if comments %}
+                    <div class="panel-heading">
+                    <h3 class="panel-title">Commments</h3>
+                    <div class="panel-body">
+                        <div class="list-group">
+                            {% for comment in comments %}
+                                <div class="list-group-item">
+                                    <h4 class="list-group-item-heading">{{ comment.comment_by }}</h4>
+									<p class="list-group-item-text">{{ comment.comment_text }}</p>
+									<p>{{ comment.likes }} like(s)</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+		</div>
+
+{% endblock %}
