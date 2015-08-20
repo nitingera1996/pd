@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from datetime import datetime
 
 
 class Category(models.Model):
@@ -28,8 +29,7 @@ class Blog(models.Model):
     heading=models.TextField(default='')
     text = models.TextField()
     likes=models.IntegerField(default=0)
-    date_added=models.DateField(default='2015-01-01')
-    time_added=models.TimeField(default='00:00')
+    datetime_added=models.DateTimeField(default=datetime.now())
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         if(self.likes<0):

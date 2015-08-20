@@ -1,32 +1,43 @@
-{% extends 'rango/base.html' %}
+{% extends 'blogu/base.html' %}
 {% load staticfiles %}
 {% block title %} {{ category_name }} {% endblock %}
 {% block body_block %}
     <h2>{{ category_name }}</h2>
 		<p>
-		<strong id="like_count">{{ category.likes }} </strong> people like this category
+		<strong id="category_like_count">{{ category.likes }} </strong> people like this category
 		{% if user.is_authenticated %}
-		     <button id="like" data-catid="{{ category.id }}" class="btn btn-primary" type="button">
+		     <button id="category_like" data-catid="{{ category.id }}" class="btn btn-primary" type="button">
 			 <span class="glyphicon glyphicon-thumbs-up"> </span>
 			 Like</button>
 	    {% endif %}
 		</p>
-		<div id="page">
+		<br/>
+		<br/>
+		<div id="blog">
 		{% if category %}
-		    {% if pages %}
+		    {% if zipped_data %}
 			<u1>
-			    {% for page in pages %}
-				<li><a href="{% url 'goto' %}?pageid={{ page.id }}">{{ page.title }}</a>
-				{% if page.views == 1 %}
-				(1 view)
-				{% else %}
-				({{ page.views }} views)
-				{% endif %}
-				</li>
-				{% endfor %}
+			    {% for blog,b_time in zipped_data %}
+				    <span style='float:right;'>{{ b_time }}</span>
+                    <h3><a href="{% url 'blog' blog.slug %}"><strong>{{ blog.title }}</strong></a></h3>
+                    <p class='text-left'> -{{ blog.written_by }}</p>
+                    <p>{{ blog.text }}</p>
+                    <br/>
+                    <strong id=blog_like_count>{{ blog.likes }}</strong>
+                    <strong> likes</strong>
+                    {% if user.is_authenticated %}
+		                <button id="blog_like" data-blogid="{{ blog.id }}" class="btn btn-primary" type="button">
+			            <span class="glyphicon glyphicon-thumbs-up"> </span>
+			            Like</button>
+	                {% endif %}
+		
+                    <br/>
+                    <br/>
+                    <hr noshade size=9>
+                {% endfor %}
 			</u1>
 		    {% else %}
-		        <strong>No pages currently in category</strong>
+		        <strong>No blogs currently in category</strong>
 	        {% endif %}
 		</div>
 			<br/>
@@ -34,47 +45,5 @@
 		{% else %}
 	        The specified category {{ category_name }} does not exist!
 	    {% endif %}
-		<div class="page-header">
-        <h3>Cannot find the page Search for it with Rango</h3>
-    </div>
-
-    <div class="row">
-
-          <br/>
-
-            <form class="form-inline" id="user_form" method="post" action="{% url 'category' category.slug %}">
-                {% csrf_token %}
-                <!-- Display the search form elements here -->
-                <input class="form-control" type="text" size="50" name="query" value="" id="query" />
-                <input class="btn btn-primary" type="submit" name="submit" value="Search" />
-                <br />
-            </form>
-
-		<div>
-		<div class="panel">
-                {% if result_list %}
-                    <div class="panel-heading">
-                    <h3 class="panel-title">Results</h3>
-                    <!-- Display search results in an ordered list -->
-                    <div class="panel-body">
-                        <div class="list-group">
-                            {% for result in result_list %}
-                                <div class="list-group-item">
-                                    <h4 class="list-group-item-heading"><a href="{{ result.link }}">{{ result.title }}</a>
-									{% if user.is_authenticated %}
-									<input class="add_page btn btn-primary" data-catid="{{ category.id }}" data-title="{{ result.title }}" data-url="{{ result.link }}" class="btn btn-primary" type="submit" name="add_page" value="Add this page"/></h4>
-                                    {% endif %}
-									<p class="list-group-item-text">{{ result.summary }}</p>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% endif %}
-                </div>
-            </div>
-		</div>
-		{% if user.is_authenticated %}
-		     <p> Not happy with my search results </p>
-		     <a href="/rango/{{ category_name_slug }}/add_page/"> Add a new customized page </a>
-	    {% endif %}  
+	    
 {% endblock %}

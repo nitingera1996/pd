@@ -2,6 +2,7 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','paradox.settings')
 import django
 from django.contrib.auth.models import User
+from datetime import datetime
 django.setup()
 
 from blogu.models import Category,Blog,Comment
@@ -28,6 +29,7 @@ def populate():
     add_blog(cat=frame_cat,title="History Blog2",blog_by=user1,text="Blog Text8",likes=45)
     education_cat = add_cat(name="Education",likes=0)
     _cat = add_cat(name="Incredible India",likes=0)
+    add_blog(cat=_cat,title="India Blog2",blog_by=user1,text="Blog text",likes=1)
     _cat = add_cat(name="Automobiles",likes=0)
     _cat = add_cat(name="Interior Designing",likes=0)
     _cat = add_cat(name="Politics",likes=0)
@@ -52,9 +54,17 @@ def populate():
     _cat = add_cat(name="Science & Reserch",likes=0)
     _cat = add_cat(name="Gear & Gadgets",likes=0)
     _cat = add_cat(name="Hobbies & Fun",likes=0)
+    b = Blog.objects.get_or_create(category=_cat,title="Hobbies Blog1",written_by=user1)[0]
+    b.text="Blog Text"
+    b.likes=3
+    b.save()
     _cat = add_cat(name="Psychology & Philosophy",likes=0)
     _cat = add_cat(name="Space",likes=0)
-
+    b = Blog.objects.get_or_create(category=_cat,title="Space Blog1",written_by=user1)[0]
+    b.text="Blog Text"
+    b.likes=2
+    b.save()
+    
 #for c in Category.objects.all():
 #    for b in Blog.objects.filter(category=c):
 #        print "- {0} - {1}".format(str(c), str(b))

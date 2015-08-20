@@ -25,8 +25,13 @@
 				</div>
 				<div class="navbar-collapse collapse">
 				    <u1 class="nav navbar-nav navbar-right">
+				    	    {% if category %}
+				    	    <a href="/blogu/{{ category_name_slug }}/add_blog/"> Write a blog </a>
+				    	    {% else %}
+				    	    <a href="/blogu/none/add_blog/"> Write a blog </a>
+				    	    {% endif %}
 					    	{% if user.is_authenticated %}
-			                    <li><a href="{% url 'auth_logout' %}"> Logout </a></li>
+			                    <li><a href="{% url 'auth_logout' %}?next=/blogu/">Logout </a></li>
 				                <li><a href="{% url 'profile' %}">Profile</a></li>
 			                {% else %}
 			                    <li><a href="{% url 'auth_login' %}">SignIn/SignUp</a></li>
@@ -36,7 +41,7 @@
 		    </div>
 	    </div>
 		<div class="container-fluid">
-		    <div class="col-sm-3 col-md-2 sidebar">
+		    <div class="col-sm-3 col-md-2 sidebar"style="overflow-y: hidden;">
 			<u1 class="nav nav-list">
 			    <li class="nav-header">Find a Category</li>
 				<form>
@@ -71,5 +76,7 @@
 		<script src="{% static "js/bootstrap.js" %}"> </script>
 		<script src="{% static "js/bootstrap.min.js" %}"> </script>
 		<script src="{% static "js/npm.js" %}"></script>
+		<script src="{% static "js/jquery-1.11.3.min.js" %}"></script>
+		<script src="{% static "js/blogu-jquery.js" %}"></script>
 	</body>
 </html>

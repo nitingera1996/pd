@@ -7,7 +7,9 @@
 		    {{ blog.image_description }}
 		{% endif %}
 <p style='text-align:left;'>{{ blog.category }}</p>
-<span style='float:right;'>{{ blog.time_added }}</span>
+{% if b_time %}
+<span style='float:right;'>{{ b_time }}</span>
+{% endif %}
 <p class='text-left'> -{{ blog.written_by }}</p>
 <br/>
 <p>{{ blog.text }}</p>

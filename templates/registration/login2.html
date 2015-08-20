@@ -1,17 +1,16 @@
+{% extends "blogu/base.html" %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html >
-  <head>
-    <meta charset="UTF-8">
-    <title>Login/Sign-In</title>    
-    <link rel="stylesheet" href="{% static "css/normalize.css" %}">
-    <link rel='stylesheet' href="{% static "css/font-awesome.min.css" %}">
- <link rel="stylesheet" href="{% static "css/style.css" %}">
+{% block body_block %}
 
-    </head>
+    
+    
+    <link rel="stylesheet" href="css/normalize.css">
 
-  <body>
- 
+    <link rel='stylesheet prefetch' href='css/font-awesome.min.css'>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    
     
     
     <div class="logmod">
@@ -78,23 +77,23 @@
           <span class="logmod__heading-subtitle">Enter your email and password <strong>to sign in</strong></span>
         </div> 
         <div class="logmod__form">
-          <form accept-charset="utf-8" action="." class="simform" method="post" role="form">
-            {% csrf_token %}
+          <form accept-charset="utf-8" action="." class="simform" method="post">
+            {% csrf token %}
             <div class="sminputs">
               <div class="input full">
-                <label class="string optional" for="user-name">Username*</label>
-                <input class="string optional" maxlength="255" id="id_username" placeholder="Username" name="username" size="50" />
+                <label class="string optional" for="user-name">Email*</label>
+                <input class="string optional" maxlength="255" id="user-email" placeholder="Email" type="email" size="50" />
               </div>
             </div>
             <div class="sminputs">
               <div class="input full">
                 <label class="string optional" for="user-pw">Password *</label>
-                <input class="string optional" maxlength="255" id="id_password" placeholder="Password" type="password" size="50" name="password" />
+                <input class="string optional" maxlength="255" id="user-pw" placeholder="Password" type="password" size="50" />
                 						<span class="hide-password">Show</span>
               </div>
             </div>
             <div class="simform__actions">
-              <button class="sumbit" type="sumbit" value="Log In"/>Sign In</button>
+              <input class="sumbit" name="commit" type="sumbit" value="Log In" />
               <span class="simform__actions-sidetext"><a class="special" role="link" href="{% url 'auth_password_change'%}">Forgot your password?<br>Click here</a></span>
             </div> 
           </form>
@@ -124,10 +123,8 @@
     </div>
   </div>
 </div>
-    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src='jquery.min.js'></script>
 
-        <script src="{% static "js/index.js" %}"></script>
+        <script src="js/index.js"></script>
 
-
-  </body>
-</html>
+{% endblock %}
