@@ -1,0 +1,9 @@
+{% if blogs %}
+    <u1 class="nav nav-sidebar">
+	{% for b in blogs %}
+	    <li><a href="{% url 'blog' b.slug %}">{{ b.title }}</a></li>
+	{% endfor %}
+{% else %}
+    <li><strong>There are no blogs present</strong></li>
+	</u1>
+{% endif %}
