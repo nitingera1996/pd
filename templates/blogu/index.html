@@ -12,10 +12,15 @@
                     <span style='float:right;'>{{ b_time }}</span>
                
                 <p class='text-left'> -{{ blog.written_by }}</p>
-                <h3><strong>{{ blog.title }}</strong></h3>
+                <h3><a href="{% url 'blog' blog.slug %}"><strong>{{ blog.title }}</strong></a></h3>
                 <p>{{ blog.text }}</p>
                 <br/>
                 {{ blog.likes }} like(s)
+                {% if user.is_authenticated %}
+                        <button id="blog_like" data-blogid="{{ blog.id }}" class="btn btn-primary" type="button">
+                        <span class="glyphicon glyphicon-thumbs-up"> </span>
+                        Like</button>
+                    {% endif %}
                 <br/>
                 <br/>
                 <hr noshade size=9>

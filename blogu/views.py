@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from blogu.models import Category,Blog,UserProfile,Comment
-#from blogu.forms import CategoryForm,PageForm,UserForm,UserProfileForm
+from blogu.forms import BlogForm
 from django.template.defaultfilters import slugify
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.decorators import login_required
@@ -137,6 +137,10 @@ def like_category(request):
         category1=Category.objects.get(id=int(category_id))
         category1.likes+=1
         category1.save()
+        user1=User.objects.get(username=request.user)
+        user2=UserProfile.objects.get(user=user1)
+        user2.liked_categories.add(category1)
+        user2.save()
         return HttpResponse(category1.likes)
 
 def suggest_category(request):
@@ -158,7 +162,39 @@ def like_blog(request):
         blog=Blog.objects.get(id=int(blog_id))
         blog.likes+=1
         blog.save()
+        #print request.user
+        user1=User.objects.get(username=request.user)
+        user2=UserProfile.objects.get(user=user1)
+        user2.liked_blogs.add(blog)
+        user2.save()
         return HttpResponse(blog.likes)
 
 def add_blog(request,category_name_slug):
-    pass
+    print "hello"
+    try:
+        cat=Category.objects.get(slug=category_name_slug)
+    except Category.DoesNotExist:
+        cat=None
+
+    if request.method=="POST":
+        #print "hello again"
+        form=BlogForm(request.POST)
+        if form.is_valid():
+            if cat:
+                blog1=form.save(commit=False)
+                blog1.written_by=request.user
+                blog1.category=cat
+                blog1.likes=0
+                blog1.views=0
+                blog1.datetime_added=datetime.now()
+                #print blog1.title
+                blog1.save()
+                return blog(request,slugify(blog1.title))
+        else:
+            print form.errors
+    else:
+        form = BlogForm()
+
+    context_dict={'form':form,'category':cat}
+    return render(request,'blogu/add_blog.html',context_dict) 
+            

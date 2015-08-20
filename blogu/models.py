@@ -42,7 +42,8 @@ class Blog(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     picture = models.ImageField(upload_to='profile_images',blank=True)
-    #blogs=models.ManyToManyField(Blog)
+    liked_blogs=models.ManyToManyField(Blog)
+    liked_categories=models.ManyToManyField(Category)
     level=models.IntegerField(default=1)
     date_registered=models.DateField()
     def __unicode__(self):
