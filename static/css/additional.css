@@ -4,8 +4,15 @@
 }
 #navbar-brand-id:link
 {
+	font-size: 24px;
 	color:white;
 	font-weight: bold;
+}
+#navbar-brand-id:first-letter
+{
+	color:rgb(150,150,150);
+	font-family: forte;
+	font-weight: normal;
 }
 #navbar-brand-id:hover
 {
@@ -21,16 +28,19 @@ color:white;
 	margin-right:5px;
 	margin-left: 5px;
 	font-family: tahoma;
+	padding-bottom: 16px;
+	border-bottom: 4px solid rgb(200,200,200);
 	background: rgb(85,85,85);
 }
 .navbar-nav>li>a:visited
 {
 	color:white;
+	border-bottom: 4px solid rgb(200,200,200);
 }
 .navbar-nav>li>a:hover
 {
 	text-decoration: none;
-	background: yellow;
+	background: blue;
 }
 .navbar-nav>li>a:active
 {
@@ -52,7 +62,7 @@ color:white;
 }
 .nav-sidebar>li>a:hover
 {
-	border-right: 5px solid rgb(238,221,255);
+	border-right: 5px solid yellow;
 }
 .nav-sidebar>li>a:visited
 {

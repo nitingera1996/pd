@@ -8,14 +8,14 @@
 		{% if blogs %}
                 {% for blog,b_time in zipped_data %}
                
-                    <p style='text-align:left;'>{{ blog.category }}</p>
-                    <span style='float:right;'>{{ b_time }}</span>
+                    <p style='text-align:left;color:rgb(43,0,85);font-weight:bold;font-family:batang;font-size:18px;'>{{ blog.category }}</p>
+                    <span style='float:right;color:gray;'>{{ b_time }}</span>
                
-                <p class='text-left'> -{{ blog.written_by }}</p>
-                <h3><strong>{{ blog.title }}</strong></h3>
+                <p class='text-left' style="color:gray;"> -{{ blog.written_by }} &nbsp <img src="{% static 'images/batman.jpg' %}" style="width:40px;height:40px;-webkit-border-radius:50% 50%;"></p>
+                <h3 style="font-family:lucida handwriting;color:black;"><strong>{{ blog.title }}</strong></h3>
                 <p>{{ blog.text }}</p>
-                <br/>
-                {{ blog.likes }} like(s)
+                <br/><font style="color:gray;">
+                {{ blog.likes }} like(s)</font>
                 <br/>
                 <br/>
                 <hr noshade size=9>
