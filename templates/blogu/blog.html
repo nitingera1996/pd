@@ -1,20 +1,22 @@
 {% extends "blogu/base.html" %}
 {% load staticfiles %}
 {% block body_block %}
+<link href="{% static "css/index.css" %}" rel="stylesheet">
+<p style='text-align:left;font-family:forte;color:rgb(75,75,75);font-size:20px;letter-spacing:1px;'>{{ blog.category }}</p>
 <h1>{{ blog.title }}</h1>
 		{% if blog.image %}
-		    <img src="{{ blog.image.url }}"/>
-		    {{ blog.image_description }}
+        <br />
+		    <img src="{{ blog.image.url }}" width="400px"/><br />
+		    <i style="color:gray;">"{{ blog.image_description }}"</i><br /><br />
 		{% endif %}
-<p style='text-align:left;'>{{ blog.category }}</p>
 {% if b_time %}
-<span style='float:right;'>{{ b_time }}</span>
+<span style='float:right;color:gray;'>{{ b_time }}</span>
 {% endif %}
-<p class='text-left'> -{{ blog.written_by }}</p>
+<p class='text-left' style="color:gray;"><img src="{% static 'images/batman.jpg' %}" style="width:40px;height:40px;-webkit-border-radius:50% 50%;"> -{{ blog.written_by }}</p>
 <br/>
-<p>{{ blog.text }}</p>
+<p class="blog_text">{{ blog.text }}</p>
 <br/>
-<p>{{ blog.likes }} like(s)</p>
+<font style="color:black;font-weight:bold;">{{ blog.likes }}</font><font style="color:gray;"> like(s)</font>
 {% if user.is_authenticated %}
 <button id="blog_like" data-blogid="{{ blog.id }}" class="btn btn-primary" type="button">
                         <span class="glyphicon glyphicon-thumbs-up"> </span>
@@ -23,15 +25,16 @@
 <div>
 	<div class="panel">
         {% if comments %}
+        <br />
                     <div class="panel-heading">
-                    <h3 class="panel-title">Commments</h3>
+                    <h3 class="panel-title">Commments:</h3>
                     <div class="panel-body">
                         <div class="list-group">
                             {% for comment in comments %}
                                 <div class="list-group-item">
                                     <h4 class="list-group-item-heading">{{ comment.comment_by }}</h4>
-									<p class="list-group-item-text">{{ comment.comment_text }}</p>
-									<p>{{ comment.likes }} like(s)</p>
+									<p class="list-group-item-text">{{ comment.comment_text }}</p><br />
+									<p style="color:gray;"><font color="black">{{ comment.likes }}</font> like(s)</p>
                                 </div>
                             {% endfor %}
                         </div>

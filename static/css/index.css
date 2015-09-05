@@ -1,0 +1,41 @@
+a.blog_title:link
+{
+	color:black;
+	font-family: arial;
+}
+a.blog_title:hover
+{
+	text-decoration: none;
+}
+a.blog_title:visited
+{
+	color:black;
+}
+a.blog_title:active
+{
+	color:black;
+}
+.blog_text
+{
+	color:rgb(100,100,100);
+	font-family:tahoma;
+	font-weight:normal;
+	font-size: 16px;
+	letter-spacing: 1px;
+}
+.blog_text::first-letter
+{
+	font-size: 20px;
+	font-weight: bold;
+}
+h2
+{
+	font-family: forte;
+	color:rgb(75,75,75);
+	letter-spacing: 1px;
+}
+h1
+{
+	color:black;
+	font-family: arial;
+}

@@ -2,25 +2,15 @@
 ::-webkit-scrollbar { 
     display: none; 
 }
-#navbar-brand-id:link
+#navbar-brand-id
 {
-	font-size: 24px;
-	color:white;
-	font-weight: bold;
+	padding: 0;
+	padding-left: 10px;
 }
-#navbar-brand-id:first-letter
+#navbar-brand-id > img
 {
-	color:rgb(150,150,150);
-	font-family: forte;
-	font-weight: normal;
-}
-#navbar-brand-id:hover
-{
-color:white;
-}
-#navbar-brand-id:visited
-{
-	color:white;
+	height:55px;
+	margin:0;
 }
 .navbar-nav>li>a:link
 {
@@ -40,7 +30,6 @@ color:white;
 .navbar-nav>li>a:hover
 {
 	text-decoration: none;
-	background: blue;
 }
 .navbar-nav>li>a:active
 {
@@ -51,36 +40,17 @@ color:white;
 	-webkit-border-radius:7px;
 	padding:3px;
 }
-.nav-sidebar>li>a:link
-{
-	color:rgb(245,245,245);
-	background: rgb(60,60,60);
-	padding-right: 15px;
-	border-right: 5px solid rgb(120,120,120);
-	margin:10px 0 10px 0;
-	-webkit-border-radius:7px 0 0 7px;
-}
-.nav-sidebar>li>a:hover
-{
-	border-right: 5px solid rgb(200,200,200);
-}
-.nav-sidebar>li>a:visited
-{
-	color:rgb(245,245,245);
-	background: rgb(60,60,60);
-	padding-right: 15px;
-	border-right: 5px solid rgb(120,120,120);
-}
 #featured_blogs>.nav-sidebar>li>a:link
 {
-	color:gray;
+	color:rgb(50,50,50);
 	background: transparent;
 	padding: 10px 10px 10px 10px;
 	border:none;
 	-webkit-border-radius:0;
 	margin:10px 0 10px 0;
 	font-size: 14px;
-	font-family: lucida handwriting,ar blanca,ar cena;
+	font-family:arial;
+	font-weight: 600;
 }
 #featured_blogs>.nav-sidebar>li>a:hover
 {
@@ -88,7 +58,7 @@ color:white;
 }
 #featured_blogs>.nav-sidebar>li>a:visited
 {
-	color:gray;
+	color:rgb(50,50,50);
 	background: transparent;
 	padding: 20px 20px 20px 20px;
 	border:none;
