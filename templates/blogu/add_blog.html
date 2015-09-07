@@ -7,10 +7,10 @@
             {% csrf_token %}
             {{ form|as_bootstrap }}
             <br/>
-            <button class = "btn btn-primary" type = "submit" name ="submit">Add Blog</button>
+            <button class = "btn btn-primary" type = "submit" name ="submit" style="background:rgb(120,120,120);">Add Blog</button>
         </form>
         
         {% else %}
-        <hw>Please first select the category from the side bar</h2>
+        <h4>Please first select the category from the side bar and try again!</h4>
         {% endif %}
 {% endblock %}

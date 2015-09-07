@@ -1,21 +1,22 @@
 {% extends 'blogu/base.html' %}
 {% load staticfiles %}
 {% block body_block %}
+<link href="{% static "css/index.css" %}" rel="stylesheet">
 	    {% if user.is_authenticated %}
 		{% else %}
 		{% endif %}
 		
 		{% if blogs %}
                 {% for blog,b_time in zipped_data %}
-               
-                    <p style='text-align:left;color:rgb(43,0,85);font-weight:bold;font-family:batang;font-size:18px;'>{{ blog.category }}</p>
+                    
+                    <p style='text-align:left;color:rgb(75,75,75);font-weight:normal;font-family:forte;font-size:20px;letter-spacing:1px;'>{{ blog.category }}</p>
                     <span style='float:right;color:gray;'>{{ b_time }}</span>
                
-                <p class='text-left' style="color:gray;"> -{{ blog.written_by }} &nbsp <img src="{% static 'images/batman.jpg' %}" style="width:40px;height:40px;-webkit-border-radius:50% 50%;"></p>
-                <h3 style="font-family:lucida handwriting;color:black;"><a href="{% url 'blog' blog.slug %}" ><strong>{{ blog.title }}</strong></a></h3>
-                <p>{{ blog.text }}</p>
-                <br/><font style="color:gray;">
-                {{ blog.likes }} like(s)</font>
+                <p class='text-left' style="color:gray;"> &nbsp <img src="{% static 'images/batman.jpg' %}" style="width:40px;height:40px;-webkit-border-radius:50% 50%;"> -{{ blog.written_by }}</p>
+                <h3 style="font-family:arial;"><a class="blog_title" href="{% url 'blog' blog.slug %}" ><strong>{{ blog.title }}</strong></a></h3>
+                <p class="blog_text">{{ blog.text }}</p>
+                <br/><font style="color:black;font-weight:bold;">
+                {{ blog.likes }} </font><font style="color:gray;">like(s)</font>
                 {% if user.is_authenticated %}
                         <button id="blog_like" data-blogid="{{ blog.id }}" class="btn btn-primary" type="button">
                         <span class="glyphicon glyphicon-thumbs-up"> </span>

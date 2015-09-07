@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% block title %} {{ category_name }} {% endblock %}
 {% block body_block %}
+<link href="{% static "css/index.css" %}" rel="stylesheet">
     <h2>{{ category_name }}</h2>
 		<p>
 		<strong id="category_like_count">{{ category.likes }} </strong> people like this category
@@ -18,13 +19,13 @@
 		    {% if zipped_data %}
 			<u1>
 			    {% for blog,b_time in zipped_data %}
-				    <span style='float:right;'>{{ b_time }}</span>
-                    <h3><a href="{% url 'blog' blog.slug %}"><strong>{{ blog.title }}</strong></a></h3>
-                    <p class='text-left'> -{{ blog.written_by }}</p>
-                    <p>{{ blog.text }}</p>
+				    <span style='float:right;color:gray;'>{{ b_time }}</span>
+                    <h3><a href="{% url 'blog' blog.slug %}" class="blog_title"><strong>{{ blog.title }}</strong></a></h3>
+                    <p class='text-left' style="color:gray;"> &nbsp <img src="{% static 'images/batman.jpg' %}" style="width:40px;height:40px;-webkit-border-radius:50% 50%;"> -{{ blog.written_by }}</p>
+                    <p class="blog_text">{{ blog.text }}</p>
                     <br/>
                     <strong id=blog_like_count>{{ blog.likes }}</strong>
-                    <strong> likes</strong>
+                    <font style="color:gray;"> like(s)</font>
                     {% if user.is_authenticated %}
 		                <button id="blog_like" data-blogid="{{ blog.id }}" class="btn btn-primary" type="button">
 			            <span class="glyphicon glyphicon-thumbs-up"> </span>

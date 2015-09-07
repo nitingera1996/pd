@@ -1,10 +1,52 @@
+{% load staticfiles %}
+<style type="text/css">
+u1.nav.nav-sidebar>li.active>a:link
+{
+	font-weight: bold;
+	background:black;
+	border-right-color:black;
+	-webkit-border-radius:7px 0 0 7px;
+}
+u1.nav.nav-sidebar>li.active>a:hover
+{
+	font-weight: bold;
+	background:black;
+	border-right-color:black;
+}
+u1.nav.nav-sidebar>li.active>a:visited
+{
+	background:black;
+	border-right-color:black;
+}
+u1.nav.nav-sidebar>li.inactive>a:link
+{
+	color:rgb(245,245,245);
+	background: rgb(60,60,60);
+	padding-right: 15px;
+	border-right: 5px solid rgb(120,120,120);
+	margin:10px 0 10px 0;
+	-webkit-border-radius:7px 0 0 7px;
+}
+u1.nav.nav-sidebar>li.inactive>a:visited
+{
+	color:rgb(245,245,245);
+	background: rgb(60,60,60);
+	padding-right: 15px;
+	border-right: 5px solid rgb(120,120,120);
+}
+u1.nav.nav-sidebar>li.inactive>a:hover
+{
+	border-right:5px solid black;
+	background: rgb(60,60,60);
+}
+</style>
 {% if cats %}
     <u1 class="nav nav-sidebar">
 	{% for c in cats %}
 	    {% if c == act_cat %}
 		<li class="active"><a href="{% url 'category' c.slug %}">{{ c.name }}</a></li>
 		{% else %}
-	    <li><a href="{% url 'category' c.slug %}">{{ c.name }}</a></li>
+	    <li class="inactive"><a href="{% url 'category' c.slug %}">{{ c.name }}</a></li>
 	    {% endif %}
 	{% endfor %}
 {% else %}
