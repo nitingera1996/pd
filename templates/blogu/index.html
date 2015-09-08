@@ -12,7 +12,7 @@
                     <p style='text-align:left;color:rgb(75,75,75);font-weight:normal;font-family:forte;font-size:20px;letter-spacing:1px;'>{{ blog.category }}</p>
                     <span style='float:right;color:gray;'>{{ b_time }}</span>
 
-                <p class='text-left' style="color:gray;"> &nbsp <img src="{% static 'images/batman.jpg' %}" style="width:40px;height:40px;-webkit-border-radius:50% 50%;"> -{{ blog.written_by }}</p>
+                <p class='text-left' style="color:gray;"> &nbsp <img src="{% static 'images/batman.jpg' %}" style="width:40px;height:40px;-webkit-border-radius:50% 50%;-moz-border-radius:50% 50%;-ms-border-radius:50% 50%;-o-border-radius:50% 50%;border-radius:50% 50%;"> -{{ blog.written_by }}</p>
                 <h3 style="font-family:arial;"><a class="blog_title" href="{% url 'blog' blog.slug %}" ><strong>{{ blog.title }}</strong></a></h3>
                 <p class="blog_text">{{ blog.text }}</p>
                 <br/><font style="color:black;font-weight:bold;">
