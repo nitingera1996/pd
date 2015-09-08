@@ -21,7 +21,7 @@
 			    {% for blog,b_time in zipped_data %}
 				    <span style='float:right;color:gray;'>{{ b_time }}</span>
                     <h3><a href="{% url 'blog' blog.slug %}" class="blog_title"><strong>{{ blog.title }}</strong></a></h3>
-                    <p class='text-left' style="color:gray;"> &nbsp <img src="{% static 'images/batman.jpg' %}" style="width:40px;height:40px;-webkit-border-radius:50% 50%;-moz-border-radius:50% 50%;"> -{{ blog.written_by }}</p>
+                    <p class='text-left' style="color:gray;"> &nbsp <img src="{% static 'images/batman.jpg' %}" style="width:40px;height:40px;-webkit-border-radius:50% 50%;-moz-border-radius:50% 50%;-o-border-radius:50% 50%;-ms-border-radius:50% 50%;border-radius:50% 50%;"> -{{ blog.written_by }}</p>
                     <p class="blog_text">{{ blog.text }}</p>
                     <br/>
                     <strong id=blog_like_count>{{ blog.likes }}</strong>
