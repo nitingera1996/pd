@@ -1,5 +1,5 @@
 
-::-webkit-scrollbar { 
+::-webkit-scrollbar ,-moz-scrollbar{ 
     display: none; 
 }
 #navbar-brand-id
@@ -38,6 +38,7 @@
 .search-query
 {
 	-webkit-border-radius:7px;
+	-moz-border-radius:7px;
 	padding:3px;
 }
 #featured_blogs>.nav-sidebar>li>a:link
@@ -47,6 +48,7 @@
 	padding: 10px 10px 10px 10px;
 	border:none;
 	-webkit-border-radius:0;
+	-moz-border-radius:0;
 	margin:10px 0 10px 0;
 	font-size: 14px;
 	font-family:arial;
