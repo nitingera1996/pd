@@ -4,13 +4,13 @@
 <html>
     <head lang="en">
 	    <meta charset="UTF-8">
-	    <title>Blogu - {% block title %}{% endblock %}</title> 
+	    <title>Blogu - {% block title %}{% endblock %}</title>
 	    <link rel="shortcut icon" href="{% static "images/icon.jpg" %}" type="image/jpg"/>
 		<link href= "{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 		<link href="{% static "css/dashboard.css" %}" rel="stylesheet">
 		<link href="{% static "css/additional.css" %}" rel="stylesheet">
 	</head>
-	
+
 	<body>
 	    <div class ="navbar navbar-inverse navbar-fixed-top" role = "navigation">
 		    <div class="container-fluid">
@@ -29,7 +29,7 @@
 			                    <li><a href="{% url 'auth_logout' %}?next=/blogu/">Logout </a></li>
 				                <li><a href="{% url 'profile' %}">Profile</a></li>
 			                {% else %}
-			                    <li><a href="{% url 'auth_login' %}">SignIn/SignUp</a></li>
+			                    <li><a href="{% url 'login_signup' %}">SignIn/SignUp</a></li>
 			                {% endif %}
 			                {% if category %}
 				    	    <li><a href="/blogu/{{ category.slug }}/add_blog/"> Write a blog </a></li>
@@ -49,7 +49,7 @@
 				<li><input class="search-query span10" type="text" name="suggestion" value="" id="suggestion_id"/></li>
 				</form>
 			</u1>
-			<div id="cats"> 
+			<div id="cats">
 			    {% block side_block1 %}
 			    {% get_category_list  category%}
 				{% endblock %}
@@ -71,7 +71,7 @@
 				{% get_blogs_list %}
                 {% endblock %}
                 </div>
-			</div> 
+			</div>
 		</div>
 		<script src="{% static "js/bootstrap.js" %}"> </script>
 		<script src="{% static "js/bootstrap.min.js" %}"> </script>

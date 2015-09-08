@@ -13,10 +13,10 @@ class Category(models.Model):
         if(self.likes<0):
             self.likes=0
         super(Category, self).save(*args,**kwargs)
-		
+
     def __unicode__(self):
 	    return self.name
-		
+
 class Blog(models.Model):
     category = models.ForeignKey(Category)
     title = models.CharField(max_length=128)
@@ -35,7 +35,7 @@ class Blog(models.Model):
         if(self.likes<0):
             self.likes=0
         super(Blog, self).save(*args,**kwargs)
-		
+
     def __unicode__(self):
         return self.title
 
@@ -45,10 +45,10 @@ class UserProfile(models.Model):
     liked_blogs=models.ManyToManyField(Blog)
     liked_categories=models.ManyToManyField(Category)
     level=models.IntegerField(default=1)
-    date_registered=models.DateField()
+    date_registered=models.DateTimeField(default=datetime.now())
     def __unicode__(self):
         return self.user.username
-		
+
 class Comment(models.Model):
     comment_text=models.TextField()
     comment_by=models.ForeignKey(User)
@@ -56,4 +56,3 @@ class Comment(models.Model):
     likes=models.IntegerField(default=0)
     def __unicode__(self):
         return self.comment_text
-	
