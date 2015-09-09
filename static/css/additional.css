@@ -1,4 +1,4 @@
-
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:700);
 ::-webkit-scrollbar,-moz-scrollbar,-o-scrollbar,scrollbar { 
     display: none; 
 }
@@ -24,13 +24,13 @@
 	margin-left: 5px;
 	font-family: tahoma;
 	padding-bottom: 16px;
-	border-bottom: 4px solid rgb(200,200,200);
-	background: rgb(85,85,85);
+	border-bottom: 4px solid rgb(254,254,254);
+	background: rgb(55,75,136);
 }
 .navbar-nav>li>a:visited
 {
 	color:white;
-	border-bottom: 4px solid rgb(200,200,200);
+	border-bottom: 4px solid rgb(254,254,254);
 }
 .navbar-nav>li>a:hover
 {
@@ -62,7 +62,7 @@
 	border-radius:0;
 	margin:10px 0 10px 0;
 	font-size: 14px;
-	font-family:arial;
+	font-family: 'Ubuntu',arial;
 	font-weight: 600;
 }
 #featured_blogs>.nav-sidebar>li>a:hover

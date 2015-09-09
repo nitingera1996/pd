@@ -1,10 +1,13 @@
 {% load staticfiles %}
 <style type="text/css">
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 u1.nav.nav-sidebar>li.active>a:link
 {
 	font-weight: bold;
-	background:black;
-	border-right-color:black;
+	font-family: 'Montserrat',arial;
+	font-weight: 700;
+	background:rgb(34,47,83);
+	border-right-color:rgb(34,47,83);
 	-webkit-border-radius:7px 0 0 7px;
 	-moz-border-radius:7px 0 0 7px;
 	-ms-border-radius:7px 0 0 7px;
@@ -14,20 +17,22 @@ u1.nav.nav-sidebar>li.active>a:link
 u1.nav.nav-sidebar>li.active>a:hover
 {
 	font-weight: bold;
-	background:black;
-	border-right-color:black;
+	background:rgb(34,47,83);
+	border-right-color:rgb(34,47,83);
 }
 u1.nav.nav-sidebar>li.active>a:visited
 {
-	background:black;
-	border-right-color:black;
+	background:rgb(34,47,83);
+	border-right-color:rgb(34,47,83);
 }
 u1.nav.nav-sidebar>li.inactive>a:link
 {
 	color:rgb(245,245,245);
-	background: rgb(60,60,60);
+	font-family: 'Montserrat',arial;
+	font-weight: 400;
+	background:rgb(56,77,137);
 	padding-right: 15px;
-	border-right: 5px solid rgb(120,120,120);
+	border-right: 5px solid rgb(128,147,202);
 	margin:10px 0 10px 0;
 	-webkit-border-radius:7px 0 0 7px;
 	-moz-border-radius:7px 0 0 7px;
@@ -38,14 +43,14 @@ u1.nav.nav-sidebar>li.inactive>a:link
 u1.nav.nav-sidebar>li.inactive>a:visited
 {
 	color:rgb(245,245,245);
-	background: rgb(60,60,60);
+	background: rgb(56,77,137);
 	padding-right: 15px;
-	border-right: 5px solid rgb(120,120,120);
+	border-right: 5px solid rgb(128,147,202);
 }
 u1.nav.nav-sidebar>li.inactive>a:hover
 {
-	border-right:5px solid black;
-	background: rgb(60,60,60);
+	border-right:5px solid rgb(34,47,83);
+	background: rgb(56,77,137);
 }
 </style>
 {% if cats %}

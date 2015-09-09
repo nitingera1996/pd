@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block body_block %}
 <link href="{% static "css/index.css" %}" rel="stylesheet">
-<p style='text-align:left;font-family:forte;color:rgb(75,75,75);font-size:20px;letter-spacing:1px;'>{{ blog.category }}</p>
+<p style="text-align:left;font-family:'Montserrat',tahoma;color:rgb(75,75,75);font-size:20px;letter-spacing:1px;font-weight:700;">{{ blog.category }}</p>
 <h1>{{ blog.title }}</h1>
 		{% if blog.image %}
         <br />
