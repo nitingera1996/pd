@@ -4,6 +4,10 @@
 /*@import url(https://fonts.googleapis.com/css?family=Vollkorn:700);*/
 @import url(https://fonts.googleapis.com/css?family=Itim);
 /*@import url(https://fonts.googleapis.com/css?family=Rhodium+Libre);*/
+body
+{
+	padding:40px;
+}
 a.blog_title:link
 {
 	color:black;
@@ -45,4 +49,33 @@ h1
 {
 	color:black;
 	font-family:'Ubuntu',arial;
+}
+
+#quick_blog
+{
+	margin-top: 20px;
+}
+#quick_blog>textarea
+{
+	padding-left: 5px;
+	-webkit-border-radius:7px;
+	-moz-border-radius:7px;
+	-o-border-radius:7px;
+	-ms-border-radius:7px;
+	border-radius:7px;
+	resize:none;
+	font-size: 16px;
+}
+#quick_blog>button
+{
+	color: white;
+	font-weight: bold;
+	background: rgb(70,94,170); 
+	margin-top: 5px;
+}
+#quick_blog>span
+{
+	font-weight: bold;
+	margin-bottom: 5px;
+	font-size: 18px;
 }

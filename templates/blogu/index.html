@@ -3,9 +3,15 @@
 {% block body_block %}
 <link href="{% static "css/index.css" %}" rel="stylesheet">
 	    {% if user.is_authenticated %}
+        <form role="form" method = "POST" action = '/blogu/books/add_blog/' id="quick_blog">
+        {% csrf_token %}
+            <span>Write a blog...</span><br />
+            <textarea name="quick_blog_text" cols="90" rows="4"></textarea><br />
+            <button type="submit">Write Blog</button>
+        </form>
+        <hr />
 		{% else %}
 		{% endif %}
-
 		{% if blogs %}
                 {% for blog,b_time,show in zipped_data %}
 

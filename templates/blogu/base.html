@@ -25,6 +25,7 @@
 				</div>
 				<div class="navbar-collapse collapse">
 				    <u1 class="nav navbar-nav navbar-right">
+				    		<li><span class="glyphicon glyphicon-search" aria-hidden="true"></span><input type="text" name="search-top" placeholder="Search"></li>
 				    	    {% if user.is_authenticated %}
 			                    <li><a href="{% url 'auth_logout' %}?next=/blogu/">Logout </a></li>
 				                <li><a href="{% url 'profile' %}">Profile</a></li>
@@ -46,7 +47,8 @@
 			    <li class="nav-header" style="font-family:tahoma;font-weight:bold;">Find a Category</li>
 				<form>
 				<label></label>
-				<li><input class="search-query span10" type="text" name="suggestion" value="" id="suggestion_id"/></li>
+				<li><input class="search-query span10" type="text" name="suggestion" value="" id="suggestion_id"
+					placeholder="Enter Category"/></li>
 				</form>
 			</u1>
 			<div id="cats">

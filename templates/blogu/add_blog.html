@@ -1,16 +1,94 @@
-{% extends 'blogu/base.html' %}
+{% extends 'blogu/base2.html' %}
 {% load staticfiles %}
 {% load bootstrap_toolkit %}
-{% block body_block %}		
+{% block body_block %}	
+<style type="text/css">
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:700);
+body
+{
+    background: rgb(234,237,247);
+}
+#blog_form > h2,h3
+{
+    color:rgb(75,75,75);
+    font-family:'Ubuntu',sans-serif;
+}
+#blog_form > button.btn
+{
+    background: rgb(70,64,170);
+    float:bottom;
+}
+#image
+{
+    background: rgb(217,222,240);
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    -o-border-radius:10px;
+    -ms-border-radius:10px;
+    border-radius:10px;
+    position: absolute;
+    top:100px;
+    left:70%;
+    padding: 20px;
+    padding-top:0;
+}
+#blog_form>input
+{
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    -o-border-radius:5px;
+    -ms-border-radius:5px;
+    border-radius:5px;
+    width:400px;
+}
+#blog_form>textarea:nth-of-type(1)
+{
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    -o-border-radius:5px;
+    -ms-border-radius:5px;
+    border-radius:5px;
+    resize:none;
+    width:700px;
+    height:350px;
+}
+
+#image>textarea:nth-of-type(1)
+{
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    -o-border-radius:5px;
+    -ms-border-radius:5px;
+    border-radius:5px;
+    resize:none;
+    height:100px; 
+}
+</style>	
 		{% if category %}
-		<form role="form" id="blog_form" method = "post" action = '/blogu/{{ category.slug }}/add_blog/' enctype = "multipart/form-data">
+		<form role="form" id="blog_form" method = "post" action = '/blogu/{{ category.slug }}/add_blog/' enctype = "multipart/form-data" style="margin:40px;">
+            <h2>Write your blog...</h2>
             {% csrf_token %}
-            {{ form|as_bootstrap }}
-            <br/>
-            <button class = "btn btn-primary" type = "submit" name ="submit" style="background:rgb(120,120,120);">Add Blog</button>
+            {{form.title}}
+            <font style="color:rgb(120,120,120);">({{form.title.help_text}})</font><br />
+            <font style="color:red;">{{form.title.errors}}</font>
+            <br />
+            <font style="color:rgb(120,120,120);">({{form.text.help_text}})</font><br />
+            {{form.text}}<br />
+            <font style="color:red;">{{form.text.errors}}</font>
+            <br />
+            <div id="image">
+                <h3>Upload a picture</h3>
+                {{form.image}}
+            <font style="color:rgb(120,120,120);">({{form.image.help_text}})</font><br />
+            <font style="color:red;">{{form.image.errors}}</font><br />
+            <font style="color:rgb(120,120,120);">({{form.image_description.help_text}})</font><br />
+            {{form.image_description}}<br />
+            <font style="color:red;">{{form.image_description.errors}}</font><br />
+            </div>
+            <button class = "btn btn-primary" type = "submit" name ="submit">Add Blog</button>
         </form>
         
         {% else %}
-        <h4>Please first select the category from the side bar and try again!</h4>
+        <h4 style="margin:40px;">Please first select the category from the side bar and try again!</h4>
         {% endif %}
 {% endblock %}

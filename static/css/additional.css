@@ -22,7 +22,7 @@
 	color:white;
 	margin-right:5px;
 	margin-left: 5px;
-	font-family: tahoma;
+	font-family: sans-serif;
 	padding-bottom: 16px;
 	border-bottom: 4px solid rgb(254,254,254);
 	background: rgb(55,75,136);
@@ -76,4 +76,20 @@
 	padding: 20px 20px 20px 20px;
 	border:none;
 	margin:10px 0 10px 0;
+}
+.navbar-nav input[type]
+{
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	-o-border-radius:10px;
+	-ms-border-radius:10px;
+	border-radius:10px;
+	margin: 15px 10px 10px 5px;
+	padding: 0 0 0 5px;
+	font-family: arial;
+}
+.navbar-nav span
+{
+	font-weight: bold;
+	color:white;
 }
