@@ -56,3 +56,7 @@ class Comment(models.Model):
     likes=models.IntegerField(default=0)
     def __unicode__(self):
         return self.comment_text
+
+class Follow(models.Model):
+    userprofile=models.OneToOneField(User)
+    followed=models.ManyToManyField(UserProfile)

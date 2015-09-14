@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
-from blogu.models import Category,Blog,UserProfile,Comment
+from blogu.models import Category,Blog,UserProfile,Comment,Follow
 from blogu.forms import BlogForm
 from django.template.defaultfilters import slugify
 from django.contrib.auth import authenticate,login, logout
@@ -256,7 +256,8 @@ def login_and_signup(request):
                 registered = True
                 profile=UserProfile(user=user1,level=1)
                 profile.save()
-
+                up_follow=Follow(userprofile=user1)
+                up_follow.save()
                 user1 = authenticate(username = signup_username,password=signup_password1)
                 #user1 = authenticate(username = signup_username,password=signup_password1)
                 print user1
