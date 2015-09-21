@@ -41,6 +41,7 @@ class Blog(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
+    name = models.CharField(max_length=200)
     picture = models.ImageField(upload_to='profile_images',blank=True)
     liked_blogs=models.ManyToManyField(Blog)
     liked_categories=models.ManyToManyField(Category)

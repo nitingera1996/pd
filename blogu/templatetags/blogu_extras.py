@@ -1,5 +1,5 @@
 from django import template
-from blogu.models import Category,Blog
+from blogu.models import Category,Blog,UserProfile
 
 register = template.Library()
 
@@ -17,3 +17,12 @@ def get_blogs_list(cat=None):
     else:
         blogs=Blog.objects.order_by('-likes')[:5]
     return {'blogs':blogs}
+
+@register.inclusion_tag('blogu/to_follow.html')
+def get_to_follow_list(user=None):
+    print user
+    if user:
+        up=UserProfile.objects.all()
+        return {'userprofiles':up}
+    else:
+        return None

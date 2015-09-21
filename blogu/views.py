@@ -9,6 +9,7 @@ from datetime import datetime
 from registration.backends.simple.views import RegistrationView
 from django.contrib.auth.models import User
 from datetime import datetime,date,tzinfo,timedelta
+from collections import Counter
 
 ZERO = timedelta(0)
 
@@ -215,21 +216,46 @@ def add_blog(request,category_name_slug):
     context_dict={'form':form,'category':cat}
     return render(request,'blogu/add_blog.html',context_dict)
 
+def create_signup_username(signup_name):
+        print signup_name
+        u_list = UserProfile.objects.all()
+        max1=1
+        found=0
+        for u in u_list:
+            if u.name==signup_name:
+                found=1
+                prev_username=u.user.username
+                lindex=prev_username.rfind("-",0,len(prev_username))
+                s=Counter(prev_username)
+                val=s['-']
+                num=int(prev_username[lindex+1:])
+                if num>max1:
+                    max1=num
+        if found==1:
+            str_num=str(max1+1)
+            str1 = prev_username[:lindex+1] + str(num+1)
+            print str1
+        else:
+            str1=slugify(signup_name)
+            str1=str1+'-1'
+        return str1
+
 def login_and_signup(request):
     if request.method == 'POST':
         login_statement=None
         signup_statement=None
-        login_username = request.POST.get('login_username')
-        if login_username:
+        login_username_or_email = request.POST.get('login_username_or_email')
+        if login_username_or_email:
             login_password = request.POST.get('login_password')
-            if not login_username:
+            if not login_username_or_email:
                 login_statement="Please enter the username"
-            if not login_password and login_username:
+            if not login_password and login_username_or_email:
                 login_statement ="Please enter the password"
-            #if username and password:
-             #   us = UserProfile.objects.get(user=username)
-              #  if not us:
-               #     return HttpResponse("There is no user with that username")
+            try:
+                u=User.objects.get(email=login_username_or_email)
+                login_username=u.username
+            except:
+                login_username=login_username_or_email
             user = authenticate(username = login_username,password=login_password)
             if user and login_username and login_password:
                 if user.is_active:
@@ -242,29 +268,71 @@ def login_and_signup(request):
                 login_statement="Invalid username password combination"
         else:
             registered = False
-            signup_username = request.POST.get('signup_username')
+            signup_name = request.POST.get('signup_name')
             signup_email = request.POST.get('signup_email')
             signup_password1 = request.POST.get('signup_password1')
             signup_password2 = request.POST.get('signup_password2')
-            if signup_password1!=signup_password2:
-                signup_statement="password not same"
-            else:
-                user=User.objects.create_user(username=signup_username,email=signup_email)
-                user.set_password(signup_password1)
-                user.save()
-                user1=User.objects.get(username=signup_username)
-                registered = True
-                profile=UserProfile(user=user1,level=1)
-                profile.save()
-                up_follow=Follow(userprofile=user1)
-                up_follow.save()
-                user1 = authenticate(username = signup_username,password=signup_password1)
-                #user1 = authenticate(username = signup_username,password=signup_password1)
-                print user1
-                login(request,user1)
-                return HttpResponseRedirect('/blogu/')
-                #return render(request,'blogu/signup2.html',{'username':signup_username})
+            try:
+                u=User.objects.get(email=signup_email)
+                signup_statement="Email already registered"
+            except:
+                if signup_password1!=signup_password2:
+                    signup_statement="password not same"
+                else:
+                    signup_username=create_signup_username(signup_name)
+                    user=User.objects.create_user(username=signup_username,email=signup_email)
+                    user.set_password(signup_password1)
+                    user.save()
+                    user1=User.objects.get(username=signup_username)
+                    registered = True
+                    profile=UserProfile(user=user1,level=1)
+                    profile.name=signup_name
+                    profile.save()
+                    up_follow=Follow(userprofile=user1)
+                    up_follow.save()
+                    user1 = authenticate(username = signup_username,password=signup_password1)
+                    #user1 = authenticate(username = signup_username,password=signup_password1)
+                    print user1
+                    login(request,user1)
+                    return HttpResponseRedirect('/blogu/')
+                    #return render(request,'blogu/signup2.html',{'username':signup_username})
 
         return render(request,'blogu/login.html',{'login_statement':login_statement,'signup_statement':signup_statement})
     else:
         return render(request,'blogu/login.html',{})
+
+def search_top(request):
+    str=request.GET["query_string"]
+    #print str
+    result=get_category_list(100,str)
+    cat_list=[]
+    for name in result:
+        cat=Category.objects.get(name=name)
+        cat_list.append(cat)
+
+    blog_list=Blog.objects.all()
+    b_list=[]
+    for blog in blog_list:
+        title=blog.title
+        for word in title.split():
+            if word.startswith(str):
+                b_list.append(blog)
+                break
+
+    user_list = UserProfile.objects.all()
+    u_list=[]
+    for u in user_list:
+        if u.name.startswith(str):
+           u_list.append(u)
+    print cat_list,b_list,u_list
+    #print cat_list
+    context_dict={}
+    context_dict['cats']=cat_list
+    context_dict['blogs']=b_list
+    context_dict['users']=u_list
+    print context_dict
+    return render(request,'blogu/search_results.html',context_dict)
+    return render(request,'blogu/search_results.html',context_dict)
+    return HttpResponse("<u1>Hello</u1>")
+
+    #return HttpResponse(cat_list)

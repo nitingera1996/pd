@@ -35,8 +35,8 @@
               </div>
               <div class="sminputs">
                 <div class="input full">
-                  <label class="string optional" for="signup_username" style="letter-spacing:0px;">Username*</label>
-                  <input class="string optional" maxlength="255" id="signup_username" placeholder="Username" name="signup_username" size="50" />
+                  <label class="string optional" for="signup_name" style="letter-spacing:0px;">Name*</label>
+                  <input class="string optional" maxlength="255" id="signup_name" placeholder="Name" name="signup_name" size="50" />
                 </div>
               </div>
               <div class="sminputs">
@@ -90,14 +90,14 @@
             {% csrf_token %}
             <div class="sminputs">
               <div class="input full">
-                <label class="string optional" for="id_username" style="letter-spacing:0px;">Username*</label>
-                <input class="string optional" maxlength="255" id="id_username" placeholder="Username" name="login_username" size="50" />
+                <label class="string optional" for="id_username_or_email" style="letter-spacing:0px;">Email Or Username*</label>
+                <input class="string optional" maxlength="255" id="id_username_or_email" name="login_username_or_email" size="50" />
               </div>
             </div>
             <div class="sminputs">
               <div class="input full">
                 <label class="string optional" for="id_password" style="letter-spacing:0px;">Password *</label>
-                <input class="string optional" maxlength="255" id="id_password" placeholder="Password" type="password" size="50" name="login_password" />
+                <input class="string optional" maxlength="255" id="id_password" type="password" size="50" name="login_password" />
                 						<span class="hide-password">Show</span>
               </div>
             </div>
