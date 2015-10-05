@@ -12,4 +12,6 @@ urlpatterns = patterns('',
         url(r'^(?P<category_name_slug>[\w\-]+)/add_blog/$',views.add_blog,name="add_blog"),
         url(r'^login_signup/',views.login_and_signup,name='login_signup'),
         url(r'^search_top/$',views.search_top,name='search_top'),
+        url(r'^logout/$',views.logout,name='logout'),
+        url(r'^google_login/$',views.google_login,name='google_login'),
 		)

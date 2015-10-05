@@ -9,6 +9,9 @@
 		<link href= "{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 		<link href="{% static "css/dashboard.css" %}" rel="stylesheet">
 		<link href="{% static "css/additional.css" %}" rel="stylesheet">
+    <meta name="google-signin-client_id" content="947926274867-1j7u0tlthilbcbttipg02cojc6ehiqpm.apps.googleusercontent.com  ">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="{% static "js/logout.js" %}"> </script>
 	</head>
 
 	<body>
@@ -30,7 +33,8 @@
                 <input type="text" value="" name="search-top" id="suggestion_search" placeholder="Search"/></li>
               </form></li>
                   {% if user.is_authenticated %}
-			                    <li><a href="{% url 'auth_logout' %}?next=/blogu/">Logout </a></li>
+                  <li><a id="logout">Logout</a></li>
+                  <div class="g-signin2" data-onsuccess="onSignIn" onclick="onSignInClick();"></div>
 				                <li><a href="{% url 'profile' %}">Profile</a></li>
 			                {% else %}
 			                    <li><a href="{% url 'login_signup' %}">SignIn/SignUp</a></li>

@@ -24,9 +24,6 @@ class Blog(models.Model):
     views = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
     #comments=models.ManyToManyField(Comment)
-    image=models.ImageField(upload_to="blog_images",blank=True)
-    image_description=models.TextField(default='')
-    heading=models.TextField(default='')
     text = models.TextField()
     likes=models.IntegerField(default=0)
     datetime_added=models.DateTimeField(default=datetime.now())
@@ -47,6 +44,7 @@ class UserProfile(models.Model):
     liked_categories=models.ManyToManyField(Category)
     level=models.IntegerField(default=1)
     date_registered=models.DateTimeField(default=datetime.now())
+    google_id=models.CharField(null=True,blank=True,unique=True,max_length=100)
     def __unicode__(self):
         return self.user.username
 
