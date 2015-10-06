@@ -10,6 +10,7 @@ from registration.backends.simple.views import RegistrationView
 from django.contrib.auth.models import User
 from datetime import datetime,date,tzinfo,timedelta
 from collections import Counter
+import json
 
 ZERO = timedelta(0)
 
@@ -134,6 +135,7 @@ def blog(request,blog_title_slug):
         c=Comment.objects.filter(comment_to=b).order_by('-likes')
     except Blog.DoesNotExist:
         pass
+    print type(b.text)
     days=(datetime.now(utc)-b.datetime_added).days
     seconds=(datetime.now(utc) - b.datetime_added).seconds
     minutes=seconds/60
@@ -195,26 +197,26 @@ def add_blog(request,category_name_slug):
         cat=None
 
     if request.method=="POST":
-        #print "hello again"
-        form=BlogForm(request.POST)
-        if form.is_valid():
-            if cat:
-                blog1=form.save(commit=False)
-                blog1.written_by=request.user
-                blog1.category=cat
-                blog1.likes=0
-                blog1.views=0
-                blog1.datetime_added=datetime.now()
-                #print blog1.title
-                blog1.save()
-                return blog(request,slugify(blog1.title))
-        else:
-            print form.errors
+        if cat:
+            blog_content=request.POST['blog_content']
+            blog_title=request.POST['blog_title']
+            #print type(blog_content)
+            user = request.user._wrapped if hasattr(request.user,'_wrapped') else request.user
+            blog1=Blog.objects.get_or_create(title=blog_title,
+                                        category=cat,
+                                        written_by=request.user,
+                                        likes=0,
+                                        views=0,
+                                        datetime_added=datetime.now(),
+                                        text=blog_content
+                                        )
+            blog1=Blog.objects.get(title=blog_title)
+            #blog1.save()
+            #return HttpResponse('Hello')
+            return blog(request,slugify(blog1.title))
     else:
-        form = BlogForm()
-
-    context_dict={'form':form,'category':cat}
-    return render(request,'blogu/add_blog.html',context_dict)
+        context_dict={'category_list':Category.objects.all(),'category':cat}
+        return render(request,'blogu/add_blog.html',context_dict)
 
 def create_signup_username(signup_name):
         print signup_name
@@ -284,7 +286,6 @@ def login_and_signup(request):
                     user.set_password(signup_password1)
                     user.save()
                     user1=User.objects.get(username=signup_username)
-                    registered = True
                     profile=UserProfile(user=user1,level=1)
                     profile.name=signup_name
                     profile.save()
@@ -300,6 +301,56 @@ def login_and_signup(request):
         return render(request,'blogu/login.html',{'login_statement':login_statement,'signup_statement':signup_statement})
     else:
         return render(request,'blogu/login.html',{})
+
+def google_login(request):
+    if request.method=="POST":
+        #print "Hello"
+        email=request.POST['email']
+        image_url=request.POST['image_url']
+        name=request.POST['name']
+        google_id=request.POST['id']
+        response_dict={}
+        print email
+        try:
+            u=User.objects.get(email=email)
+            try:
+                print u.google_id
+            except:
+                u.google_id=google_id
+                u.save()
+                    #print "Hello"
+            user = authenticate(username = u.username,password=u.password)
+            if user:
+                if user.is_active:
+                    login(request,user)
+                    response_dict.update({'response':"logged in"})
+                    response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+                else:
+                    response_dict.update({'response':"Your Nblik account is disabled."})
+                    response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+
+        except:
+            print "In except"
+            signup_username=create_signup_username(name)
+            user=User.objects.create_user(username=signup_username,email=email)
+            user.set_password("password")
+            user.save()
+            user1=User.objects.get(username=signup_username)
+            print "user1=", user1
+            profile=UserProfile(user=user1,level=1)
+            profile.name=name
+            profile.google_id=google_id
+            profile.save()
+            up_follow=Follow(userprofile=user1)
+            up_follow.save()
+            user1 = authenticate(username = signup_username,password="password")
+            #user1 = authenticate(username = signup_username,password=signup_password1)
+            login(request,user1)
+            response_dict.update({'response':'logged_in'})
+            response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+        print response
+        return response
+
 
 def search_top(request):
     str=request.GET["query_string"]
@@ -332,7 +383,17 @@ def search_top(request):
     context_dict['users']=u_list
     print context_dict
     return render(request,'blogu/search_results.html',context_dict)
-    return render(request,'blogu/search_results.html',context_dict)
-    return HttpResponse("<u1>Hello</u1>")
 
     #return HttpResponse(cat_list)
+
+def user_logout(request):
+    if request.method=="POST":
+        response_dict={}
+        u=request.user
+        if(u.google_id):
+            response_dict.update({'response': "google logout"})
+        else:
+            response_dict.update({'response':"simple logout"})
+        response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+        logout(request)
+        return response
