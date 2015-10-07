@@ -36,6 +36,13 @@ class Blog(models.Model):
     def __unicode__(self):
         return self.title
 
+        
+class Tag(models.Model):
+    name=models.CharField(max_length=50)
+    category=models.ForeignKey(Category)
+    def __unicode__(self):
+        return self.name
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     name = models.CharField(max_length=200)
@@ -45,6 +52,9 @@ class UserProfile(models.Model):
     level=models.IntegerField(default=1)
     date_registered=models.DateTimeField(default=datetime.now())
     google_id=models.CharField(null=True,blank=True,unique=True,max_length=100)
+    profile_tag_line=models.CharField(max_length=300,null=True,blank=True)
+    languages=models.IntegerField(default=1)#English=1,Hindi=2,English And Hindi both =3
+    followed_tags=models.ManyToManyField(Tag)
     def __unicode__(self):
         return self.user.username
 

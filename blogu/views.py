@@ -420,3 +420,29 @@ def follow_user(request):
         up_follow.save()
         #print request.user
         return HttpResponse("followed")
+
+
+def dashboard(request,username):
+    context_dict={}
+    try:
+        user=User.objects.get(username=username)
+        userprofile=UserProfile.objects.get(user=user)
+        userprofile_follow=Follow.objects.get(userprofile=user)
+        followed_tags=userprofile.followed_tags.all()
+        followed_list=userprofile_follow.followed.all()
+        followers=userprofile.follow_set.all()
+        #print followers
+    except:
+        user=None
+        userprofile=None
+        userprofile_follow=None
+        followed_tags=None
+        followed_list=None
+        followers=None
+    context_dict['user']=user
+    context_dict['userprofile']=userprofile
+    context_dict['userprofile_follow']=userprofile_follow
+    context_dict['followed_tags']=followed_tags
+    context_dict['followed_list']=followed_list
+    context_dict['followers']=followers
+    return render(request,'blogu/dashboard.html',context_dict)
