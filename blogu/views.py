@@ -178,6 +178,7 @@ def suggest_category(request):
 
 @login_required
 def like_blog(request):
+    #print "Hello"
     if request.method=="GET":
         blog_id=request.GET["blog_id"]
         blog=Blog.objects.get(id=int(blog_id))
@@ -397,3 +398,25 @@ def user_logout(request):
         response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
         logout(request)
         return response
+
+
+def follow_user(request):
+    if request.method=="GET":
+        user_id=request.GET["user_id"]
+        userprofile=UserProfile.objects.get(id=int(user_id))
+        u=User.objects.get(username=userprofile.user.username)
+        #print u
+        up_follow=Follow.objects.get(userprofile=u)
+        up=UserProfile.objects.get(user=u)
+        #print up_follow
+        up_follow.followers=up_follow.followers+1
+        #print up_follow.followers
+        current_up_follow=Follow.objects.get(userprofile=request.user)
+        #print current_up_follow
+        current_up_follow.followed.add(up)
+        current_up_follow.no_followed=current_up_follow.no_followed+1
+        #print current_up_follow.no_followed
+        current_up_follow.save()
+        up_follow.save()
+        #print request.user
+        return HttpResponse("followed")

@@ -9,6 +9,7 @@ $(document).ready(function(){
     });
 
 	$('#blog_like').click(function(){
+    //console.log("Hello");
 		var blog_id;
 		blog_id = $(this).attr("data-blogid");
 		$.get('/blogu/like_blog/',{blog_id: blog_id},function(data){
@@ -38,4 +39,14 @@ $(document).ready(function(){
       $('#search_results').html(data);
     });
   });
+
+  $('#follow_user').click(function(){
+		var user_id;
+		user_id = $(this).attr("data-userprofileid");
+		$.get('/blogu/follow_user/',{user_id: user_id},function(data){
+		    $('#follow_user').hide();
+			});
+    });
+
+
 });

@@ -14,4 +14,5 @@ urlpatterns = patterns('',
         url(r'^search_top/$',views.search_top,name='search_top'),
         url(r'^logout/$',views.logout,name='logout'),
         url(r'^google_login/$',views.google_login,name='google_login'),
+        url(r'^follow_user/$',views.follow_user,name="follow_user"),
 		)

@@ -2,10 +2,8 @@
 {% load staticfiles %}
     <u1 class="nav nav-sidebar">
 	{% for up in userprofiles %}
-	    <li>{{ up.user.username }}
+	    <li>{{ up.name }}
       <button id="follow_user" data-userprofileid="{{ up.id }}" class="btn btn-primary" type="button">Follow</button></li>
 	{% endfor %}
-{% else %}
-    <li><strong>There are no blogs present</strong></li>
 	</u1>
 {% endif %}

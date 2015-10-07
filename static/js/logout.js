@@ -13,6 +13,7 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
 function onSignIn(googleUser) {
   //alert('Hello');
 profile = googleUser.getBasicProfile();
@@ -21,8 +22,10 @@ console.log('Name: ' + profile.getName());
 console.log('Image URL: ' + profile.getImageUrl());
 console.log('Email: ' + profile.getEmail());
 }
-$(document).ready(function(){
-$("#logout").click(function(){
+
+/*$(document).ready(function(){
+
+  $("#logout").click(function(){
   var csrftoken = getCookie('csrftoken');
   $.ajax({
                   url : "/logout/",
@@ -44,7 +47,7 @@ $("#logout").click(function(){
                   }
               });
   });
-});
+});*/ 
 
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
