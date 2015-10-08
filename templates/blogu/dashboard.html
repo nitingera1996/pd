@@ -1,0 +1,28 @@
+{% extends 'blogu/base2.html' %}
+{% load staticfiles %}
+{% block body_block %}
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+{% if userprofile.picture %}
+		    <img height="150px" src="{{ userprofile.picture.url }}"/>
+		{% endif %}<br/>
+{{ userprofile.name }}<br/>
+{{ userprofile.profile_tag_line }}<br/>
+Followers - {{ userprofile_follow.followers }}<br/>
+Fpllowing - {{ userprofile_follow.no_followed }}<br/>
+Interest -
+{% for tag in followed_tags %}
+{{ tag.name }},
+{% endfor %}<br/>
+Following -
+{% for up in followed_list %}
+{{ up.name }},
+{% endfor %}<br/>
+Followers -
+{% for up_follow in followers %}
+{{ up_follow.userprofile.username }},
+{% endfor %}<br/>
+{% endblock %}

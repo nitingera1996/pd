@@ -178,6 +178,7 @@ def suggest_category(request):
 
 @login_required
 def like_blog(request):
+    #print "Hello"
     if request.method=="GET":
         blog_id=request.GET["blog_id"]
         blog=Blog.objects.get(id=int(blog_id))
@@ -397,3 +398,51 @@ def user_logout(request):
         response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
         logout(request)
         return response
+
+
+def follow_user(request):
+    if request.method=="GET":
+        user_id=request.GET["user_id"]
+        userprofile=UserProfile.objects.get(id=int(user_id))
+        u=User.objects.get(username=userprofile.user.username)
+        #print u
+        up_follow=Follow.objects.get(userprofile=u)
+        up=UserProfile.objects.get(user=u)
+        #print up_follow
+        up_follow.followers=up_follow.followers+1
+        #print up_follow.followers
+        current_up_follow=Follow.objects.get(userprofile=request.user)
+        #print current_up_follow
+        current_up_follow.followed.add(up)
+        current_up_follow.no_followed=current_up_follow.no_followed+1
+        #print current_up_follow.no_followed
+        current_up_follow.save()
+        up_follow.save()
+        #print request.user
+        return HttpResponse("followed")
+
+
+def dashboard(request,username):
+    context_dict={}
+    try:
+        user=User.objects.get(username=username)
+        userprofile=UserProfile.objects.get(user=user)
+        userprofile_follow=Follow.objects.get(userprofile=user)
+        followed_tags=userprofile.followed_tags.all()
+        followed_list=userprofile_follow.followed.all()
+        followers=userprofile.follow_set.all()
+        #print followers
+    except:
+        user=None
+        userprofile=None
+        userprofile_follow=None
+        followed_tags=None
+        followed_list=None
+        followers=None
+    context_dict['user']=user
+    context_dict['userprofile']=userprofile
+    context_dict['userprofile_follow']=userprofile_follow
+    context_dict['followed_tags']=followed_tags
+    context_dict['followed_list']=followed_list
+    context_dict['followers']=followers
+    return render(request,'blogu/dashboard.html',context_dict)

@@ -14,11 +14,12 @@ urlpatterns = [
 	url(r'^$', views.index,name='index'),
 	#url(r'^accounts/register/$', MyRegistrationView.as_view(),name = 'registration_register'),
 	url(r'^accounts/',include('registration.backends.simple.urls')),
+    url(r'^(?P<username>[\w\-]+)/$',views.dashboard,name='dashboard'),
 ]
 if settings.DEBUG:
     urlpatterns += patterns(
         'django.views.static',
         (r'^media/(?P<path>.*)',
         'serve',
-        {'document_root': settings.MEDIA_ROOT}),		
+        {'document_root': settings.MEDIA_ROOT}),
 )
