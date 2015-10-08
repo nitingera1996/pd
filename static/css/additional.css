@@ -5,7 +5,6 @@
 *
 {
 	-ms-overflow-style:none;
-	overflow:-moz-scrollbars-none;
 }
 #navbar-brand-id
 {
@@ -92,4 +91,50 @@
 {
 	font-weight: bold;
 	color:white;
+}
+#logout:link
+{
+	color:white;
+	margin-right:5px;
+	margin-left: 5px;
+	font-family: sans-serif;
+	padding-bottom: 16px;
+	border-bottom: 4px solid rgb(254,254,254);
+	background: rgb(55,75,136);
+}
+#logout:visited
+{
+	color:white;
+	border-bottom: 4px solid rgb(254,254,254);
+}
+#logout:hover
+{
+	text-decoration: none;
+}
+#logout:active
+{
+	color:white;
+}
+#search_results
+{
+	background: rgb(220,220,220);
+	position: absolute;
+	top:45px;
+	left:25px;
+}
+#search_results>li
+{
+	padding:5px 10px 0 10px;
+}
+/*#profile_data
+{
+	visibility: 0;
+	z-index: -2;
+	border:2px solid black;
+	position: absolute;
+	top:200px;
+	left:30%;
+	width:400px;
+	height:400px;
+	background: white;
 }

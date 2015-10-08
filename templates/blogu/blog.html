@@ -16,7 +16,7 @@
 <p class='text-left' style="color:gray;"><img src="{% static 'images/batman.jpg' %}" style="width:40px;height:40px;-webkit-border-radius:50% 50%;-moz-border-radius:50% 50%;-o-border-radius:50% 50%;-ms-border-radius:50% 50%;border-radius:50% 50%;"> -{{ blog.written_by }}</p>
 <br/>
 {{ blog.text|safe }}
-<br/>
+<br/><br />
 <font style="color:black;font-weight:bold;">{{ blog.likes }}</font><font style="color:gray;"> like(s)</font>
 {% if user.is_authenticated %}
 <button id="blog_like" data-blogid="{{ blog.id }}" class="btn btn-primary" type="button">
