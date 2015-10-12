@@ -126,15 +126,16 @@
 {
 	padding:5px 10px 0 10px;
 }
-/*#profile_data
+#profile_data
 {
-	visibility: 0;
-	z-index: -2;
-	border:2px solid black;
+	opacity:0;
+	z-index:-3;
+	-webkit-box-shadow:-4px 4px 6px gray;
 	position: absolute;
-	top:200px;
+	top:100px;
 	left:30%;
-	width:400px;
-	height:400px;
-	background: white;
-}
+	width:500px;
+	height:0;
+	background: red;
+	overflow: hidden;
+}	text-align: center;

@@ -446,3 +446,7 @@ def dashboard(request,username):
     context_dict['followed_list']=followed_list
     context_dict['followers']=followers
     return render(request,'blogu/dashboard.html',context_dict)
+
+def add_propic(request):
+    context = RequestContext(request)
+    return render_to_response('blogu/add_propic.html',{},context)
