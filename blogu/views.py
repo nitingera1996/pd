@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
 from blogu.models import Category,Blog,UserProfile,Comment,Follow
 from blogu.forms import BlogForm
@@ -448,5 +448,5 @@ def dashboard(request,username):
     return render(request,'blogu/dashboard.html',context_dict)
 
 def add_propic(request):
-    context = RequestContext(request)
-    return render_to_response('blogu/add_propic.html',{},context)
+    #return HttpResponse("hello")
+    return render_to_response('blogu/add_propic.html')

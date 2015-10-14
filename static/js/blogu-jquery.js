@@ -40,12 +40,18 @@ $(document).ready(function(){
     });
   });
 
-  $('#follow_user').click(function(){
+  $('.follow_user').click(function(event){
 		var user_id;
 		user_id = $(this).attr("data-userprofileid");
 		$.get('/blogu/follow_user/',{user_id: user_id},function(data){
-		    $('#follow_user').hide();
+		    $("#"+user_id).hide();
 			});
+    });
+
+  $('.skip').click(function(event){
+    var user_id;
+    user_id = $(this).attr("data-userprofileid");
+    $("#"+user_id).hide();
     });
 
   $('#profile').click(function() {
