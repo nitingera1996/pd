@@ -52,6 +52,8 @@ class UserProfile(models.Model):
     level=models.IntegerField(default=1)
     date_registered=models.DateTimeField(default=datetime.now())
     google_id=models.CharField(null=True,blank=True,unique=True,max_length=100)
+    google_registered=models.BooleanField(default=False)
+    login=models.IntegerField(default=0)#0=mannual,1=google,2=facebook,3=twitter,4=linkedin
     profile_tag_line=models.CharField(max_length=300,null=True,blank=True)
     languages=models.IntegerField(default=1)#English=1,Hindi=2,English And Hindi both =3
     followed_tags=models.ManyToManyField(Tag)
@@ -73,3 +75,29 @@ class Follow(models.Model):
     no_followed=models.IntegerField(default=0)
     def __unicode__(self):
         return self.userprofile.username
+
+
+class Discussion(models.Model):
+    topic=models.CharField(max_length=100)
+    slug=models.SlugField(unique=True)
+    started_by=models.ForeignKey(UserProfile)
+    started_on=models.DateTimeField(default=datetime.now())
+    likes=models.IntegerField(default=0)
+    category=models.ForeignKey(Category)
+    def __unicode__(self):
+        return self.topic
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.topic)
+        if(self.likes<0):
+            self.likes=0
+        super(Discussion, self).save(*args,**kwargs)
+
+
+class Discuss(models.Model):
+    discuss_text=models.TextField()
+    discuss_by=models.ForeignKey(UserProfile)
+    discuss_on=models.ForeignKey(Discussion)
+    posted_on=models.DateTimeField(default=datetime.now())
+    likes=models.IntegerField(default=0)
+    def __unicode__(self):
+        return self.discuss_text

@@ -1,6 +1,6 @@
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
-from blogu.models import Category,Blog,UserProfile,Comment,Follow
+from blogu.models import Category,Blog,UserProfile,Comment,Follow,Discussion,Discuss,Tag
 from blogu.forms import BlogForm
 from django.template.defaultfilters import slugify
 from django.contrib.auth import authenticate,login, logout
@@ -71,7 +71,6 @@ def index(request):
         else:
             b_time.append("Just now")
     zipped_data=zip(blog_list,b_time,show)
-    #print zipped_data
     context_dict['zipped_data']=zipped_data
     response = render(request,'blogu/index.html',context_dict)
     return response
@@ -86,29 +85,42 @@ def category(request,category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
         context_dict['category_name']=category.name
-        blogs = Blog.objects.filter(category=category).order_by('-likes')
-        context_dict['blogs']=blogs
+        blog_list = Blog.objects.filter(category=category).order_by('-likes')
         context_dict['category']=category
         context_dict['category_name_slug']=category.slug
+        show=[True]*len(blog_list)
+        try:
+            user1=User.objects.get(username=request.user)
+            user2=UserProfile.objects.get(user=user1)
+            liked_blogs_list=user2.liked_blogs.all()
+            #print len(blog_list)
+            for i in range(0,len(blog_list)):
+                for lb in liked_blogs_list:
+                    if lb == blog_list[i]:
+                        show[i]=False
+                        break
+                    else:
+                        show[i]=True
+        except:
+            pass
+        b_time=[]
+        for b in blog_list:
+            days=(datetime.now(utc)-b.datetime_added).days
+            seconds=(datetime.now(utc) - b.datetime_added).seconds
+            minutes=seconds/60
+            hours=minutes/60
+            if  days>= 1:
+                b_time.append(str(days)+" days ago")
+            elif minutes>60:
+                b_time.append(str(hours)+" hours ago")
+            elif seconds>60:
+                b_time.append(str(minutes)+" minutes ago")
+            else:
+                b_time.append("Just now")
+        zipped_data=zip(blog_list,b_time,show)
+        context_dict['zipped_data']=zipped_data
     except Category.DoesNotExist:
         context_dict['category_name']=category_name_slug
-        pass
-    b_time=[]
-    for b in blogs:
-        days=(datetime.now(utc)-b.datetime_added).days
-        seconds=(datetime.now(utc) - b.datetime_added).seconds
-        minutes=seconds/60
-        hours=minutes/60
-        if  days>= 1:
-            b_time.append(str(days)+" days ago")
-        elif minutes>60:
-            b_time.append(str(hours)+" hours ago")
-        elif seconds>60:
-            b_time.append(str(minutes)+" minutes ago")
-        else:
-            b_time.append("Just now")
-    zipped_data=zip(blogs,b_time)
-    context_dict['zipped_data']=zipped_data
 
     return render(request,'blogu/category.html',context_dict)
 
@@ -133,9 +145,21 @@ def blog(request,blog_title_slug):
     try:
         b=Blog.objects.get(slug=blog_title_slug)
         c=Comment.objects.filter(comment_to=b).order_by('-likes')
+        comment_by_name=[]
+        for co in c:
+            u=co.comment_by
+            up=UserProfile.objects.get(user=u)
+            comment_by_name.append(up.name)
+        comments=zip(c,comment_by_name)
     except Blog.DoesNotExist:
         pass
-    print type(b.text)
+    #print type(b.text)
+    up=UserProfile.objects.get(user=request.user)
+    show=False
+    for bl in up.liked_blogs.all():
+        if(bl==b):
+            show=True
+            break;
     days=(datetime.now(utc)-b.datetime_added).days
     seconds=(datetime.now(utc) - b.datetime_added).seconds
     minutes=seconds/60
@@ -148,7 +172,7 @@ def blog(request,blog_title_slug):
         b_time=str(minutes)+" minutes ago"
     else:
         b_time="Just now"
-    return render(request,'blogu/blog.html',{'blog':b,'comments':c,'b_time':b_time})
+    return render(request,'blogu/blog.html',{'blog':b,'comments':comments,'b_time':b_time,'show':show,'u':request.user,'up':up})
 
 
 @login_required
@@ -376,14 +400,15 @@ def search_top(request):
     for u in user_list:
         if u.name.startswith(str):
            u_list.append(u)
-    print cat_list,b_list,u_list
+    #print cat_list,b_list,u_list
     #print cat_list
     context_dict={}
     context_dict['cats']=cat_list
     context_dict['blogs']=b_list
     context_dict['users']=u_list
     print context_dict
-    return render(request,'blogu/search_results.html',context_dict)
+    #return HttpResponse("Results")
+    return render(request,"blogu/search_results.html", {'cats':cat_list} )
 
     #return HttpResponse(cat_list)
 
@@ -391,7 +416,7 @@ def user_logout(request):
     if request.method=="POST":
         response_dict={}
         u=request.user
-        if(u.google_id):
+        if(u.login==1):
             response_dict.update({'response': "google logout"})
         else:
             response_dict.update({'response':"simple logout"})
@@ -447,6 +472,50 @@ def dashboard(request,username):
     context_dict['followers']=followers
     return render(request,'blogu/dashboard.html',context_dict)
 
+def comment(request):
+    if request.method=="GET":
+        #print "Hello"
+        blog_id=request.GET["blog_id"]
+        #print blog_id
+        user_id=request.GET["user_id"]
+        #print user_id
+        comment_text=request.GET["comment_text"]
+        b=Blog.objects.get(id=int(blog_id))
+        #print b
+        u=User.objects.get(id=int(user_id))
+        print b,u
+        c=Comment.objects.get_or_create(comment_text=comment_text,comment_by=u,comment_to=b,likes=0)
+        return HttpResponse(0)
+
 def add_propic(request):
     #return HttpResponse("hello")
     return render_to_response('blogu/add_propic.html')
+
+def discussions(request):
+    discussions=Discussion.objects.all()
+    return render(request,'blogu/discussions.html',{'discussions':discussions})
+
+def new_discussion(request):
+    pass
+
+def discussion(request,discussion_slug):
+    d=Discussion.objects.get(slug=discussion_slug)
+    discuss_list=d.discuss_set.all()
+    up=UserProfile.objects.get(user=request.user)
+    print discuss_list
+    return render(request,'blogu/discussion.html',{'discuss_list':discuss_list,'up':up,'discussion':d})
+
+def discuss(request):
+    if request.method=="GET":
+        print "Hello"
+        discussion_id=request.GET["discussion_id"]
+        print discussion_id
+        up_id=request.GET["user_id"]
+        print up_id
+        discuss_text=request.GET["discuss_text"]
+        dn=Discussion.objects.get(id=int(discussion_id))
+        print dn
+        up=UserProfile.objects.get(id=int(up_id))
+        print up
+        d=Discuss.objects.get_or_create(discuss_text=discuss_text,discuss_by=up,discuss_on=dn,likes=0)
+        return HttpResponse(0)

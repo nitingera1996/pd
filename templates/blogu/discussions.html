@@ -1,0 +1,10 @@
+{% extends 'blogu/base.html' %}
+{% load staticfiles %}
+{% block body_block %}
+Discussions-                   <span><a href="{% url 'new_discussion' %}">Start a new discussion</a></span>
+<br/>
+{% for discussion in discussions %}
+<a href="{% url 'discussion' discussion.slug %}">{{ discussion.topic }}</a> started by {{ discussion.started_by }} on {{ discussion.started_on }} {{ discussion.likes }} likes 
+Category - {{ discussion.category.name }}<br/> 
+{% endfor %}
+{% endblock %}

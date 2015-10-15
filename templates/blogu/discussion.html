@@ -1,0 +1,38 @@
+{% extends 'blogu/base.html' %}
+{% load staticfiles %}
+{% block body_block %}
+
+<div>
+	<div class="panel">
+        <br/>
+                    <div class="panel-heading">
+                    <h3 class="panel-title">{{ discussion.topic }}</h3>
+                    <div class="panel-body">
+                        <div class="list-group">
+                            {% if discuss_list %}
+                            {% for discuss in discuss_list %}
+                                <div class="list-group-item">
+                                    <h4 class="list-group-item-heading">{{ discuss.discuss_by.name }}</h4>
+									<p class="list-group-item-text">{{ discuss.discuss_text }}</p><br />
+									<p style="color:gray;"><font color="black">{{ discuss.likes }}</font> like(s)</p>
+                                </div>
+                            {% endfor %}
+                            {% endif %}
+                            <div class="list-group-item" id="new_discuss">
+                                    <h4 class="list-group-item-heading" id="new_discuss_by" > </h4>
+                                    <p class="list-group-item-text" id="new_discuss_text" ></p><br />
+                                    <p style="color:gray;"><font color="black" id="new_discuss_like"></font> like(s)</p>
+                            </div>
+                            <div class="list-group">
+                                <h4 class="list-group-item-heading">{{ up.name }}</h4>
+                                <p class="list-group-item-text"><textarea id="discuss_text" cols="75" rows="4"></textarea><br/></p>
+                                <button id="discuss" type="button" data-discussionid="{{ discussion.id }}" data-upid="{{ up.id }}" data-upname="{{ up.name }}"class="btn btn-primary">Post</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+    </div>
+
+{% endblock %}
