@@ -65,4 +65,13 @@ $(document).ready(function(){
   	all_div.keydown(function(event){event.preventDefault();});
   	$('#profile_data').css({"opacity":"1","height":"480px","z-index":"5"});
   	});
+
+  $('li[data-id]').click(function()
+  {
+    var data_id=$(this).attr("data-id");
+    $('div[id^="d"]').css({"z-index":"-2","visibility":"hidden"});
+    $("#d"+data_id).css({"z-index":"6","visibility":"visible"});
+    $('li[data-id').css({"color":"white","background":"rgb(70,94,170)"});
+    $(this).css({"color":"rgb(28,56,110)","background":"white"});
+  });
 });
