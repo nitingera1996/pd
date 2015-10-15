@@ -37,9 +37,10 @@
                 <div id="search_results" height="auto" width="190px"></div>
               </div>
               </form></li>
+              <li><a href="{% url 'discussions' %}">Discussions</a></li>
                   {% if user.is_authenticated %}
                   <li><a id="logout" href="">Logout</a></li>
-                  <div class="g-signin2" data-onsuccess="onSignIn" onclick="onSignInClick();"></div>
+                  <div class="g-signin2" data-onsuccess="onSignIn"></div>
 				                <li><a id="profile" href="">Profile</a></li>
 			                {% else %}
 			                    <li><a href="{% url 'login_signup' %}">SignIn/SignUp</a></li>

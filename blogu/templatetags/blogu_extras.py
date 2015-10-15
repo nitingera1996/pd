@@ -20,7 +20,7 @@ def get_blogs_list(cat=None):
 
 @register.inclusion_tag('blogu/to_follow.html')
 def get_to_follow_list(user=None):
-    print user
+    #print user
     if user:
         up=UserProfile.objects.get(user=user)
         up_follow=Follow.objects.get(userprofile=user)
@@ -36,7 +36,7 @@ def get_to_follow_list(user=None):
                 pass
             else:
                 up1_liked_blog_list=up1.liked_blogs.all()
-                print up1_liked_blog_list
+                #print up1_liked_blog_list
                 up1_liked_category_list=up1.liked_categories.all()
                 for lc1 in liked_categories_list:
                     if lc1 in up1_liked_category_list:

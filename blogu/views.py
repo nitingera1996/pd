@@ -1,6 +1,6 @@
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
-from blogu.models import Category,Blog,UserProfile,Comment,Follow
+from blogu.models import Category,Blog,UserProfile,Comment,Follow,Discussion,Discuss,Tag
 from blogu.forms import BlogForm
 from django.template.defaultfilters import slugify
 from django.contrib.auth import authenticate,login, logout
@@ -416,7 +416,7 @@ def user_logout(request):
     if request.method=="POST":
         response_dict={}
         u=request.user
-        if(u.google_id):
+        if(u.login==1):
             response_dict.update({'response': "google logout"})
         else:
             response_dict.update({'response':"simple logout"})
@@ -490,3 +490,32 @@ def comment(request):
 def add_propic(request):
     #return HttpResponse("hello")
     return render_to_response('blogu/add_propic.html')
+
+def discussions(request):
+    discussions=Discussion.objects.all()
+    return render(request,'blogu/discussions.html',{'discussions':discussions})
+
+def new_discussion(request):
+    pass
+
+def discussion(request,discussion_slug):
+    d=Discussion.objects.get(slug=discussion_slug)
+    discuss_list=d.discuss_set.all()
+    up=UserProfile.objects.get(user=request.user)
+    print discuss_list
+    return render(request,'blogu/discussion.html',{'discuss_list':discuss_list,'up':up,'discussion':d})
+
+def discuss(request):
+    if request.method=="GET":
+        print "Hello"
+        discussion_id=request.GET["discussion_id"]
+        print discussion_id
+        up_id=request.GET["user_id"]
+        print up_id
+        discuss_text=request.GET["discuss_text"]
+        dn=Discussion.objects.get(id=int(discussion_id))
+        print dn
+        up=UserProfile.objects.get(id=int(up_id))
+        print up
+        d=Discuss.objects.get_or_create(discuss_text=discuss_text,discuss_by=up,discuss_on=dn,likes=0)
+        return HttpResponse(0)

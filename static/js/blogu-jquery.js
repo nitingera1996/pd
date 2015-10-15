@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $('#new_comment').hide();
+    $('#new_discuss').hide();
     $('#category_like').click(function(){
 		var cat_id;
 		cat_id = $(this).attr("data-catid");
@@ -56,7 +57,7 @@ $(document).ready(function(){
 		    $("#"+user_id).hide();
 			});
     });
-  
+
   $('#comment').click(function(){
     var user_id,blog_id;
     user_id = $(this).attr("data-uid");
@@ -68,6 +69,20 @@ $(document).ready(function(){
       $('#new_comment_text').html(comment_text);
       $('#new_comment_by').html(up_name);
         $('#new_comment').show();
+      });
+  });
+
+  $('#discuss').click(function(){
+    var user_id,blog_id;
+    up_name=$(this).attr('data-upname');
+    user_id = $(this).attr("data-upid");
+    discussion_id = $(this).attr("data-discussionid");
+    discuss_text=$('#discuss_text').val();
+    $.get('/blogu/discuss/',{user_id:user_id,discussion_id:discussion_id,discuss_text:discuss_text},function(data){
+      $('#new_discuss_like').html(data);
+      $('#new_discuss_text').html(discuss_text);
+      $('#new_discuss_by').html(up_name);
+        $('#new_discuss').show();
       });
   });
 
