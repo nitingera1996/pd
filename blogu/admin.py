@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blogu.models import Category,Blog,Comment,UserProfile,Follow,Tag
+from blogu.models import Category,Blog,Comment,UserProfile,Follow,Tag,Discussion,Discuss
 
 class BlogAdmin (admin.ModelAdmin):
     list_display = ('title','category','written_by','likes','slug')
@@ -14,4 +14,7 @@ admin.site.register(Blog,BlogAdmin)
 admin.site.register(UserProfile)
 admin.site.register(Follow)
 admin.site.register(Tag)
+admin.site.register(Discussion)
+admin.site.register(Discuss)
+
 # Register your models here.

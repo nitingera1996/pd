@@ -73,3 +73,29 @@ class Follow(models.Model):
     no_followed=models.IntegerField(default=0)
     def __unicode__(self):
         return self.userprofile.username
+
+
+class Discussion(models.Model):
+    topic=models.CharField(max_length=100)
+    slug=models.SlugField(unique=True)
+    started_by=models.ForeignKey(UserProfile)
+    started_on=models.DateTimeField(default=datetime.now())
+    likes=models.IntegerField(default=0)
+    category=models.ForeignKey(Category)
+    def __unicode__(self):
+        return self.topic
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.topic)
+        if(self.likes<0):
+            self.likes=0
+        super(Discussion, self).save(*args,**kwargs)
+
+
+class Discuss(models.Model):
+    discuss_text=models.TextField()
+    discuss_by=models.ForeignKey(UserProfile)
+    dicuss_on=models.ForeignKey(Discussion)
+    posted_on=models.DateTimeField(datetime.now())
+    likes=models.IntegerField(default=0)
+    def __unicode__(self):
+        return self.discuss_text

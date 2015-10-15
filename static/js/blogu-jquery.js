@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    $('#new_comment').hide();
     $('#category_like').click(function(){
 		var cat_id;
 		cat_id = $(this).attr("data-catid");
@@ -33,11 +34,19 @@ $(document).ready(function(){
     search_term=$(this).val();
     //console.log("Hello");
     //alert(search_term);
-    $.get('/blogu/search_top/', { query_string : search_term},function(data){
+    /*$.get('/blogu/search_top/',{ query_string : search_term},function(data){
       console.log(data);
       console.log("hello");
       $('#search_results').html(data);
-    });
+    });*/
+     $.ajax({
+    type:"GET",
+    url: "/blogu/search_top/",
+    data: {query_string: search_term},
+    success: function(newData){
+        $('#search_results').html(newData);
+    }
+ });
   });
 
   $('#follow_user').click(function(){
@@ -48,5 +57,18 @@ $(document).ready(function(){
 			});
     });
 
+  $('#comment').click(function(){
+    var user_id,blog_id;
+    user_id = $(this).attr("data-uid");
+    blog_id = $(this).attr("data-blogid");
+    up_name=$(this).attr("data-uname");
+    comment_text=$('#comment_text').val();
+    $.get('/blogu/comment/',{user_id: user_id,blog_id:blog_id,comment_text:comment_text},function(data){
+      $('#new_comment_like').html(data);
+      $('#new_comment_text').html(comment_text);
+      $('#new_comment_by').html(up_name);
+        $('#new_comment').show();
+      });
+  });
 
 });
