@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
 from blogu.models import Category,Blog,UserProfile,Comment,Follow
 from blogu.forms import BlogForm
@@ -487,3 +487,7 @@ def comment(request):
         print b,u
         c=Comment.objects.get_or_create(comment_text=comment_text,comment_by=u,comment_to=b,likes=0)
         return HttpResponse(0)
+
+def add_propic(request):
+    #return HttpResponse("hello")
+    return render_to_response('blogu/add_propic.html')

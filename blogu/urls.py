@@ -16,4 +16,5 @@ urlpatterns = patterns('',
         url(r'^google_login/$',views.google_login,name='google_login'),
         url(r'^follow_user/$',views.follow_user,name="follow_user"),
         url(r'^comment/$',views.comment,name='comment'),
+        url(r'^add_propic/',views.add_propic,name="add_propic"),
 		)
