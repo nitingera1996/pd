@@ -86,7 +86,6 @@ def category(request,category_name_slug):
         category = Category.objects.get(slug=category_name_slug)
         context_dict['category_name']=category.name
         blog_list = Blog.objects.filter(category=category).order_by('-likes')
-        context_dict['blogs']=blogs
         context_dict['category']=category
         context_dict['category_name_slug']=category.slug
         show=[True]*len(blog_list)
