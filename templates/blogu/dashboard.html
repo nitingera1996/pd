@@ -13,6 +13,9 @@ body
 img[style]
 {
 	-webkit-border-radius:50% 50%;
+  -moz-border-radius:50% 50%;
+  -ms-border-radius:50% 50%;
+  border-radius:50% 50%;
 }
 #name
 {
@@ -26,6 +29,14 @@ img[style]
   -webkit-box-orient:horizontal;
   -webkit-box-pack:center;
   -webkit-box-flex:1;
+  display: -moz-box;
+  -moz-box-orient:horizontal;
+  -moz-box-pack:center;
+  -moz-box-flex:1;
+  display: -ms-box;
+  -ms-box-orient:horizontal;
+  -ms-box-pack:center;
+  -ms-box-flex:1;
   margin-bottom: 40px;
 }
 #nav>ul
@@ -52,6 +63,9 @@ img[style]
   color:white;
   background: rgb(70,94,170);
   -webkit-border-radius:5px 0 0 5px;
+  -moz-border-radius:5px 0 0 5px;
+  -ms-border-radius:5px 0 0 5px;
+  border-radius:5px 0 0 5px;
 }
 #nav>ul>li:first-of-type
 {
@@ -70,6 +84,9 @@ div[id^="d"]
   text-align: center;
   background:white;
   -webkit-border-radius:0 10px 10px 0;
+  -ms-border-radius:0 10px 10px 0;
+  -moz-border-radius:0 10px 10px 0;
+  -o-border-radius:0 10px 10px 0;
   visibility: hidden;
 }
 div[id^="d"]:last-child

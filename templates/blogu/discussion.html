@@ -1,4 +1,4 @@
-{% extends 'blogu/base.html' %}
+{% extends 'blogu/base2.html' %}
 {% load staticfiles %}
 {% block body_block %}
 
@@ -6,27 +6,29 @@
 	<div class="panel">
         <br/>
                     <div class="panel-heading">
-                    <h3 class="panel-title">{{ discussion.topic }}</h3>
+                    <h3 class="panel-title" style="color:black;font-family: 'Ubuntu', sans-serif;font-size: 24px;">{{ discussion.topic }}</h3><br /><br />
                     <div class="panel-body">
                         <div class="list-group">
                             {% if discuss_list %}
                             {% for discuss in discuss_list %}
-                                <div class="list-group-item">
-                                    <h4 class="list-group-item-heading">{{ discuss.discuss_by.name }}</h4>
+                                <div class="list-group-item" style="width:75%;">
+                                    <h4 class="list-group-item-heading" style="font-weight:bold;">{{ discuss.discuss_by.name }}</h4>
 									<p class="list-group-item-text">{{ discuss.discuss_text }}</p><br />
 									<p style="color:gray;"><font color="black">{{ discuss.likes }}</font> like(s)</p>
                                 </div>
                             {% endfor %}
                             {% endif %}
+                            <br />
+                            <br />
                             <div class="list-group-item" id="new_discuss">
                                     <h4 class="list-group-item-heading" id="new_discuss_by" > </h4>
                                     <p class="list-group-item-text" id="new_discuss_text" ></p><br />
                                     <p style="color:gray;"><font color="black" id="new_discuss_like"></font> like(s)</p>
                             </div>
                             <div class="list-group">
-                                <h4 class="list-group-item-heading">{{ up.name }}</h4>
-                                <p class="list-group-item-text"><textarea id="discuss_text" cols="75" rows="4"></textarea><br/></p>
-                                <button id="discuss" type="button" data-discussionid="{{ discussion.id }}" data-upid="{{ up.id }}" data-upname="{{ up.name }}"class="btn btn-primary">Post</button>
+                                <h4 class="list-group-item-heading" style="font-weight:bold;">{{ up.name }}:</h4>
+                                <p class="list-group-item-text"><textarea id="discuss_text" cols="90" rows="6" style="resize:none;"></textarea><br/></p>
+                                <button id="discuss" type="button" data-discussionid="{{ discussion.id }}" data-upid="{{ up.id }}" data-upname="{{ up.name }}"class="btn btn-primary" style="padding:6px;">Post</button>
                             </div>
                         </div>
                     </div>

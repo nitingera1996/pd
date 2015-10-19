@@ -131,6 +131,10 @@
 	opacity:0;
 	z-index:-3;
 	-webkit-box-shadow:-4px 4px 6px gray;
+	-moz-box-shadow:-4px 4px 6px gray;
+	-ms-box-shadow:-4px 4px 6px gray;
+	-o-box-shadow:-4px 4px 6px gray;
+	box-shadow:-4px 4px 6px gray;
 	position: absolute;
 	top:100px;
 	left:30%;
@@ -138,4 +142,3 @@
 	height:0;
 	background: red;
 	overflow: hidden;
-}	text-align: center;

@@ -24,16 +24,19 @@
 					<a class="navbar-brand" id="navbar-brand-id" href="/blogu/" style="height:auto;"><img src="{% static "images/nblik.jpg" %}"></a>
 				</div>
 				<div class="navbar-collapse collapse" style="-webkit-box-flex:1;-moz-box-flex:1;">
-				    <u1 class="nav navbar-nav navbar-right" style="min-width:520px;">
-				    		<li>
-							<div style="position:relative;padding:0;">
-				    			<span class="glyphicon glyphicon-search" id="main_search" aria-hidden="true"></span><input type="text" name="search_top" placeholder="Search">
-			                <div id="search_results" height="auto" width="190px"></div>
-				    		</div>
-				    		</li>
+				    <u1 class="nav navbar-nav navbar-right" style="min-width:520px;background:rgb(70,94,170);">
+				    	<li>
+              	<form>
+				    		<div style="position:relative;padding:0;">
+				    		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                <input type="text" value="" name="search-top" id="suggestion_search" placeholder="Search"/>
+                <div id="search_results" style="width:190px;height:auto;"></div>
+              	</div>
+              	</form></li>
+				    		<li><a href="{% url 'discussions' %}">Discussions</a></li>
 				    	    {% if user.is_authenticated %}
-			                    <li><a href="{% url 'auth_logout' %}?next=/blogu/">Logout </a></li>
-				                <li><a href="{% url 'profile' %}">Profile</a></li>
+			                <li><a href="{% url 'auth_logout' %}?next=/blogu/">Logout </a></li>
+			                <li><a href="/{{ user.username }}/">Profile</a></li>
 			                {% else %}
 			                <li><a href="{% url 'login_signup' %}">SignIn/SignUp</a></li>
 			                {% endif %}

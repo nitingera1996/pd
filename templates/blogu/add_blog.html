@@ -8,10 +8,14 @@ body
 {
     text-align: center;
     display: -webkit-box;
+    display:-moz-box;
     -webkit-box-pack:center;
     -moz-box-pack:center;
+    -ms-box-pack:center;
+    box-pack:center;
 }
-form{
+form[role]
+{
     margin-top: 20px;
 }
 textarea[name="blog_title"]
