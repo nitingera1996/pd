@@ -128,7 +128,7 @@ def category(request,category_name_slug):
 def get_category_list(max_results=0,startswith=''):
     cat_list=[]
     if startswith=='':
-        cat_list = Category.objects.all().order_by('name')
+        cat_list = None
     elif startswith:
         #print "Hello"
         cat_list = Category.objects.filter(name__istartswith=startswith)
@@ -283,9 +283,16 @@ def login_and_signup(request):
                 login_username=u.username
             except:
                 login_username=login_username_or_email
+            try:
+                u=User.objects.get(username=login_username)
+            except:
+                u=None
             user = authenticate(username = login_username,password=login_password)
             if user and login_username and login_password:
                 if user.is_active:
+                    up=UserProfile.objects.get(user=u)
+                    up.login=0
+                    up.save()
                     login(request,user)
                     return HttpResponseRedirect('/blogu/')
                 else:
@@ -338,11 +345,15 @@ def google_login(request):
         print email
         try:
             u=User.objects.get(email=email)
-            try:
-                print u.google_id
-            except:
-                u.google_id=google_id
-                u.save()
+            up=UserProfile.objects.get(user=u)
+            if up.google_registered:
+                up.login=1
+                up.save()
+            else:
+                up.google_id=google_id
+                up.google_registered=True
+                up.login=1
+                up.save()
                     #print "Hello"
             user = authenticate(username = u.username,password=u.password)
             if user:
@@ -365,6 +376,8 @@ def google_login(request):
             profile=UserProfile(user=user1,level=1)
             profile.name=name
             profile.google_id=google_id
+            profile.google_registered=True
+            profile.login=1
             profile.save()
             up_follow=Follow(userprofile=user1)
             up_follow.save()
@@ -406,9 +419,9 @@ def search_top(request):
     context_dict['cats']=cat_list
     context_dict['blogs']=b_list
     context_dict['users']=u_list
-    print context_dict
+    #print context_dict
     #return HttpResponse("Results")
-    return render(request,"blogu/search_results.html", {'cats':cat_list} )
+    return render(request,"blogu/search_results.html", {'cats':cat_list,'blogs':b_list} )
 
     #return HttpResponse(cat_list)
 
@@ -416,7 +429,7 @@ def user_logout(request):
     if request.method=="POST":
         response_dict={}
         u=request.user
-        if(u.login==1):
+        if u.login == 1:
             response_dict.update({'response': "google logout"})
         else:
             response_dict.update({'response':"simple logout"})

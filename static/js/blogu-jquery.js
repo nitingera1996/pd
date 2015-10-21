@@ -33,18 +33,12 @@ $(document).ready(function(){
     //alert('Hello');
     var search_term;
     search_term=$(this).val();
-    //console.log("Hello");
-    //alert(search_term);
-    /*$.get('/blogu/search_top/',{ query_string : search_term},function(data){
-      console.log(data);
-      console.log("hello");
-      $('#search_results').html(data);
-    });*/
      $.ajax({
     type:"GET",
     url: "/blogu/search_top/",
     data: {query_string: search_term},
     success: function(newData){
+        console.log(newData);
         $('#search_results').html(newData);
     }
  });

@@ -10,8 +10,7 @@
 		<link href="{% static "css/dashboard.css" %}" rel="stylesheet">
 		<link href="{% static "css/additional.css" %}" rel="stylesheet">
     <meta name="google-signin-client_id" content="947926274867-1j7u0tlthilbcbttipg02cojc6ehiqpm.apps.googleusercontent.com  ">
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<script src="{% static "js/logout.js" %}"> </script>
+
 	</head>
 
 	<body>
@@ -29,14 +28,14 @@
 					<a class="navbar-brand" id="navbar-brand-id" href="/blogu/" style="height:auto;"><img src="{% static "images/nblik.jpg" %}"></a>
 				</div>
 				<div class="navbar-collapse collapse" style="-webkit-box-flex:1;-moz-flex:1;">
-				    <u1 class="nav navbar-nav navbar-right"  style="min-width:520px;"><li>
-              <form>
+				    <u1 class="nav navbar-nav navbar-right"  style="min-width:520px;">
+				    	<li>
 				    		<div style="position:relative;padding:0;">
 				    		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 <input type="text" value="" name="search-top" id="suggestion_search" placeholder="Search"/>
                 <div id="search_results" height="auto" width="190px"></div>
               </div>
-              </form></li>
+              </li>
               <li><a href="{% url 'discussions' %}">Discussions</a></li>
                   {% if user.is_authenticated %}
                   <li><a id="logout" href="">Logout</a></li>
@@ -101,5 +100,7 @@
 		<script src="{% static "js/bootstrap.js" %}"></script>
 		<script src="{% static "js/bootstrap.min.js" %}"> </script>
 		<script src="{% static "js/blogu-jquery.js" %}"></script>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="{% static "js/logout.js" %}"> </script>
 	</body>
 </html>
