@@ -1,0 +1,35 @@
+{% extends 'blogu/base.html' %}
+{% load staticfiles %}
+{% block body_block %}
+<link href="{% static "css/index.css" %}" rel="stylesheet">
+<style type="text/css">
+body
+{
+	color:gray;
+}
+#discuss_topic:link
+{
+	color:black;
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 24px;
+}
+#discuss_topic:visited
+{
+	color:black;
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 24px;
+}
+#discuss_topic:hover
+{
+	text-decoration: none;
+	color:rgb(90,90,90);
+}
+</style>
+<br />
+<span style="color:rgb(50,50,50);font-size:16px;">Discussions-</span><span><a href="{% url 'new_discussion' %}">Start a new discussion</a></span>
+<br/><br /><br />
+{% for discussion in discussions %}
+<h2 style="font-size:16px;">{{ discussion.category.name }}</h2>
+<a id="discuss_topic" href="{% url 'discussion' discussion.slug %}">{{ discussion.topic }}</a>    &nbsp &nbsp <span style="color:gray;">started by</span> <span style="font-weight:bold;font-size:16px;color:black;">{{ discussion.started_by }}</span><br />on {{ discussion.started_on }}<br />{{ discussion.likes }} like(s)  <hr>
+{% endfor %}
+{% endblock %}

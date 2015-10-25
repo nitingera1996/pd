@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% block body_block %}
 <link href="{% static "css/index.css" %}" rel="stylesheet">
+<div style="padding-top:50px;">
 <p style="text-align:left;font-family:'Montserrat',tahoma;color:rgb(75,75,75);font-size:20px;letter-spacing:1px;font-weight:700;">{{ blog.category }}</p>
 <h1>{{ blog.title }}</h1>
 		{% if blog.image %}
@@ -15,33 +16,46 @@
 <p class='text-left' style="color:gray;"><img src="{% static 'images/batman.jpg' %}" style="width:40px;height:40px;-webkit-border-radius:50% 50%;-moz-border-radius:50% 50%;-o-border-radius:50% 50%;-ms-border-radius:50% 50%;border-radius:50% 50%;"> -{{ blog.written_by }}</p>
 <br/>
 {{ blog.text|safe }}
-<br/>
+<br/><br />
 <font style="color:black;font-weight:bold;">{{ blog.likes }}</font><font style="color:gray;"> like(s)</font>
 {% if user.is_authenticated %}
+{% if show %}
 <button id="blog_like" data-blogid="{{ blog.id }}" class="btn btn-primary" type="button">
                         <span class="glyphicon glyphicon-thumbs-up"> </span>
                         Like</button>
                     {% endif %}
+                    {% endif %}
 <div>
 	<div class="panel">
-        {% if comments %}
         <br />
                     <div class="panel-heading">
                     <h3 class="panel-title">Commments:</h3>
                     <div class="panel-body">
                         <div class="list-group">
-                            {% for comment in comments %}
+                            {% if comments %}
+                            {% for comment,comment_by_name in comments %}
                                 <div class="list-group-item">
-                                    <h4 class="list-group-item-heading">{{ comment.comment_by }}</h4>
+                                    <h4 class="list-group-item-heading">{{ comment_by_name }}</h4>
 									<p class="list-group-item-text">{{ comment.comment_text }}</p><br />
 									<p style="color:gray;"><font color="black">{{ comment.likes }}</font> like(s)</p>
                                 </div>
                             {% endfor %}
+                            {% endif %}
+                            <div class="list-group-item" id="new_comment">
+                                    <h4 class="list-group-item-heading" id="new_comment_by" > </h4>
+                                    <p class="list-group-item-text" id="new_comment_text" ></p><br />
+                                    <p style="color:gray;"><font color="black" id="new_comment_like"></font> like(s)</p>
+                            </div>
+                            <div class="list-group">
+                                <h4 class="list-group-item-heading">{{ up.name }}</h4>
+                                <p class="list-group-item-text"><textarea id="comment_text" cols="75" rows="4"></textarea><br /></p>
+                                <button id="comment" type="button" data-blogid="{{ blog.id }}" data-uid="{{ u.id }}" data-uname="{{ up.name }}" class="btn btn-primary">Comment</button>
+                            </div>
                         </div>
                     </div>
-                {% endif %}
                 </div>
             </div>
 		</div>
+    </div>
 
 {% endblock %}

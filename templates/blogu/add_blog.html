@@ -2,13 +2,44 @@
 {% load staticfiles %}
 {% load bootstrap_toolkit %}
 {% block body_block %}
-<script src="{% static "ckeditor/ckeditor.js" %}"></script>
-
+    <script src="{% static "ckeditor/ckeditor.js" %}"></script>
+<style type="text/css" rel="stylesheet">
+body
+{
+    text-align: center;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+}
+form[role]
+{
+    margin-top: 20px;
+}
+textarea[name="blog_title"]
+{
+    margin: 20px;
+    font-size: 20px;
+    border:none;
+    resize:none;
+}
+#cke_blog_area
+{
+    width: 800px;
+    height:400px;
+    margin-bottom: 20px;
+}
+#blog_area_div
+{
+    text-align: center;
+    display: -moz-box;
+}
+</style>
 {% if category %}
 <form role="form" id="blog_form" method = "post" action = '/blogu/{{ category.slug }}/add_blog/' enctype = "multipart/form-data">
         {% csrf_token %}
-        <textarea name="blog_title" cols="90" rows="2"></textarea><br/>
-        <textarea id="blog_area" name="blog_content"></textarea>
+        <textarea name="blog_title" cols="60" rows="1" placeholder="Title..."></textarea><br/>
+        <div id="blog_area_div">
+        <textarea id="blog_area" name="blog_content" cols="60"></textarea>
+    </div><br />
     <script type="text/javascript">
     CKEDITOR.replace( 'blog_area' );
     </script>
@@ -16,6 +47,6 @@
     </form>
 
     {% else %}
-    <hw>Please first select the category from the side bar</h2>
+    <h2>Please first select the category from the side bar</h2>
     {% endif %}
 {% endblock %}

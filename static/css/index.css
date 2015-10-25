@@ -79,3 +79,8 @@ h1
 	margin-bottom: 5px;
 	font-size: 18px;
 }
+#blog_like,#category_like
+{
+	padding: 3px;
+	font-size:13px;
+}

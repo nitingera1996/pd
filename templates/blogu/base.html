@@ -10,32 +10,44 @@
 		<link href="{% static "css/dashboard.css" %}" rel="stylesheet">
 		<link href="{% static "css/additional.css" %}" rel="stylesheet">
     <meta name="google-signin-client_id" content="947926274867-1j7u0tlthilbcbttipg02cojc6ehiqpm.apps.googleusercontent.com  ">
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<script src="{% static "js/logout.js" %}"> </script>
+
 	</head>
 
 	<body>
-	    <div class ="navbar navbar-inverse navbar-fixed-top" role = "navigation" style="background:rgb(70,94,170);">
-		    <div class="container-fluid">
-			    <div class="nav-header">
+		<div id="profile_data">
+		</div>
+	    <div class ="navbar navbar-inverse navbar-fixed-top" role = "navigation" style="background:rgb(70,94,170);height:55px;">
+		    <div class="container-fluid" style="display:-webkit-box;display:-moz-box;width:100%;">
+			    <div class="nav-header" style="-webkit-box-flex:1;-moz-box-flex:1;">
 				    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
 					    <span class ="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					    <span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" id="navbar-brand-id" href="/blogu/"><img src="{% static "images/nblik.jpg" %}"></a>
+					<a class="navbar-brand" id="navbar-brand-id" href="/blogu/" style="height:auto;"><img src="{% static "images/nblik.jpg" %}"></a>
 				</div>
-				<div class="navbar-collapse collapse">
-				    <u1 class="nav navbar-nav navbar-right"><li>
+<!--<<<<<<< HEAD-->
+				<div class="navbar-collapse collapse" style="-webkit-box-flex:1;-moz-box-flex:1;">
+				    <u1 class="nav navbar-nav navbar-right"  style="min-width:640px;background:rgb(70,94,170);"><li>
               <form>
-				    		<li><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                <input type="text" value="" name="search-top" id="suggestion_search" placeholder="Search"/></li>
-              </form></li>
+<!--=======
+				<div class="navbar-collapse collapse" style="-webkit-box-flex:1;-moz-flex:1;">
+				    <u1 class="nav navbar-nav navbar-right"  style="min-width:520px;">
+				    	<li>
+ >>>>>>> 3bc9aea59945918e659b1b8d1b4396734eba4aa2-->
+				    		<div style="position:relative;padding:0;">
+				    		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                <input type="text" value="" name="search-top" id="suggestion_search" placeholder="Search"/>
+                <div id="search_results" style="width:190px;height:auto;"></div>
+              </div>
+          </form>
+              </li>
+              <li><a href="{% url 'discussions' %}">Discussions</a></li>
                   {% if user.is_authenticated %}
-                  <li><a id="logout">Logout</a></li>
-                  <div class="g-signin2" data-onsuccess="onSignIn" onclick="onSignInClick();"></div>
-				                <li><a href="{% url 'profile' %}">Profile</a></li>
+                  <li><a id="logout" href="">Logout</a></li>
+                  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+				                <li><a href="/{{ user.username }}/">Profile</a></li>
 			                {% else %}
 			                    <li><a href="{% url 'login_signup' %}">SignIn/SignUp</a></li>
 			                {% endif %}
@@ -49,9 +61,9 @@
 		    </div>
 	    </div>
 		<div class="container-fluid">
-		    <div class="col-sm-3 col-md-2 sidebar"style="overflow-y: scroll;background:rgb(210,217,236);">
+		    <div class="col-sm-3 col-md-2 sidebar" style="overflow-y:auto;background:rgb(210,217,236);-moz-box-sizing:content-box;">
 			<u1 class="nav nav-list">
-			    <li class="nav-header" style="font-family:tahoma;font-weight:bold;">Find a Category</li>
+			    <li class="nav-header" style="font-family:tahoma;font-weight:bold;font-size:16px;">Find a Category</li>
 				<form>
 				<li><input class="search-query span10" type="text" name="suggestion" value="" id="suggestion_id"
 					placeholder="Enter Category"/></li>
@@ -60,13 +72,12 @@
 			<div id="cats">
 			  {% block side_block1 %}
 			  {% get_category_list category%}
-				{% endblock %}
+			  {% endblock %}
 			</div>
 			</div>
 		</div>
 		    <div class="col-sm-6 col-sm-offset-3 col-md-offset-2 col-md-8 main">
 			    <div>
-            <div id="search_results">
 
             </div>
 				    {% block body_block %}
@@ -75,7 +86,7 @@
 			</div>
 			<div class="col-sm-3 col-sm-offset-9 col-md-2 col-md-offset-10 sidebar" style="background:rgb(210,217,236);">
 				<u1 class="nav nav-list">
-			    <li class="nav-header" style="font-family:tahoma;font-weight:bold;">Featured Blogs</li>
+			    <li class="nav-header" style="font-family:tahoma;font-weight:bold;font-size:16px;">Featured Blogs</li>
 			    </u1>
 				<div id="featured_blogs">
         {% block side_block2_1 %}
@@ -93,8 +104,10 @@
 			</div>
 		</div>
     <script src="{% static "js/jquery-1.11.3.min.js" %}"></script>
-		<script src="{% static "js/bootstrap.js" %}"> </script>
+		<script src="{% static "js/bootstrap.js" %}"></script>
 		<script src="{% static "js/bootstrap.min.js" %}"> </script>
 		<script src="{% static "js/blogu-jquery.js" %}"></script>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="{% static "js/logout.js" %}"> </script>
 	</body>
 </html>

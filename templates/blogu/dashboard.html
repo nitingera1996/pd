@@ -3,16 +3,140 @@
 {% block body_block %}
 <br/>
 <br/>
-<br/>
-<br/>
-<br/>
+<style type="text/css">
+body
+{
+	text-align: center;
+  background: rgb(210,217,236);
+  padding: 80px;
+}
+img[style]
+{
+	-webkit-border-radius:50% 50%;
+  -moz-border-radius:50% 50%;
+  -ms-border-radius:50% 50%;
+  border-radius:50% 50%;
+}
+#name
+{
+  font-size: 24px;
+  font-weight: bold;
+  color:rgb(60,60,60);
+}
+#wrapper
+{
+  display: -webkit-box;
+  -webkit-box-orient:horizontal;
+  -webkit-box-pack:center;
+  -webkit-box-flex:1;
+  display: -moz-box;
+  -moz-box-orient:horizontal;
+  -moz-box-pack:center;
+  -moz-box-flex:1;
+  display: -ms-box;
+  -ms-box-orient:horizontal;
+  -ms-box-pack:center;
+  -ms-box-flex:1;
+  margin-bottom: 40px;
+}
+#nav>ul
+{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#ata
+{
+  margin: 0;
+  padding: 0;
+  position: relative;
+  width:700px;
+  text-align: center;
+  background: white;
+}
+#nav>ul>li
+{
+  margin: 5px 0 10px 5px;
+  font-size:20px;
+  font-weight: bold;
+  padding: 5px 5px 5px 10px;
+  color:white;
+  background: rgb(70,94,170);
+  -webkit-border-radius:5px 0 0 5px;
+  -moz-border-radius:5px 0 0 5px;
+  -ms-border-radius:5px 0 0 5px;
+  border-radius:5px 0 0 5px;
+}
+#nav>ul>li:first-of-type
+{
+  background:white; 
+  color:rgb(28,56,110);
+}
+#nav>ul>li:hover
+{
+  cursor:pointer;
+}
+div[id^="d"]
+{
+  padding: 20px;
+  position: absolute;
+  width:100%;
+  text-align: center;
+  background:white;
+  -webkit-border-radius:0 10px 10px 0;
+  -ms-border-radius:0 10px 10px 0;
+  -moz-border-radius:0 10px 10px 0;
+  -o-border-radius:0 10px 10px 0;
+  visibility: hidden;
+}
+div[id^="d"]:last-child
+{
+  visibility: visible;
+}
+.data
+{
+  font-size: 16px;
+  font-weight: bold;
+}
+</style>
 {% if userprofile.picture %}
-		    <img height="150px" src="{{ userprofile.picture.url }}"/>
-		{% endif %}<br/>
-{{ userprofile.name }}<br/>
+<img style="height:150px;width:150px;" src="{{ userprofile.picture.url }}"/>
+{% endif %}<br/><br />
+<span id="name">{{ userprofile.name }}</span><br/>
 {{ userprofile.profile_tag_line }}<br/>
-Followers - {{ userprofile_follow.followers }}<br/>
-Fpllowing - {{ userprofile_follow.no_followed }}<br/>
+<div id="wrapper">
+<div id="nav">
+<ul>
+<li data-id="5">Followers</li>
+<li data-id="4">Following</li>
+<li data-id="3">Interest</li>
+<li data-id="2">Following</li>
+<li data-id="1">Followers</li>
+</ul>
+</div>
+<div id="ata">
+<div id="d1"><span class="data">{{ userprofile_follow.followers }}</span></div>
+<div id="d2"><span class="data">{{ userprofile_follow.no_followed }}</span></div>
+<div id="d3">
+{% for tag in followed_tags %}
+<span class="data">{{ tag.name }}</span>,
+{% endfor %}</div>
+<div id="d4">
+{% for up in followed_list %}
+<img style="height:50px;width:50px;-webkit-border-radius:50% 50%;" src="{{ up.userprofile.picture.url }}"> &nbsp &nbsp
+<span class="data">{{ up.name }}</span><br /><hr><br />
+{% endfor %}</div>
+<div id="d5">
+{% for up_follow in followers %}
+<img style="height:50px;width:50px;-webkit-border-radius:50% 50%;" src="{{ up_follow.userprofile.picture.url }}"> &nbsp &nbsp
+<span class="data">{{ up_follow.userprofile.username }}</span><br /><hr><br />
+{% endfor %}</div>
+</div>
+</div>
+    <script src="{% static "js/jquery-1.11.3.min.js" %}"></script>
+  <script src="{% static "js/blogu-jquery.js" %}"></script>
+<!--Followers - {{ userprofile_follow.followers }}<br/>
+Following - {{ userprofile_follow.no_followed }}<br/>
 Interest -
 {% for tag in followed_tags %}
 {{ tag.name }},
@@ -24,5 +148,5 @@ Following -
 Followers -
 {% for up_follow in followers %}
 {{ up_follow.userprofile.username }},
-{% endfor %}<br/>
+{% endfor %}<br/>-->
 {% endblock %}

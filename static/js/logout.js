@@ -23,7 +23,7 @@ console.log('Image URL: ' + profile.getImageUrl());
 console.log('Email: ' + profile.getEmail());
 }
 
-/*$(document).ready(function(){
+$(document).ready(function(){
 
   $("#logout").click(function(){
   var csrftoken = getCookie('csrftoken');
@@ -38,16 +38,16 @@ console.log('Email: ' + profile.getEmail());
                     if(json.response == "google logout"){
                       signOut();
                       }
-                      //alert("Succesful signout");
                       window.open("/","_self");
-                  },
+                      }
+                   ,
                   error : function(xhr,errmsg,err) {
                       alert(xhr.status + ": " + xhr.responseText);
                       //$('#email_error_msg').html(xhr.responseText);
                   }
               });
   });
-});*/ 
+}); 
 
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();

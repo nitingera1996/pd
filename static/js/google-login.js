@@ -1,4 +1,4 @@
-var profile
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {
@@ -17,10 +17,10 @@ function getCookie(name) {
 
 function onSignIn(googleUser) {
   //alert('Hello');
-profile = googleUser.getBasicProfile();
+var profile = googleUser.getBasicProfile();
 if(profile)
 {
-  onSignInClick();
+  onSignInClick(profile);
 }
 console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
 console.log('Name: ' + profile.getName());
@@ -28,7 +28,7 @@ console.log('Image URL: ' + profile.getImageUrl());
 console.log('Email: ' + profile.getEmail());
 }
 
-function onSignInClick(){
+function onSignInClick(profile){
   var csrftoken = getCookie('csrftoken');
   if(profile.getImageUrl()==undefined){
     image_url="Set default image"

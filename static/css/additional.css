@@ -5,7 +5,6 @@
 *
 {
 	-ms-overflow-style:none;
-	overflow:-moz-scrollbars-none;
 }
 #navbar-brand-id
 {
@@ -93,3 +92,57 @@
 	font-weight: bold;
 	color:white;
 }
+#logout:link
+{
+	color:white;
+	margin-right:5px;
+	margin-left: 5px;
+	font-family: sans-serif;
+	padding-bottom: 16px;
+	border-bottom: 4px solid rgb(254,254,254);
+	background: rgb(55,75,136);
+}
+#logout:visited
+{
+	color:white;
+	border-bottom: 4px solid rgb(254,254,254);
+}
+#logout:hover
+{
+	text-decoration: none;
+}
+#logout:active
+{
+	color:white;
+}
+#search_results
+{
+	background: rgb(220,227,246);
+	position: absolute;
+	top:45px;
+	left:25px;
+	text-align: left;
+	-webkit-border-radius:0 0 5px 5px;
+	-moz-border-radius:0 0 5px 5px;
+	border-radius:0 0 5px 5px;
+}
+#search_results li
+{
+	padding:5px 10px 5px 10px;
+}
+#profile_data
+{
+	opacity:0;
+	z-index:-3;
+	-webkit-box-shadow:-4px 4px 6px gray;
+	-moz-box-shadow:-4px 4px 6px gray;
+	-ms-box-shadow:-4px 4px 6px gray;
+	-o-box-shadow:-4px 4px 6px gray;
+	box-shadow:-4px 4px 6px gray;
+	position: absolute;
+	top:100px;
+	left:30%;
+	width:500px;
+	height:0;
+	background: red;
+	overflow: hidden;

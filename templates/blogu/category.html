@@ -18,7 +18,7 @@
 		{% if category %}
 		    {% if zipped_data %}
 			<u1>
-			    {% for blog,b_time in zipped_data %}
+			    {% for blog,b_time,show in zipped_data %}
 				    <span style='float:right;color:gray;'>{{ b_time }}</span>
                     <h3><a href="{% url 'blog' blog.slug %}" class="blog_title"><strong>{{ blog.title }}</strong></a></h3>
                     <p class='text-left' style="color:gray;"> &nbsp <img src="{% static 'images/batman.jpg' %}" style="width:40px;height:40px;-webkit-border-radius:50% 50%;-moz-border-radius:50% 50%;-ms-border-radius:50% 50%;-o-border-radius:50% 50%;border-radius:50% 50%;"> -{{ blog.written_by }}</p>
@@ -26,10 +26,12 @@
                     <br/>
                     <strong id=blog_like_count>{{ blog.likes }}</strong>
                     <font style="color:gray;"> like(s)</font>
+                    {% if show %}
                     {% if user.is_authenticated %}
 		                <button id="blog_like" data-blogid="{{ blog.id }}" class="btn btn-primary" type="button">
 			            <span class="glyphicon glyphicon-thumbs-up"> </span>
 			            Like</button>
+	                {% endif %}
 	                {% endif %}
 
                     <br/>
