@@ -7,12 +7,8 @@
 body
 {
     text-align: center;
-    display: -webkit-box;
-    display:-moz-box;
+    display:-webkit-box;
     -webkit-box-pack:center;
-    -moz-box-pack:center;
-    -ms-box-pack:center;
-    box-pack:center;
 }
 form[role]
 {
@@ -34,6 +30,7 @@ textarea[name="blog_title"]
 #blog_area_div
 {
     text-align: center;
+    display: -moz-box;
 }
 </style>
 {% if category %}
@@ -42,7 +39,7 @@ textarea[name="blog_title"]
         <textarea name="blog_title" cols="60" rows="1" placeholder="Title..."></textarea><br/>
         <div id="blog_area_div">
         <textarea id="blog_area" name="blog_content" cols="60"></textarea>
-    </div>
+    </div><br />
     <script type="text/javascript">
     CKEDITOR.replace( 'blog_area' );
     </script>

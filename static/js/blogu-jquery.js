@@ -33,6 +33,10 @@ $(document).ready(function(){
     //alert('Hello');
     var search_term;
     search_term=$(this).val();
+    if(search_term=="")
+    {
+      $('#search_results').html("");
+    }
      $.ajax({
     type:"GET",
     url: "/blogu/search_top/",
