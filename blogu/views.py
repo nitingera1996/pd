@@ -220,7 +220,6 @@ def add_blog(request,category_name_slug):
         return render(request,'blogu/add_blog.html',context_dict)
 
 def create_signup_username(signup_name):
-        print signup_name
         u_list = UserProfile.objects.all()
         max1=1
         found=0
@@ -237,7 +236,6 @@ def create_signup_username(signup_name):
         if found==1:
             str_num=str(max1+1)
             str1 = prev_username[:lindex+1] + str(num+1)
-            print str1
         else:
             str1=slugify(signup_name)
             str1=str1+'-1'
@@ -311,16 +309,21 @@ def google_login(request):
         name=request.POST['name']
         google_id=request.POST['id']
         response_dict={}
-        print email
+        print "email=",email
         try:
-            u=User.objects.get(email=email)
-            try:
-                print u.google_id
-            except:
-                u.google_id=google_id
-                u.save()
+            #u=User.objects.get(email=email)
+            #print "u=",u
+            print "in try"
+            up=UserProfile.objects.get(user=request.user)
+            print "up=" , up
+            if up.google_registered:
+                pass
+            else:
+                up.google_id=google_id
+                up.google_registered=True
+                up.save()
                     #print "Hello"
-            user = authenticate(username = u.username,password=u.password)
+            user = authenticate(username = up.user.username,password=up.user.password)
             if user:
                 if user.is_active:
                     login(request,user)
@@ -333,6 +336,7 @@ def google_login(request):
         except:
             print "In except"
             signup_username=create_signup_username(name)
+            print signup_username,email
             user=User.objects.create_user(username=signup_username,email=email)
             user.set_password("password")
             user.save()
@@ -341,6 +345,7 @@ def google_login(request):
             profile=UserProfile(user=user1,level=1)
             profile.name=name
             profile.google_id=google_id
+            profile.google_registered=True
             profile.save()
             up_follow=Follow(userprofile=user1)
             up_follow.save()
@@ -349,7 +354,6 @@ def google_login(request):
             login(request,user1)
             response_dict.update({'response':'logged_in'})
             response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
-        print response
         return response
 
 
