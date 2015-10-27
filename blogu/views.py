@@ -502,7 +502,7 @@ def comment(request):
 
 def add_propic(request):
     #return HttpResponse("hello")
-    return render_to_response('blogu/add_propic.html')
+    return render(request,'blogu/add_propic.html',{})
 
 def discussions(request):
     discussions=Discussion.objects.all()
