@@ -36,7 +36,7 @@ class Blog(models.Model):
     def __unicode__(self):
         return self.title
 
-        
+
 class Tag(models.Model):
     name=models.CharField(max_length=50)
     category=models.ForeignKey(Category)
@@ -57,6 +57,8 @@ class UserProfile(models.Model):
     profile_tag_line=models.CharField(max_length=300,null=True,blank=True)
     languages=models.IntegerField(default=1)#English=1,Hindi=2,English And Hindi both =3
     followed_tags=models.ManyToManyField(Tag)
+    google_registered=models.BooleanField(default=False)
+    login=models.IntegerField(default=0)#0=manual,1=google,2=facebook,3=linkedin,4=twitter
     def __unicode__(self):
         return self.user.username
 
