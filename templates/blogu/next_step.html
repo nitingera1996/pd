@@ -1,0 +1,50 @@
+{% extends 'blogu/base2.html' %}
+{% load staticfiled %}
+{% block body_block %}
+<style type="text/css">
+body
+{
+	text-align: center;
+	background: rgb(210,217,236);
+}
+div
+{
+	position:absolute;
+	top:250px;
+	background: gray;
+	width:500px;
+	height:500px;
+}
+h2
+{
+	/*font-family: ;*/
+}
+</style>
+<h2>Make your profile</h2>
+<form method="post" action="/blogu/next_step.html/">
+<div id="form1">
+	<h4>Your prefered categories :</h4><br>
+	{% for c in cat_list %}
+	{{ c.name }} <input type="checkbox" name="category" value="{{ c.id }}"> &nbsp
+	{% endfor %}
+	Choose prefered language : <input type="radio" name="language" value="1"> English<br>
+	<input type="radio" name="language" value="2"> English<br>
+	<input type="radio" name="language" value="3"> English<br>
+	<input type="submit" value="Submit">
+</div>
+<div id="form2">
+	<input type="text" placeholder="Email" name="email"><br>
+	<input type="text" placeholder="Name" name="name"><br>
+	Date of Birth : Date: <input type="number" name="dob_date"> Month: <input type="number" name="dob_month"> Year: <input type="number" name="dob_year"><br>
+	Profile picture : <input type="file" name="picture"><br>
+	<input type="text" placeholder="Describe yourself in a line" name="profile_tag"><br>
+	<button id="save">SAVE</button>
+</div>
+</form>
+    <script src="{% static "js/jquery-1.11.3.min.js" %}"></script>
+    <script type="text/javascript">
+    $('#save').click(function(){
+    	$('#form2').hide();
+    });
+    </script>
+{% endblock %}

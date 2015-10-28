@@ -128,7 +128,7 @@ def category(request,category_name_slug):
 def get_category_list(max_results=0,startswith=''):
     cat_list=[]
     if startswith=='':
-        cat_list = None
+        cat_list = Category.objects.all()
     elif startswith:
         #print "Hello"
         cat_list = Category.objects.filter(name__istartswith=startswith)
@@ -499,8 +499,8 @@ def comment(request):
         return HttpResponse(0)
 
 def add_propic(request):
-    #return HttpResponse("hello")
-    return render(request,'blogu/add_propic.html',{})
+    return HttpResponse("hello")
+    #return render(request,'blogu/add_propic.html',{})
 
 def discussions(request):
     discussions=Discussion.objects.all()
