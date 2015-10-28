@@ -51,9 +51,7 @@ class UserProfile(models.Model):
     liked_categories=models.ManyToManyField(Category)
     level=models.IntegerField(default=1)
     date_registered=models.DateTimeField(default=datetime.now())
-    google_id=models.CharField(null=True,blank=True,unique=True,max_length=100)
     google_registered=models.BooleanField(default=False)
-    login=models.IntegerField(default=0)#0=mannual,1=google,2=facebook,3=twitter,4=linkedin
     profile_tag_line=models.CharField(max_length=300,null=True,blank=True)
     languages=models.IntegerField(default=1)#English=1,Hindi=2,English And Hindi both =3
     followed_tags=models.ManyToManyField(Tag)
@@ -103,3 +101,4 @@ class Discuss(models.Model):
     likes=models.IntegerField(default=0)
     def __unicode__(self):
         return self.discuss_text
+

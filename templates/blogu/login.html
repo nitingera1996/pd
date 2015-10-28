@@ -7,9 +7,6 @@
     <link rel="stylesheet" href="{% static "css/normalize.css" %}">
     <link rel='stylesheet' href="{% static "css/font-awesome.min.css" %}">
     <link rel="stylesheet" href="{% static "css/style.css" %}">
-    <meta name="google-signin-client_id" content="947926274867-1j7u0tlthilbcbttipg02cojc6ehiqpm.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-
     <div class="logmod">
   <div class="logmod__wrapper">
     <div class="logmod__container">
@@ -58,7 +55,7 @@
               </div>
             </form>
           </div>
-          <div class="g-signin2" data-onsuccess="onSignIn" onclick="onSignInClick();"></div>
+          
           <div class="logmod__alter">
             <div class="logmod__alter-container">
               <a href="#" class="connect facebook">
@@ -111,6 +108,11 @@
             </div>
           </form>
         </div>
+        <a href="{% url 'socialauth_begin' 'google-oauth2' %}">Login with Google</a>
+<a href="{% url 'socialauth_begin' 'github' %}">Login with GitHub</a>
+<a href="{% url 'socialauth_begin' 'facebook' %}">Login with Facebook</a>
+<a href="{% url 'socialauth_begin' 'linkedin' %}">Login with LinkedIn</a>
+</div>  
         <div class="logmod__alter">
           <div class="logmod__alter-container">
             <a href="#" class="connect facebook">
@@ -139,7 +141,7 @@
 
 <script src="{% static "js/jquery.min.js" %}"></script>
 <script src="{% static "js/index.js" %}"></script>
-<script src="{% static "js/google-login.js" %}"> </script>
+
 
 
 {% endblock %}

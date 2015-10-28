@@ -9,8 +9,7 @@
 		<link href= "{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 		<link href="{% static "css/dashboard.css" %}" rel="stylesheet">
 		<link href="{% static "css/additional.css" %}" rel="stylesheet">
-    <meta name="google-signin-client_id" content="947926274867-1j7u0tlthilbcbttipg02cojc6ehiqpm.apps.googleusercontent.com  ">
-
+    
 	</head>
 
 	<body>
@@ -45,9 +44,8 @@
               </li>
               <li><a href="{% url 'discussions' %}">Discussions</a></li>
                   {% if user.is_authenticated %}
-                  <li><a id="logout" href="">Logout</a></li>
-                  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-				                <li><a href="/{{ user.username }}/">Profile</a></li>
+                  <li><a href="{% url 'logout' %}">Logout</a></li>
+                                <li><a href="/{{ user.username }}/">Profile</a></li>
 			                {% else %}
 			                    <li><a href="{% url 'login_signup' %}">SignIn/SignUp</a></li>
 			                {% endif %}

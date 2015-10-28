@@ -424,16 +424,9 @@ def search_top(request):
     #return HttpResponse(cat_list)
 
 def user_logout(request):
-    if request.method=="POST":
-        response_dict={}
-        u=request.user
-        if u.login == 1:
-            response_dict.update({'response': "google logout"})
-        else:
-            response_dict.update({'response':"simple logout"})
-        response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
-        logout(request)
-        return response
+    logout(request)
+    print "Hello"
+    return HttpResponseRedirect('/blogu/')
 
 
 def follow_user(request):
@@ -530,3 +523,11 @@ def discuss(request):
         print up
         d=Discuss.objects.get_or_create(discuss_text=discuss_text,discuss_by=up,discuss_on=dn,likes=0)
         return HttpResponse(0)
+
+def next_step(request):
+    u=request.user
+    try:
+        up=UserProfile.objects.get(user=u)
+        return render(request,'blogu/next_step.html',{})
+    except:
+        return HttpResponseRedirect('/blogu/')
