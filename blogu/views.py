@@ -419,7 +419,7 @@ def search_top(request):
     context_dict['users']=u_list
     #print context_dict
     #return HttpResponse("Results")
-    return render(request,"blogu/search_results.html", {'cats':cat_list,'blogs':b_list} )
+    return render(request,"blogu/search_results.html", context_dict)
 
     #return HttpResponse(cat_list)
 
@@ -493,7 +493,7 @@ def comment(request):
 
 def add_propic(request):
     #return HttpResponse("hello")
-    return render_to_response('blogu/add_propic.html')
+    return render(request,"blogu/add_propic.html",{})
 
 def discussions(request):
     discussions=Discussion.objects.all()
@@ -526,8 +526,32 @@ def discuss(request):
 
 def next_step(request):
     u=request.user
-    try:
-        up=UserProfile.objects.get(user=u)
-        return render(request,'blogu/next_step.html',{})
-    except:
+    if request.method=="POST":
+        up=UserProfile(user=u,level=1)
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        dob_date = request.POST.get('dob_date')
+        dob_month = request.POST.get('dob_month')
+        dob_year = request.POST.get('dob_year')
+        profile_pic_url=request.FILES['picture']
+        languages=request.POST.get('languages')
+        profile_tagline=request.POST.get('profile_tagline')
+        up.name=name
+        up.dob_date=int(dob_date)
+        up.dob_month=int(dob_month)
+        up.dob_year=int(dob_year)
+        up.languages=languages
+        up.profile_tag_line=profile_tagline
+        up.save()
+        up_follow=Follow(userprofile=u)
+        up_follow.save()
         return HttpResponseRedirect('/blogu/')
+    else:
+        try:
+            up=UserProfile.objects.get(user=u)
+            context_dict={}
+            cat_list=Category.objects.all()
+            context_dict['cat_list']=cat_list
+            return render(request,'blogu/next_step.html',context_dict)
+        except:
+            return HttpResponseRedirect('/blogu/')

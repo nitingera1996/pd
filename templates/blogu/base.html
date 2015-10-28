@@ -45,7 +45,7 @@
               <li><a href="{% url 'discussions' %}">Discussions</a></li>
                   {% if user.is_authenticated %}
                   <li><a href="{% url 'logout' %}">Logout</a></li>
-                                <li><a href="/{{ user.username }}/">Profile</a></li>
+                                <li><a id='profile' href="/{{ user.username }}/">Profile</a></li>
 			                {% else %}
 			                    <li><a href="{% url 'login_signup' %}">SignIn/SignUp</a></li>
 			                {% endif %}

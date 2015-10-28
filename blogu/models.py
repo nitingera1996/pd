@@ -57,6 +57,9 @@ class UserProfile(models.Model):
     followed_tags=models.ManyToManyField(Tag)
     google_registered=models.BooleanField(default=False)
     login=models.IntegerField(default=0)#0=manual,1=google,2=facebook,3=linkedin,4=twitter
+    dob_date = models.IntegerField(default=1)
+    dob_month = models.IntegerField(default=1)
+    dob_year = models.IntegerField(default=2000)
     def __unicode__(self):
         return self.user.username
 
