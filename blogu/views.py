@@ -419,21 +419,14 @@ def search_top(request):
     context_dict['users']=u_list
     #print context_dict
     #return HttpResponse("Results")
-    return render(request,"blogu/search_results.html", {'cats':cat_list,'blogs':b_list} )
+    return render(request,"blogu/search_results.html", context_dict)
 
     #return HttpResponse(cat_list)
 
 def user_logout(request):
-    if request.method=="POST":
-        response_dict={}
-        u=request.user
-        if u.login == 1:
-            response_dict.update({'response': "google logout"})
-        else:
-            response_dict.update({'response':"simple logout"})
-        response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
-        logout(request)
-        return response
+    logout(request)
+    print "Hello"
+    return HttpResponseRedirect('/blogu/')
 
 
 def follow_user(request):
@@ -499,8 +492,13 @@ def comment(request):
         return HttpResponse(0)
 
 def add_propic(request):
+<<<<<<< HEAD
     return HttpResponse("hello")
     #return render(request,'blogu/add_propic.html',{})
+=======
+    #return HttpResponse("hello")
+    return render(request,"blogu/add_propic.html",{})
+>>>>>>> f32e647df28e39f98bdfdd3f18a29ee15160672c
 
 def discussions(request):
     discussions=Discussion.objects.all()
@@ -530,3 +528,35 @@ def discuss(request):
         print up
         d=Discuss.objects.get_or_create(discuss_text=discuss_text,discuss_by=up,discuss_on=dn,likes=0)
         return HttpResponse(0)
+
+def next_step(request):
+    u=request.user
+    if request.method=="POST":
+        up=UserProfile(user=u,level=1)
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        dob_date = request.POST.get('dob_date')
+        dob_month = request.POST.get('dob_month')
+        dob_year = request.POST.get('dob_year')
+        profile_pic_url=request.FILES['picture']
+        languages=request.POST.get('languages')
+        profile_tagline=request.POST.get('profile_tagline')
+        up.name=name
+        up.dob_date=int(dob_date)
+        up.dob_month=int(dob_month)
+        up.dob_year=int(dob_year)
+        up.languages=languages
+        up.profile_tag_line=profile_tagline
+        up.save()
+        up_follow=Follow(userprofile=u)
+        up_follow.save()
+        return HttpResponseRedirect('/blogu/')
+    else:
+        try:
+            up=UserProfile.objects.get(user=u)
+            context_dict={}
+            cat_list=Category.objects.all()
+            context_dict['cat_list']=cat_list
+            return render(request,'blogu/next_step.html',context_dict)
+        except:
+            return HttpResponseRedirect('/blogu/')

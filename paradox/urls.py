@@ -15,6 +15,7 @@ urlpatterns = [
 	#url(r'^accounts/register/$', MyRegistrationView.as_view(),name = 'registration_register'),
 	url(r'^accounts/',include('registration.backends.simple.urls')),
     url(r'^(?P<username>[\w\-]+)/$',views.dashboard,name='dashboard'),
+    url(r'', include('social_auth.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += patterns(
