@@ -70,6 +70,22 @@ $(document).ready(function(){
       });
   });
 
+  $('#quick_add_blog').click(function(){
+    console.log('Hello');
+    var blog_text = $('#quick_blog_text').val();
+    console.log(blog_text);
+    window.open("/blogu/none/add_blog/","_self");
+    console.log('Hello1');
+    $('#blog_area').html(blog_text);
+  });
+
+  $('#select-category').change(function(){
+    var cat_slug = $('#select-category').val();
+    console.log('Hello');
+    var url= "/blogu/"+ cat_slug + "/add_blog/" ;
+    $('#blog_form2').attr("action",url);
+  });
+
   $('#discuss').click(function(){
     var user_id,blog_id;
     up_name=$(this).attr('data-upname');

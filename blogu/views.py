@@ -534,13 +534,15 @@ def next_step(request):
         dob_month = request.POST.get('dob_month')
         dob_year = request.POST.get('dob_year')
         profile_pic_url=request.FILES['picture']
+        print profile_pic_url
         languages=request.POST.get('languages')
         profile_tagline=request.POST.get('profile_tagline')
+        liked_category_ids=request.POST.getlist('category')
         up.name=name
         up.dob_date=int(dob_date)
         up.dob_month=int(dob_month)
         up.dob_year=int(dob_year)
-        up.languages=languages
+        up.languages=int(languages) 
         up.profile_tag_line=profile_tagline
         up.save()
         up_follow=Follow(userprofile=u)
