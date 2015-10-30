@@ -17,10 +17,9 @@ urlpatterns = patterns('',
         url(r'^follow_user/$',views.follow_user,name="follow_user"),
         url(r'^comment/$',views.comment,name='comment'),
         url(r'^discuss/$',views.discuss,name='discuss'),
-        url(r'^add_propic/',views.add_propic,name="add_propic"),
         url(r'^discussions/$',views.discussions,name='discussions'),
         url(r'^new_discussion/$',views.new_discussion,name='new_discussion'),
         url(r'^discussion/(?P<discussion_slug>[\w\-]+)/$',views.discussion,name="discussion"),
         url(r'^next_step/$',views.next_step,name="next_step"),
-
-		)
+        url(r'^post_to_facebook/(?P<blog_id>[\w\-]+)/$',views.post_to_facebook,name="post_to_facebook"),
+	)

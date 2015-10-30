@@ -16,6 +16,7 @@ urlpatterns = [
 	url(r'^accounts/',include('registration.backends.simple.urls')),
     url(r'^(?P<username>[\w\-]+)/$',views.dashboard,name='dashboard'),
     url(r'', include('social_auth.urls')),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += patterns(

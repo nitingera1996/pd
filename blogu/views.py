@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from datetime import datetime,date,tzinfo,timedelta
 from collections import Counter
 import json
+import facebook
 
 ZERO = timedelta(0)
 
@@ -72,6 +73,7 @@ def index(request):
             b_time.append("Just now")
     zipped_data=zip(blog_list,b_time,show)
     context_dict['zipped_data']=zipped_data
+    #context_dict['u']=user1
     response = render(request,'blogu/index.html',context_dict)
     return response
 
@@ -128,7 +130,7 @@ def category(request,category_name_slug):
 def get_category_list(max_results=0,startswith=''):
     cat_list=[]
     if startswith=='':
-        cat_list = None
+        cat_list = Category.objects.all()
     elif startswith:
         #print "Hello"
         cat_list = Category.objects.filter(name__istartswith=startswith)
@@ -243,6 +245,29 @@ def add_blog(request,category_name_slug):
         context_dict={'category_list':Category.objects.all(),'category':cat}
         return render(request,'blogu/add_blog.html',context_dict)
 
+def add_blog2(request,category_name_slug):
+    try:
+        cat=Category.objects.get(slug=category_name_slug)
+    except Category.DoesNotExist:
+        cat=None
+
+    if request.method=="POST":
+        blog_form=BlogForm(request.POST)
+        if blog_form.is_valid:
+            blog_form.save(commit=True)
+            blog1=Blog.objects.get(title=blog_form.cleaned_data['title'])
+            blog1.datetime_added=datetime.now(),
+            blog1.category=cat
+            blog1.written_by=request.user
+            blog1.save()
+            return blog(request,slugify(blog_form.cleaned_data['title']))
+        else:
+            print blog_form.errors
+    else:
+        form=BlogForm()
+        context_dict={'category_list':Category.objects.all(),'category':cat,'myform':form}
+        return render(request,'blogu/add_blog2.html',context_dict)
+
 def create_signup_username(signup_name):
         u_list = UserProfile.objects.all()
         max1=1
@@ -288,9 +313,6 @@ def login_and_signup(request):
             user = authenticate(username = login_username,password=login_password)
             if user and login_username and login_password:
                 if user.is_active:
-                    up=UserProfile.objects.get(user=u)
-                    up.login=0
-                    up.save()
                     login(request,user)
                     return HttpResponseRedirect('/blogu/')
                 else:
@@ -325,10 +347,10 @@ def login_and_signup(request):
                     #user1 = authenticate(username = signup_username,password=signup_password1)
                     print user1
                     login(request,user1)
-                    return HttpResponseRedirect('/blogu/')
+                    return render(request,'blogu/next_step.html',{'email':signup_email,'name':signup_name}) 
                     #return render(request,'blogu/signup2.html',{'username':signup_username})
 
-        return render(request,'blogu/login.html',{'login_statement':login_statement,'signup_statement':signup_statement})
+        return render(request,'blogu/login.html',{'login_statement':login_statement,'signup_statement':signup_statement,'cat_list':Category.objects.all()})
     else:
         return render(request,'blogu/login.html',{})
 
@@ -492,7 +514,7 @@ def comment(request):
         return HttpResponse(0)
 
 def add_propic(request):
-    #return HttpResponse("hello")
+    return HttpResponse("hello")
     return render(request,"blogu/add_propic.html",{})
 
 def discussions(request):
@@ -551,9 +573,26 @@ def next_step(request):
     else:
         try:
             up=UserProfile.objects.get(user=u)
+            return HttpResponseRedirect('/blogu/')
+        except:
             context_dict={}
             cat_list=Category.objects.all()
             context_dict['cat_list']=cat_list
             return render(request,'blogu/next_step.html',context_dict)
-        except:
-            return HttpResponseRedirect('/blogu/')
+            
+def quick_add_blog(request):
+    if request.method=="POST":
+        blog_text=request.POST.get('quick_blog_text')
+        context_dict={}
+        context_dict['category_list'] = Category.objects.all()
+        context_dict['quick_blog_text']= blog_text
+        context_dict['cat']= None
+        return render(request,'blogu/add_blog.html',context_dict)
+
+def post_to_facebook(request,blog_id):
+    blog=Blog.objects.get(id=blog_id)
+    user = request.user
+    auth = user.social_auth.first()
+    graph = facebook.GraphAPI(auth.extra_data['access_token'])
+    graph.put_object('me', 'feed', message=blog.text)
+    return HttpResponseRedirect('/blogu/')

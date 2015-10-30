@@ -41,6 +41,8 @@ INSTALLED_APPS = (
     'registration',
     'bootstrap_toolkit',
     'social_auth',
+    'ckeditor',
+    'ckeditor_uploader',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -145,7 +147,7 @@ GITHUB_API_SECRET = 'cfc368b681542a753b11a84a3d4d3e768204a03b'
 SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
 FACEBOOK_APP_ID='714227718708789'
 FACEBOOK_API_SECRET='10c08e65a84e063c86c0441292957e21'
-FACEBOOK_EXTENDED_PERMISSIONS = ['email']
+FACEBOOK_EXTENDED_PERMISSIONS = ['email','publish_actions']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'locale': 'en_US'}
 TWITTER_CONSUMER_KEY         = 'P2jkBWiMIQgiPFKzO4kRmefQA'
 TWITTER_CONSUMER_SECRET      = 'X4LkTxItcTRIwGaYxn3WjPITzw2wdU2VMSiqh81daHBdzZDOkm'
@@ -162,3 +164,6 @@ LINKEDIN_SCOPE = ['r_basicprofile', 'r_emailaddress',]
 #                       ('email-address', 'email_address'),
 #                       ('headline', 'headline'),
 #                      ('industry', 'industry')]
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+CKEDITOR_UPLOAD_PATH = "blog-uploads/"
+CKEDITOR_RESTRICT_BY_USER=True

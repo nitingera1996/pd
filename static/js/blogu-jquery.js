@@ -106,16 +106,22 @@ $(document).ready(function(){
     $("#"+user_id).hide();
     });
 
-  $('#profile').click(function() {
+  $('#profile_edit').click(function() {
   	event.preventDefault();
-    $.get('/blogu/add_propic/',function(data){
-      $("#profile_data").html(data);
+    var all_div=$('div');
+    all_div.css("opacity",".7");
+    all_div.click(function(event){event.preventDefault();});
+    all_div.keydown(function(event){event.preventDefault();});
+    $('#profile_data').css({"opacity":"1","height":"480px","z-index":"5"});
+    $.ajax({
+    type:"GET",
+    url: "/blogu/add_propic/",
+    data: {},
+    success: function(newData){
+        console.log(newData);
+        $('#profile_data').html(newData);
+    }
     });
-  	var all_div=$('div');
-  	all_div.css("opacity",".7");
-  	all_div.click(function(event){event.preventDefault();});
-  	all_div.keydown(function(event){event.preventDefault();});
-  	$('#profile_data').css({"opacity":"1","height":"480px","z-index":"5"});
   	});
 
   $('li[data-id]').click(function()

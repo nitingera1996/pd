@@ -2,6 +2,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from datetime import datetime
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Category(models.Model):
@@ -23,6 +25,8 @@ class Blog(models.Model):
     written_by=models.ForeignKey(User)
     views = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
+    content = RichTextField()
+    image=RichTextUploadingField()
     #comments=models.ManyToManyField(Comment)
     text = models.TextField()
     likes=models.IntegerField(default=0)

@@ -13,8 +13,6 @@
 	</head>
 
 	<body>
-		<div id="profile_data">
-		</div>
 	    <div class ="navbar navbar-inverse navbar-fixed-top" role = "navigation" style="background:rgb(70,94,170);height:55px;">
 		    <div class="container-fluid" style="display:-webkit-box;display:-moz-box;width:100%;">
 			    <div class="nav-header" style="-webkit-box-flex:1;-moz-box-flex:1;">
@@ -26,15 +24,9 @@
 					</button>
 					<a class="navbar-brand" id="navbar-brand-id" href="/blogu/" style="height:auto;"><img src="{% static "images/nblik.jpg" %}"></a>
 				</div>
-<!--<<<<<<< HEAD-->
 				<div class="navbar-collapse collapse" style="-webkit-box-flex:1;-moz-box-flex:1;">
 				    <u1 class="nav navbar-nav navbar-right"  style="min-width:640px;background:rgb(70,94,170);"><li>
               <form>
-<!--=======
-				<div class="navbar-collapse collapse" style="-webkit-box-flex:1;-moz-flex:1;">
-				    <u1 class="nav navbar-nav navbar-right"  style="min-width:520px;">
-				    	<li>
- >>>>>>> 3bc9aea59945918e659b1b8d1b4396734eba4aa2-->
 				    		<div style="position:relative;padding:0;">
 				    		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 <input type="text" value="" name="search-top" id="suggestion_search" placeholder="Search"/>
@@ -45,7 +37,7 @@
               <li><a href="{% url 'discussions' %}">Discussions</a></li>
                   {% if user.is_authenticated %}
                   <li><a href="{% url 'logout' %}">Logout</a></li>
-                                <li><a id='profile' href="/{{ user.username }}/">Profile</a></li>
+                                <li><a href="/{{ user.username }}/">Profile</a></li>
 			                {% else %}
 			                    <li><a href="{% url 'login_signup' %}">SignIn/SignUp</a></li>
 			                {% endif %}
@@ -61,7 +53,7 @@
 		<div class="container-fluid">
 		    <div class="col-sm-3 col-md-2 sidebar" style="overflow-y:auto;background:rgb(210,217,236);-moz-box-sizing:content-box;">
 			<u1 class="nav nav-list">
-			    <li class="nav-header" style="font-family:tahoma;font-weight:bold;font-size:16px;">Find a Category</li>
+			    <li class="nav-header" style="font-family:tahoma;font-weight:bold;font-size:16px;color:black;">Find a Category</li>
 				<form>
 				<li><input class="search-query span10" type="text" name="suggestion" value="" id="suggestion_id"
 					placeholder="Enter Category"/></li>
@@ -84,7 +76,7 @@
 			</div>
 			<div class="col-sm-3 col-sm-offset-9 col-md-2 col-md-offset-10 sidebar" style="background:rgb(210,217,236);">
 				<u1 class="nav nav-list">
-			    <li class="nav-header" style="font-family:tahoma;font-weight:bold;font-size:16px;">Featured Blogs</li>
+			    <li class="nav-header" style="font-family:tahoma;font-weight:bold;font-size:16px;color:black;">Featured Blogs</li>
 			    </u1>
 				<div id="featured_blogs">
         {% block side_block2_1 %}
