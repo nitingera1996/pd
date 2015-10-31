@@ -492,13 +492,10 @@ def comment(request):
         return HttpResponse(0)
 
 def add_propic(request):
-<<<<<<< HEAD
     return HttpResponse("hello")
     #return render(request,'blogu/add_propic.html',{})
-=======
     #return HttpResponse("hello")
     return render(request,"blogu/add_propic.html",{})
->>>>>>> f32e647df28e39f98bdfdd3f18a29ee15160672c
 
 def discussions(request):
     discussions=Discussion.objects.all()

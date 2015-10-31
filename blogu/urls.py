@@ -20,10 +20,6 @@ urlpatterns = patterns('',
         url(r'^discussions/$',views.discussions,name='discussions'),
         url(r'^new_discussion/$',views.new_discussion,name='new_discussion'),
         url(r'^discussion/(?P<discussion_slug>[\w\-]+)/$',views.discussion,name="discussion"),
-<<<<<<< HEAD
         #url(r'^next_step/$',views.next_step,name='next_step'),
-=======
         url(r'^next_step/$',views.next_step,name="next_step"),
-
->>>>>>> f32e647df28e39f98bdfdd3f18a29ee15160672c
 		)
