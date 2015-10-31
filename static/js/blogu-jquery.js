@@ -132,4 +132,12 @@ $(document).ready(function(){
     $('li[data-id').css({"color":"white","background":"rgb(70,94,170)"});
     $(this).css({"color":"rgb(28,56,110)","background":"white"});
   });
+  $('.text_div').click(function(event)
+  {
+    $(this).toggleClass('active_text');
+    /*if(ele.attr("height")=="150px")
+    { 
+      ele.attr("height","250px");
+    }*/
+  });
 });

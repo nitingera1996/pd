@@ -9,10 +9,23 @@ body
     text-align: center;
     display:-webkit-box;
     -webkit-box-pack:center;
+    -webkit-box-orient:vertical;
+    -moz-box-orient:vertical;
+}
+#category
+{
+    font-weight: bold;
+    font-size: 16px;
+    color:rgb(150,150,150);
+}
+#select-category
+{
+    margin-top: 20px;
+    color:rgb(75,75,75);
 }
 form[role]
 {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 textarea[name="blog_title"]
 {
@@ -31,6 +44,8 @@ textarea[name="blog_title"]
 {
     text-align: center;
     display: -moz-box;
+    display: -webkit-box;
+    -webkit-box-pack:center;
 }
 </style>
 {% if category %}
@@ -43,26 +58,24 @@ textarea[name="blog_title"]
         {% else %}
         <textarea id="blog_area" name="blog_content" cols="60"></textarea>
         {% endif %}
-    </div><br />
+    </div>
     <script type="text/javascript">
     CKEDITOR.replace( 'blog_area' );
     </script>
         <button class = "btn btn-primary" type = "submit" name ="submit">Add Blog</button>
     </form>
-
 {% else %}
-<select id ="select-category" name="dropdown">
+        <span id="category">Category : </span>&nbsp<select id="select-category" name="dropdown">
     {% for category in category_list %}
   <option value="{{ category.slug }}">{{ category.name }}</option>
     {% endfor %}
 </select>
-
 <form role="form" id="blog_form2" method = "post" action = '/blogu/{{ category.slug }}/add_blog/' enctype = "multipart/form-data">
         {% csrf_token %}
         <textarea name="blog_title" cols="60" rows="1" placeholder="Title..."></textarea><br/>
         <div id="blog_area_div">
         <textarea id="blog_area" name="blog_content" cols="60"></textarea>
-    </div><br />
+    </div>
     <script type="text/javascript">
     CKEDITOR.replace( 'blog_area' );
     </script>
