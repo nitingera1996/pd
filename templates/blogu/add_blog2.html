@@ -1,0 +1,33 @@
+{% extends 'blogu/base2.html' %}
+{% load staticfiles %}
+{% load bootstrap_toolkit %}
+{% block body_block %}
+
+<form>
+    {{ myform.media }}
+    {{ myform.as_p }}
+    <input type="submit"/>
+</form>
+
+{% if category %}
+<form role="form" id="blog_form" method = "post" action = '/blogu/{{ category.slug }}/add_blog/' enctype = "multipart/form-data">
+        {% csrf_token %}
+        {{ myform.media }}
+        <button class = "btn btn-primary" type = "submit" name ="submit">Add Blog</button>
+    </form>
+
+{% else %}
+<select id ="select-category" name="dropdown">
+    {% for category in category_list %}
+  <option value="{{ category.slug }}">{{ category.name }}</option>
+    {% endfor %}
+</select>
+
+<form role="form" id="blog_form2" method = "post" action = '/blogu/{{ category.slug }}/add_blog/' enctype = "multipart/form-data">
+    {% csrf_token %}
+    {{ myform.media }}
+    <button class = "btn btn-primary" type = "submit" name ="submit">Add Blog</button>
+    </form>
+
+{% endif %}
+{% endblock %}

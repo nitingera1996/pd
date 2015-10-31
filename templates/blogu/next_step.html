@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 {% extends 'blogu/base2.html' %}
-{% load staticfiled %}
+{% load staticfiles %}
 {% block body_block %}
 <style type="text/css">
 body
@@ -34,8 +33,8 @@ h2
 	<input type="submit" value="Submit">
 </div>
 <div id="form2">
-	<input type="text" placeholder="Email" name="email"><br>
-	<input type="text" placeholder="Name" name="name"><br>
+	<input type="text" placeholder="Email" name="email" value="{{ email }}"><br>
+	<input type="text" placeholder="Name" name="name" value="{{ name }}"><br>
 	Date of Birth : Date: <input type="number" name="dob_date"> Month: <input type="number" name="dob_month"> Year: <input type="number" name="dob_year"><br>
 	Profile picture : <input type="file" name="picture"><br>
 	<input type="text" placeholder="Describe yourself in a line" name="profile_tag"><br>
@@ -49,10 +48,3 @@ h2
     });
     </script>
 {% endblock %}
-=======
-<html>
-<body>
-	<a href="/blogu/">Skip</a>
-	</body>
-</html>
->>>>>>> f32e647df28e39f98bdfdd3f18a29ee15160672c
