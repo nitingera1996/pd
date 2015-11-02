@@ -20,6 +20,8 @@ urlpatterns = patterns('',
         url(r'^discussions/$',views.discussions,name='discussions'),
         url(r'^new_discussion/$',views.new_discussion,name='new_discussion'),
         url(r'^discussion/(?P<discussion_slug>[\w\-]+)/$',views.discussion,name="discussion"),
+        #url(r'^next_step/$',views.next_step,name='next_step'),
+        url(r'^next_step/$',views.next_step,name="next_step"),
         url(r'^next_step/$',views.next_step,name="next_step"),
         url(r'^post_to_facebook/(?P<blog_id>[\w\-]+)/$',views.post_to_facebook,name="post_to_facebook"),
 	)

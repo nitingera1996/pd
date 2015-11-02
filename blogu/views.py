@@ -54,9 +54,12 @@ def index(request):
     #print show
     context_dict['blogs']=blog_list
     comment_matrix=[]
+    comments_number={}
     for blog in blog_list:
         comment_matrix.append(Comment.objects.filter(comment_to=blog).order_by('-likes')[:5])
+        comments_number[blog.title]=len(Comment.objects.filter(comment_to=blog))
     context_dict['comments']=comment_matrix
+    context_dict['comments_number']=comments_number
     b_time=[]
     for b in blog_list:
         days=(datetime.now(utc)-b.datetime_added).days
@@ -106,7 +109,9 @@ def category(request,category_name_slug):
         except:
             pass
         b_time=[]
+        comments_number={}
         for b in blog_list:
+            comments_number[b.title]=len(Comment.objects.filter(comment_to=b))
             days=(datetime.now(utc)-b.datetime_added).days
             seconds=(datetime.now(utc) - b.datetime_added).seconds
             minutes=seconds/60
@@ -119,6 +124,7 @@ def category(request,category_name_slug):
                 b_time.append(str(minutes)+" minutes ago")
             else:
                 b_time.append("Just now")
+        context_dict['comments_number']=comments_number
         zipped_data=zip(blog_list,b_time,show)
         context_dict['zipped_data']=zipped_data
     except Category.DoesNotExist:
@@ -148,6 +154,7 @@ def blog(request,blog_title_slug):
         b=Blog.objects.get(slug=blog_title_slug)
         print b.blog_content
         c=Comment.objects.filter(comment_to=b).order_by('-likes')
+        comments_number=len(c)
         comment_by_name=[]
         for co in c:
             u=co.comment_by
@@ -175,7 +182,7 @@ def blog(request,blog_title_slug):
         b_time=str(minutes)+" minutes ago"
     else:
         b_time="Just now"
-    return render(request,'blogu/blog.html',{'blog':b,'comments':comments,'b_time':b_time,'show':show,'u':request.user,'up':up})
+    return render(request,'blogu/blog.html',{'blog':b,'comments':comments,'b_time':b_time,'show':show,'u':request.user,'up':up,'comments_number':comments_number})
 
 
 @login_required
@@ -525,6 +532,8 @@ def comment(request):
 
 def add_propic(request):
     return HttpResponse("hello")
+    #return render(request,'blogu/add_propic.html',{})
+    #return HttpResponse("hello")
     return render(request,"blogu/add_propic.html",{})
 
 def discussions(request):

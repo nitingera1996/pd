@@ -15,8 +15,8 @@
 {% endif %}
 <p class='text-left' style="color:gray;"> -{{ blog.written_by }}</p>
 <br/>
-<blog class="blog_content">{{ blog.blog_content|safe }}</blog>
-<br/><br />
+<blog class="blog_text">{{ blog.blog_content|safe }}</blog>
+<br/><br/>
 <font style="color:black;font-weight:bold;">{{ blog.likes }}</font><font style="color:gray;"> like(s)</font>
 {% if user.is_authenticated %}
 {% if show %}
@@ -24,7 +24,10 @@
                         <span class="glyphicon glyphicon-thumbs-up"> </span>
                         Like</button>
                     {% endif %}
-                    {% endif %}
+                    {% endif %},&nbsp
+                    <font style="color:black;font-weight:bold;">
+                {{ comments_number }}
+            </font><font style="color:gray;">comment(s)</font><br>
 <div>
 	<div class="panel">
         <br />

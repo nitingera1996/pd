@@ -4,40 +4,47 @@
 {% block body_block %}
 <link href="{% static "css/index.css" %}" rel="stylesheet">
 	    {% if user.is_authenticated %}
+        <div id="quick_blog">
         <form role="form" accept-charset="utf-8" method="post" action="/blogu/quick_add_blog/" class="simform">
             {% csrf_token %}
             <span>Write a blog...</span><br />
             <textarea name="quick_blog_text" cols="75" rows="4"></textarea><br />
             <button type="submit">Write Blog</button>
         </form>
+        </div>
         <hr/>
 		{% else %}
 		{% endif %}
 		{% if blogs %}
                 {% for blog,b_time,show in zipped_data %}
-                    <a href="{% url 'category' blog.category.slug %}" style='text-align:left;color:rgb(75,75,75);font-weight:normal;font-size:20px;letter-spacing:1px;'>{{ blog.category }}</a>
+                    <a id="cat" href="{% url 'category' blog.category.slug %}" style='text-align:left;color:rgb(75,75,75);font-weight:normal;font-size:20px;letter-spacing:1px;'>{{ blog.category }}</a>
                     <span style='float:right;color:gray;'>{{ b_time }}</span>
 
-                <p class='text-left' style="color:gray;"> &nbsp<img src="{{ blog.written_by.picture.url }}" /> -<a href="/{{ blog.written_by }}/">{{ blog.written_by }}</a></p>
+                <p class='text-left' style="color:gray;"> &nbsp<img src="{{ blog.written_by.picture.url }}" /> -<a id="written_by" href="/{{ blog.written_by }}/">{{ blog.written_by }}</a></p>
                 <h3 style="font-family:arial;"><a class="blog_title" href="{% url 'blog' blog.slug %}" ><strong>{{ blog.title }}</strong></a></h3>
-                <p class="blog_text">{{ blog.blog_content|safe }}</p>
-                <br/><font style="color:black;font-weight:bold;">
+                <div class="active_text text_div"><p class="blog_text">{{ blog.blog_content|safe }}</p></div>
+                <font style="color:black;font-weight:bold;">
                 {{ blog.likes }} </font><font style="color:gray;">like(s)</font>
 				{% if show %}
-                <font style="color:black;font-weight:bold;">
                 {% if user.is_authenticated %}
                         <button id="blog_like" data-blogid="{{ blog.id }}" class="btn btn-primary" type="button">
                         <span class="glyphicon glyphicon-thumbs-up"> </span>
                         Like</button>
                     {% endif %}
-				{% endif %}
-                {{ blog.comments }} </font><font style="color:gray;">comment(s)</font>
+				{% endif %},&nbsp
+                <font style="color:black;font-weight:bold;">
+                {% for key,value in comments_number.items %}
+                {% if key == blog.title %}
+                {{ value }}
+                {% endif %}
+                {% endfor %}
+            </font><font style="color:gray;">comment(s)</font><br><br>
 {% if user.is_authenticated %}
                 
-    <a href="/blogu/post_to_facebook/{{ blog.id }}/"> Share </a>
+    <a id="share" href="/blogu/post_to_facebook/{{ blog.id }}/"> <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Share</a>
 
 {% else %}
-    <a href="{% url 'socialauth_begin' 'facebook' %}"> Share </a>
+    <a id="share" href="{% url 'socialauth_begin' 'facebook' %}"> <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Share</a>
 {% endif %} 
 
                 <br/>
@@ -47,5 +54,4 @@
 		{% else %}
 		    <strong>There are no blogs present.</strong>
 		{% endif %}
-
 {% endblock %}

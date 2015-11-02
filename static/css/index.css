@@ -27,7 +27,7 @@ a.blog_title:active
 }
 .blog_text
 {
-	color:rgb(100,100,100);
+	color:rgb(75,75,75);
 	font-family:'Itim',arial;
 	font-weight:normal;
 	font-size: 16px;
@@ -55,7 +55,7 @@ h1
 {
 	margin-top: 20px;
 }
-#quick_blog>textarea
+#quick_blog textarea
 {
 	padding-left: 5px;
 	-webkit-border-radius:7px;
@@ -66,14 +66,14 @@ h1
 	resize:none;
 	font-size: 16px;
 }
-#quick_blog>button
+#quick_blog button
 {
 	color: white;
 	font-weight: bold;
 	background: rgb(70,94,170); 
 	margin-top: 5px;
 }
-#quick_blog>span
+#quick_blog span
 {
 	font-weight: bold;
 	margin-bottom: 5px;
@@ -83,4 +83,67 @@ h1
 {
 	padding: 3px;
 	font-size:13px;
+	background: rgb(0,123,255);
+	border:none;
+	font-weight: bold;
+}
+#blog_like:hover,#category_like:hover
+{
+	background: blue;
+}
+#comment
+{
+	background: rgb(0,123,255);
+	border:none;
+	font-weight: bold;
+}
+#comment:hover
+{
+	background: blue;
+}
+#share:link
+{
+background: rgb(0,123,255);
+-webkit-border-radius:3px;
+-moz-border-radius:3px;
+border-radius:3px;
+color:white;
+font-weight: bold;
+padding: 3px;
+}
+#share:hover
+{
+	background: blue;
+	text-decoration: none;
+}
+#share:visited
+{
+	color:white;
+}
+#cat:hover
+{
+text-decoration: none;
+}
+#written_by:link
+{
+	font-weight: bold;
+	color:gray;
+}
+a#written_by:hover
+{
+	color: black;
+	text-decoration: none;
+}
+#written_by:visited
+{
+	color:gray;
+}
+.text_div
+{
+	padding: 10px;
+}
+.active_text
+{
+	height:150px;
+	overflow: hidden;
 }
