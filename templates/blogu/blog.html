@@ -15,7 +15,7 @@
 {% endif %}
 <p class='text-left' style="color:gray;"> -{{ blog.written_by }}</p>
 <br/>
-{{ blog.text|safe }}
+<blog class="blog_content">{{ blog.blog_content|safe }}</blog>
 <br/><br />
 <font style="color:black;font-weight:bold;">{{ blog.likes }}</font><font style="color:gray;"> like(s)</font>
 {% if user.is_authenticated %}

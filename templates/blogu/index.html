@@ -20,7 +20,7 @@
 
                 <p class='text-left' style="color:gray;"> &nbsp<img src="{{ blog.written_by.picture.url }}" /> -<a href="/{{ blog.written_by }}/">{{ blog.written_by }}</a></p>
                 <h3 style="font-family:arial;"><a class="blog_title" href="{% url 'blog' blog.slug %}" ><strong>{{ blog.title }}</strong></a></h3>
-                <p class="blog_text">{{ blog.text|safe }}</p>
+                <p class="blog_text">{{ blog.blog_content|safe }}</p>
                 <br/><font style="color:black;font-weight:bold;">
                 {{ blog.likes }} </font><font style="color:gray;">like(s)</font>
 				{% if show %}

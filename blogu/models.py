@@ -25,10 +25,10 @@ class Blog(models.Model):
     written_by=models.ForeignKey(User)
     views = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
-    content = RichTextField()
-    image=RichTextUploadingField()
+    #content = RichTextField()
+    blog_content=RichTextUploadingField()
     #comments=models.ManyToManyField(Comment)
-    text = models.TextField()
+    #text = models.TextField()
     likes=models.IntegerField(default=0)
     datetime_added=models.DateTimeField(default=datetime.now())
     def save(self, *args, **kwargs):
@@ -47,6 +47,41 @@ class Tag(models.Model):
     def __unicode__(self):
         return self.name
 
+class Company(models.Model):
+    user=models.OneToOneField(User)
+    name=models.CharField(max_length=200)
+    logo=models.ImageField(upload_to='logo_images',blank=True)
+    date_registered=models.DateTimeField(default=datetime.now())
+    address=models.CharField(max_length=300)
+    about=models.TextField()
+    def __unicode__(self):
+        return self.name
+
+
+class UnPostedBlog(models.Model):
+    category = models.ForeignKey(Category)
+    title = models.CharField(max_length=128)
+    written_by=models.ForeignKey(User)
+    views = models.IntegerField(default=0)
+    slug = models.SlugField(unique=True)
+    #comments=models.ManyToManyField(Comment)
+    text = models.TextField()
+    likes=models.IntegerField(default=0)
+    datetime_added=models.DateTimeField(default=datetime.now())
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        if(self.likes<0):
+            self.likes=0
+        super(Blog, self).save(*args,**kwargs)
+
+    def __unicode__(self):
+        return self.title
+
+class BlogId(models.Model):
+    id1=models.IntegerField()
+    def __unicode__(self):
+        return self.id1
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     name = models.CharField(max_length=200)
@@ -64,6 +99,7 @@ class UserProfile(models.Model):
     dob_date = models.IntegerField(default=1)
     dob_month = models.IntegerField(default=1)
     dob_year = models.IntegerField(default=2000)
+    myreading_list=models.ManyToManyField(BlogId)
     def __unicode__(self):
         return self.user.username
 

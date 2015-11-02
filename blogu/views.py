@@ -146,6 +146,7 @@ def blog(request,blog_title_slug):
     b_time=None
     try:
         b=Blog.objects.get(slug=blog_title_slug)
+        print b.blog_content
         c=Comment.objects.filter(comment_to=b).order_by('-likes')
         comment_by_name=[]
         for co in c:
@@ -252,15 +253,18 @@ def add_blog2(request,category_name_slug):
         cat=None
 
     if request.method=="POST":
-        blog_form=BlogForm(request.POST)
-        if blog_form.is_valid:
-            blog_form.save(commit=True)
-            blog1=Blog.objects.get(title=blog_form.cleaned_data['title'])
-            blog1.datetime_added=datetime.now(),
+        blog1=BlogForm(request.POST)
+        if blog1.is_valid():
+            title = blog1.cleaned_data['title']
+            blog_content=blog1.cleaned_data['blog_content']
+            #blog1.save(commit=False)
+            blog1=Blog(title=title,blog_content=blog_content)
+            blog1.datetime_added=datetime.now()
             blog1.category=cat
+            blog1.id=cat.id
             blog1.written_by=request.user
             blog1.save()
-            return blog(request,slugify(blog_form.cleaned_data['title']))
+            return blog(request,slugify(blog1.title))
         else:
             print blog_form.errors
     else:
@@ -326,6 +330,7 @@ def login_and_signup(request):
             signup_email = request.POST.get('signup_email')
             signup_password1 = request.POST.get('signup_password1')
             signup_password2 = request.POST.get('signup_password2')
+            register_as = request.POST.get('register_as')         
             try:
                 u=User.objects.get(email=signup_email)
                 signup_statement="Email already registered"
@@ -338,11 +343,16 @@ def login_and_signup(request):
                     user.set_password(signup_password1)
                     user.save()
                     user1=User.objects.get(username=signup_username)
-                    profile=UserProfile(user=user1,level=1)
-                    profile.name=signup_name
-                    profile.save()
-                    up_follow=Follow(userprofile=user1)
-                    up_follow.save()
+                    if register_as=="user":
+                        profile=UserProfile(user=user1,level=1)
+                        profile.name=signup_name
+                        profile.save()
+                        up_follow=Follow(userprofile=user1)
+                        up_follow.save()
+                    else:
+                        company=Company(user=user1)
+                        company.name=signup_name
+                        company.save()
                     user1 = authenticate(username = signup_username,password=signup_password1)
                     #user1 = authenticate(username = signup_username,password=signup_password1)
                     print user1

@@ -3,21 +3,23 @@
 {% load bootstrap_toolkit %}
 {% block body_block %}
 
-<form>
+<!--form>
     {{ myform.media }}
     {{ myform.as_p }}
     <input type="submit"/>
-</form>
+</form-->
 
 {% if category %}
 <form role="form" id="blog_form" method = "post" action = '/blogu/{{ category.slug }}/add_blog/' enctype = "multipart/form-data">
         {% csrf_token %}
         {{ myform.media }}
+        {{ myform.as_p }}
         <button class = "btn btn-primary" type = "submit" name ="submit">Add Blog</button>
-    </form>
+</form>
 
 {% else %}
 <select id ="select-category" name="dropdown">
+    <option value="none">--Select--</option>
     {% for category in category_list %}
   <option value="{{ category.slug }}">{{ category.name }}</option>
     {% endfor %}
@@ -26,8 +28,9 @@
 <form role="form" id="blog_form2" method = "post" action = '/blogu/{{ category.slug }}/add_blog/' enctype = "multipart/form-data">
     {% csrf_token %}
     {{ myform.media }}
+    {{ myform.as_p }}
     <button class = "btn btn-primary" type = "submit" name ="submit">Add Blog</button>
-    </form>
+</form>
 
 {% endif %}
 {% endblock %}
