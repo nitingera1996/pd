@@ -105,6 +105,15 @@ div[id^="d"]:last-child
   font-size: 16px;
   font-weight: bold;
 }
+#logout_link:link
+{
+  font-weight: bold;
+  background: transparent;
+}
+#logout_link:hover
+{
+  text-decoration: none;
+}
 </style>
 {% if userprofile.picture %}
 <img style="height:150px;width:150px;" src="{{ userprofile.picture.url }}"/>
@@ -118,9 +127,11 @@ div[id^="d"]:last-child
 <li data-id="4">Following</li>
 <li data-id="3">Followers</li>
 <li data-id="2">Tags</li>
+<li data-id="1">Settings</li>
 </ul>
 </div>
 <div id="ata">
+<div id="d1"><a id="logout_link" href="{% url 'logout' %}"><span class="glyphicon glyphicon-share"></span>&nbsp Logout</a></div>
 <div id="d2"><span class="data">{{ userprofile_follow.no_followed }}</span></div>
 <div id="d3">
 {% for tag in followed_tags %}

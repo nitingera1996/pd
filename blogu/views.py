@@ -590,14 +590,14 @@ def next_step(request):
         up_follow.save()
         return HttpResponseRedirect('/blogu/')
     else:
-        try:
-            up=UserProfile.objects.get(user=u)
-            return HttpResponseRedirect('/blogu/')
-        except:
-            context_dict={}
-            cat_list=Category.objects.all()
-            context_dict['cat_list']=cat_list
-            return render(request,'blogu/next_step.html',context_dict)
+        #try:
+           # up=UserProfile.objects.get(user=u)
+           # return HttpResponseRedirect('/blogu/')
+        #except:
+        context_dict={}
+        cat_list=Category.objects.all()
+        context_dict['cat_list']=cat_list
+        return render(request,'blogu/next_step.html',context_dict)
             
 def quick_add_blog(request):
     if request.method=="POST":

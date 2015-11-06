@@ -7,9 +7,9 @@
         <div id="quick_blog">
         <form role="form" accept-charset="utf-8" method="post" action="/blogu/quick_add_blog/" class="simform">
             {% csrf_token %}
-            <span>Write a blog...</span><br />
+            <span>Write what you want...</span><br />
             <textarea name="quick_blog_text" cols="75" rows="4"></textarea><br />
-            <button type="submit">Write Blog</button>
+            <button type="submit">Done!</button>
         </form>
         </div>
         <hr/>
@@ -38,7 +38,7 @@
                 {{ value }}
                 {% endif %}
                 {% endfor %}
-            </font><font style="color:gray;">comment(s)</font><br><br>
+            </font><font style="color:gray;">comment(s)</font>,&nbsp
 {% if user.is_authenticated %}
                 
     <a id="share" href="/blogu/post_to_facebook/{{ blog.id }}/"> <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Share</a>

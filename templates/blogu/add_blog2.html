@@ -2,7 +2,40 @@
 {% load staticfiles %}
 {% load bootstrap_toolkit %}
 {% block body_block %}
-
+<style type="text/css" rel="stylesheet">
+body
+{
+    text-align: center;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+}
+form[role]
+{
+    margin-top: 20px;
+}
+textarea[name="blog_title"]
+{
+    margin: 20px;
+    font-size: 20px;
+    border:none;
+    resize:none;
+}
+#cke_blog_area
+{
+    width: 800px;
+    height:400px;
+    margin-bottom: 20px;
+}
+#blog_area_div
+{
+    text-align: center;
+    display: -moz-box;
+}
+#id_title
+{
+    margin:20px;
+}
+</style>
 <!--form>
     {{ myform.media }}
     {{ myform.as_p }}
@@ -11,9 +44,11 @@
 
 {% if category %}
 <form role="form" id="blog_form" method = "post" action = '/blogu/{{ category.slug }}/add_blog/' enctype = "multipart/form-data">
+    <div id="blog_area_div">
         {% csrf_token %}
         {{ myform.media }}
         {{ myform.as_p }}
+    </div>
         <button class = "btn btn-primary" type = "submit" name ="submit">Add Blog</button>
 </form>
 
@@ -26,9 +61,12 @@
 </select>
 
 <form role="form" id="blog_form2" method = "post" action = '/blogu/{{ category.slug }}/add_blog/' enctype = "multipart/form-data">
+    <div id="blog_area_div">
     {% csrf_token %}
     {{ myform.media }}
-    {{ myform.as_p }}
+    {{ myform.title }}<br>
+    {{ myform.blog_content }}
+    </div>
     <button class = "btn btn-primary" type = "submit" name ="submit">Add Blog</button>
 </form>
 
