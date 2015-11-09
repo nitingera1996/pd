@@ -29,7 +29,7 @@ $(document).ready(function(){
 		});
 	});
 
-  $('#suggestion_search').keyup(function(){
+  $('#suggestion_search').keyup(function(event){
     //alert('Hello');
     var search_term;
     search_term=$(this).val();
@@ -37,7 +37,8 @@ $(document).ready(function(){
     {
       $('#search_results').html("");
     }
-     $.ajax({
+    else
+    { $.ajax({
     type:"GET",
     url: "/blogu/search_top/",
     data: {query_string: search_term},
@@ -45,7 +46,8 @@ $(document).ready(function(){
         console.log(newData);
         $('#search_results').html(newData);
     }
- });
+            });
+    }
   });
 
   $('.follow_user').click(function(event){
