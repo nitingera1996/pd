@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    $('#id_title').attr({size:"50",placeholder:"Title"});
+    $('#id_blog_content').attr({ cols:"75",rows:"15",placeholder:"Write"});
+    $('#blog_area').attr({ cols:"75",rows:"15"});
     $('#new_comment').hide();
     $('#new_discuss').hide();
     $('#category_like').click(function(){

@@ -3,37 +3,38 @@
 {% load bootstrap_toolkit %}
 {% block body_block %}
 <style type="text/css" rel="stylesheet">
+::-webkit-scrollbar,-moz-scrollbar,-o-scrollbar,scrollbar { 
+    display: none; 
+}
 body
 {
     text-align: center;
-    display:-webkit-box;
-    -webkit-box-pack:center;
+    padding: 80px;
 }
-form[role]
-{
-    margin-top: 20px;
-}
-textarea[name="blog_title"]
+#select-category,#id_title
 {
     margin: 20px;
-    font-size: 20px;
     border:none;
-    resize:none;
-}
-#cke_blog_area
-{
-    width: 800px;
-    height:400px;
-    margin-bottom: 20px;
-}
-#blog_area_div
-{
-    text-align: center;
-    display: -moz-box;
+    color:white;
+    font-size: 14px;
+    background:#337ab7;
+    padding: 2px;
+    -webkit-border-radius:3px;
 }
 #id_title
 {
-    margin:20px;
+    font-size:20px;
+    border:none;
+    padding: 5px;
+    background: white;
+    color:black;
+}
+#id_blog_content
+{
+    padding: 7px;
+    border:none;
+    font-size: 16px;
+    resize:none;
 }
 </style>
 <!--form>
@@ -47,13 +48,14 @@ textarea[name="blog_title"]
     <div id="blog_area_div">
         {% csrf_token %}
         {{ myform.media }}
-        {{ myform.as_p }}
+        {{ myform.title }}<br>
+        {{ myform.blog_content }}
     </div>
-        <button class = "btn btn-primary" type = "submit" name ="submit">Add Blog</button>
+        <button class = "btn btn-primary" type = "submit" name ="submit">DONE!</button>
 </form>
 
 {% else %}
-<select id ="select-category" name="dropdown">
+<strong>Select a category :</strong><select id ="select-category" name="dropdown">
     <option value="none">--Select--</option>
     {% for category in category_list %}
   <option value="{{ category.slug }}">{{ category.name }}</option>
@@ -67,8 +69,9 @@ textarea[name="blog_title"]
     {{ myform.title }}<br>
     {{ myform.blog_content }}
     </div>
-    <button class = "btn btn-primary" type = "submit" name ="submit">Add Blog</button>
+    <button class = "btn btn-primary" type = "submit" name ="submit">Done!</button>
 </form>
-
+<script src="{% static "js/jquery-1.11.3.min.js" %}"></script>
+  <script src="{% static "js/blogu-jquery.js" %}"></script>
 {% endif %}
 {% endblock %}

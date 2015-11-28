@@ -273,7 +273,7 @@ def add_blog2(request,category_name_slug):
             blog1.save()
             return blog(request,slugify(blog1.title))
         else:
-            print blog_form.errors
+            print blog1.errors
     else:
         form=BlogForm()
         context_dict={'category_list':Category.objects.all(),'category':cat,'myform':form}
@@ -441,14 +441,14 @@ def search_top(request):
     for blog in blog_list:
         title=blog.title
         for word in title.split():
-            if word.startswith(str):
+            if word.lower().startswith(str.lower()):
                 b_list.append(blog)
                 break
 
     user_list = UserProfile.objects.all()
     u_list=[]
     for u in user_list:
-        if u.name.startswith(str):
+        if u.name.lower().startswith(str.lower()):
            u_list.append(u)
     #print cat_list,b_list,u_list
     #print cat_list

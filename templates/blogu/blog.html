@@ -27,7 +27,14 @@
                     {% endif %},&nbsp
                     <font style="color:black;font-weight:bold;">
                 {{ comments_number }}
-            </font><font style="color:gray;">comment(s)</font><br>
+            </font><font style="color:gray;">comment(s)</font>&nbsp
+            {% if user.is_authenticated %}
+                
+    <a id="share" href="/blogu/post_to_facebook/{{ blog.id }}/"> <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Share</a>
+
+{% else %}
+    <a id="share" href="{% url 'socialauth_begin' 'facebook' %}"> <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Share</a>
+{% endif %}
 <div>
 	<div class="panel">
         <br />
@@ -51,7 +58,7 @@
                             </div>
                             <div class="list-group">
                                 <h4 class="list-group-item-heading">{{ up.name }}</h4>
-                                <p class="list-group-item-text"><textarea id="comment_text" cols="75" rows="4"></textarea><br /></p>
+                                <p class="list-group-item-text"><textarea id="comment_text" cols="75" rows="4" style="resize:none;"></textarea><br /></p>
                                 <button id="comment" type="button" data-blogid="{{ blog.id }}" data-uid="{{ u.id }}" data-uname="{{ up.name }}" class="btn btn-primary">Comment</button>
                             </div>
                         </div>

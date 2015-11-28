@@ -38,8 +38,15 @@
                 {{ value }}
                 {% endif %}
                 {% endfor %}
-            </font><font style="color:gray;">comment(s)</font><br>
-                    <br/>
+            </font><font style="color:gray;">comment(s)</font>
+                    &nbsp
+                    {% if user.is_authenticated %}
+                
+    <a id="share" href="/blogu/post_to_facebook/{{ blog.id }}/"> <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Share</a>
+
+{% else %}
+    <a id="share" href="{% url 'socialauth_begin' 'facebook' %}"> <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Share</a>
+{% endif %}
                     <hr noshade size=9>
                 {% endfor %}
 			</u1>
