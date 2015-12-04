@@ -151,3 +151,22 @@
 {
 	text-decoration: none;
 }
+#share:link
+{
+background: rgb(0,123,255);
+-webkit-border-radius:3px;
+-moz-border-radius:3px;
+border-radius:3px;
+color:white;
+font-weight: bold;
+padding: 3px;
+}
+#share:hover
+{
+	background: blue;
+	text-decoration: none;
+}
+#share:visited
+{
+	color:white;
+}

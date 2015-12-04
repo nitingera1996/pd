@@ -1,9 +1,51 @@
 $(document).ready(function(){
-    $('#id_title').attr({size:"50",placeholder:"Title"});
-    $('#id_blog_content').attr({ cols:"75",rows:"15",placeholder:"Write"});
     $('#blog_area').attr({ cols:"75",rows:"15"});
     $('#new_comment').hide();
     $('#new_discuss').hide();
+    $('#id_title').attr({size:"50",placeholder:"Title"});
+    $('#id_blog_content').attr({ cols:"75",rows:"15",placeholder:"Write"});
+    
+    $('#id_title').change(function(){
+        var blog_title=$('#id_title').val();
+        console.log(blog_title);
+        $.ajax({
+    type:"GET",
+    url: "/blogu/blog_title/",
+    data: {blog_title: blog_title},
+    success: function(newData){
+      console.log(newData);
+        if(newData=="error")
+        {
+            $('#id_title').val("");
+            alert("Blog Already Exists!");
+        }
+    }
+    });
+    });
+
+    $('#hide_write').click(function(event){
+      event.preventDefault();
+      alert("You need to login first!");
+    });
+
+    $('#new_discuss_topic').change(function(){
+        var discussion_topic=$('#new_discuss_topic').val();
+        console.log(discussion_topic);
+        $.ajax({
+    type:"GET",
+    url: "/blogu/discussion_topic/",
+    data: {discussion_topic: discussion_topic},
+    success: function(newData){
+      console.log(newData);
+        if(newData=="error")
+        {
+            $('#new_discuss_topic').val("");
+            alert("This Discussion Already Exists!");
+        }
+    }
+    });
+    });
+
     $('#category_like').click(function(){
 		var cat_id;
 		cat_id = $(this).attr("data-catid");
@@ -18,9 +60,43 @@ $(document).ready(function(){
 		var blog_id;
 		blog_id = $(this).attr("data-blogid");
 		$.get('/blogu/like_blog/',{blog_id: blog_id},function(data){
-		    $('#blog_like_count').html(data);
+		    $('#'+blog_id).html(data);
 		    $('#blog_like').hide();
 			});
+    });
+
+$('#comment_like').click(function(event){
+    //console.log("Hello");
+    var comment_id;
+    comment_id = $(this).attr("data-blogid");
+    var ele=$(this);
+    $.get('/blogu/like_comment/',{comment_id: comment_id},function(data){
+        ele.hide();
+        $('#'+comment_id).html(data);
+      });
+    });
+
+$('#discussion_like').click(function(){
+    //console.log("Hello");
+    var discussion_id;
+    discussion_id = $(this).attr("data-blogid");
+    $.get('/blogu/like_discussion/',{discussion_id: discussion_id},function(data){
+        //console.log(data);
+        $('#discussion_like_count').html(data);
+        $('#discussion_like').hide();
+      });
+    });
+
+$('#discuss_like').click(function(event){
+    //console.log("Hello");
+    var discuss_id;
+    discuss_id = $(this).attr("data-blogid");
+    var ele=$(this);
+    $.get('/blogu/like_discuss/',{discuss_id: discuss_id},function(data){
+        //console.log(data);
+        $('#'+discuss_id).html(data);
+        ele.hide();
+      });
     });
 
 	$('#suggestion_id').keyup(function(){
@@ -144,5 +220,9 @@ $(document).ready(function(){
     { 
       ele.attr("height","250px");
     }*/
+  });
+  $('.discuss_topic').click(function(event){
+    event.preventDefault();
+    alert("You need to log in first!");
   });
 });

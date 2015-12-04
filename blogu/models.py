@@ -82,6 +82,31 @@ class BlogId(models.Model):
     def __unicode__(self):
         return self.id1
 
+class Discussion(models.Model):
+    topic=models.CharField(max_length=100)
+    slug=models.SlugField(unique=True)
+    intro=models.CharField(max_length=500,default="None")
+    started_by=models.ForeignKey('blogu.UserProfile')
+    started_on=models.DateTimeField(default=datetime.now())
+    likes=models.IntegerField(default=0)
+    category=models.ForeignKey(Category)
+    def __unicode__(self):
+        return self.topic
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.topic)
+        if(self.likes<0):
+            self.likes=0
+        super(Discussion, self).save(*args,**kwargs)
+
+class Discuss(models.Model):
+    discuss_text=models.TextField()
+    discuss_by=models.ForeignKey('blogu.UserProfile')
+    discuss_on=models.ForeignKey(Discussion)
+    posted_on=models.DateTimeField(default=datetime.now())
+    likes=models.IntegerField(default=0)
+    def __unicode__(self):
+        return self.discuss_text
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     name = models.CharField(max_length=200)
@@ -99,7 +124,10 @@ class UserProfile(models.Model):
     dob_date = models.IntegerField(default=1)
     dob_month = models.IntegerField(default=1)
     dob_year = models.IntegerField(default=2000)
-    myreading_list=models.ManyToManyField(BlogId)
+    myreading_list=models.ManyToManyField(BlogId,null=True)
+    liked_discussions=models.ManyToManyField(Discussion)
+    liked_discusses=models.ManyToManyField(Discuss)
+    liked_comments=models.ManyToManyField('blogu.Comment')
     def __unicode__(self):
         return self.user.username
 
@@ -118,30 +146,4 @@ class Follow(models.Model):
     no_followed=models.IntegerField(default=0)
     def __unicode__(self):
         return self.userprofile.username
-
-
-class Discussion(models.Model):
-    topic=models.CharField(max_length=100)
-    slug=models.SlugField(unique=True)
-    started_by=models.ForeignKey(UserProfile)
-    started_on=models.DateTimeField(default=datetime.now())
-    likes=models.IntegerField(default=0)
-    category=models.ForeignKey(Category)
-    def __unicode__(self):
-        return self.topic
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.topic)
-        if(self.likes<0):
-            self.likes=0
-        super(Discussion, self).save(*args,**kwargs)
-
-
-class Discuss(models.Model):
-    discuss_text=models.TextField()
-    discuss_by=models.ForeignKey(UserProfile)
-    discuss_on=models.ForeignKey(Discussion)
-    posted_on=models.DateTimeField(default=datetime.now())
-    likes=models.IntegerField(default=0)
-    def __unicode__(self):
-        return self.discuss_text
 

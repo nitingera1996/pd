@@ -38,10 +38,14 @@
 			                {% else %}
 			                    <li><a href="{% url 'login_signup' %}"><span class="glyphicon glyphicon-lock"></span>&nbsp SignIn/SignUp</a></li>
 			                {% endif %}
+			                {% if user.is_authenticated %}
 			                {% if category %}
 				    	    <li><a href="/blogu/{{ category.slug }}/add_blog/"><span class="glyphicon glyphicon-pencil"></span>&nbsp Write </a></li>
 				    	    {% else %}
 				    	    <li><a href="/blogu/none/add_blog/"><span class="glyphicon glyphicon-pencil"></span>&nbsp Write </a></li>
+				    	    {% endif %}
+				    	    {% else %}
+				    	    <li><a href="#" id="hide_write"><span class="glyphicon glyphicon-pencil"></span>&nbsp Write </a></li>
 				    	    {% endif %}
 				    </u1>
 		         </div>
@@ -76,18 +80,20 @@
 			    <li class="nav-header" style="font-family:tahoma;font-weight:bold;font-size:16px;color:black;">Featured Blogs</li>
 			    </u1>
 				<div id="featured_blogs">
-        {% block side_block2_1 %}
+        	{% block side_block2_1 %}
 				{% get_blogs_list %}
-          {% endblock %}
+          	{% endblock %}
           </div>
           <u1 class="nav nav-list">
   			    <li class="nav-header" style="font-family:tahoma;font-weight:bold;"></li>
   			    </u1>
+  			    {% if user.is_authenticated %}
           <div id="to_follow">
             {% block side_block2_2 %}
             {% get_to_follow_list user %}
             {% endblock %}
           </div>
+          {% endif %}
 			</div>
 		</div>
     <script src="{% static "js/jquery-1.11.3.min.js" %}"></script>

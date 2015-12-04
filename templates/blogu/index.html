@@ -7,8 +7,8 @@
         <div id="quick_blog">
         <form role="form" accept-charset="utf-8" method="post" action="/blogu/quick_add_blog/" class="simform">
             {% csrf_token %}
-            <span>Write what you want...</span><br />
-            <textarea name="quick_blog_text" cols="75" rows="4"></textarea><br />
+            <span>Enlighten Us...</span><br />
+            <textarea name="quick_blog_text" style="width:90%" rows="4"></textarea><br />
             <button type="submit">Done!</button>
         </form>
         </div>
@@ -21,10 +21,16 @@
                     <span style='float:right;color:gray;'>{{ b_time }}</span>
 
                 <p class='text-left' style="color:gray;"> &nbsp<img src="{{ blog.written_by.picture.url }}" /> -<a id="written_by" href="/{{ blog.written_by }}/">{{ blog.written_by }}</a></p>
-                <h3 style="font-family:arial;"><a class="blog_title" href="{% url 'blog' blog.slug %}" ><strong>{{ blog.title }}</strong></a></h3>
+                <h3 style="font-family:arial;">
+                    {% if user.is_authenticated %}
+            <a href="{% url 'blog' blog.slug %}" class="blog_title"><strong>{{ blog.title }}</strong></a>
+            {% else %}
+            <a href="{% url 'blog_r' blog.slug %}" class="blog_title"><strong>{{ blog.title }}</strong></a>
+            {% endif %}
+                </h3>
                 <div class="active_text text_div"><p class="blog_text">{{ blog.blog_content|safe }}</p></div>
-                <font style="color:black;font-weight:bold;">
-                {{ blog.likes }} </font><font style="color:gray;">like(s)</font>
+                <span id="{{ blog.id }}" style="color:black;font-weight:bold;">
+                {{ blog.likes }} </span><font style="color:gray;">like(s)</font>
 				{% if show %}
                 {% if user.is_authenticated %}
                         <button id="blog_like" data-blogid="{{ blog.id }}" class="btn btn-primary" type="button">

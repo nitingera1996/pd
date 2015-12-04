@@ -36,10 +36,14 @@
 			                {% else %}
 			                <li><a href="{% url 'login_signup' %}"><span class="glyphicon glyphicon-lock"></span>&nbsp SignIn/SignUp</a></li>
 			                {% endif %}
+			                {% if user.is_authenticated %}
 			                {% if category %}
 				    	    <li><a href="/blogu/{{ category.slug }}/add_blog/"><span class="glyphicon glyphicon-pencil"></span>&nbsp Write </a></li>
 				    	    {% else %}
 				    	    <li><a href="/blogu/none/add_blog/"><span class="glyphicon glyphicon-pencil"></span>&nbsp Write </a></li>
+				    	    {% endif %}
+				    	    {% else %}
+				    	    <li><a href="#" id="hide_write"><span class="glyphicon glyphicon-pencil"></span>&nbsp Write </a></li>
 				    	    {% endif %}
 				    </u1>
 		         </div>

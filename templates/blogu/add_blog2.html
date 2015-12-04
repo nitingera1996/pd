@@ -56,7 +56,6 @@ body
 
 {% else %}
 <strong>Select a category :</strong><select id ="select-category" name="dropdown">
-    <option value="none">--Select--</option>
     {% for category in category_list %}
   <option value="{{ category.slug }}">{{ category.name }}</option>
     {% endfor %}
@@ -72,6 +71,8 @@ body
     <button class = "btn btn-primary" type = "submit" name ="submit">Done!</button>
 </form>
 <script src="{% static "js/jquery-1.11.3.min.js" %}"></script>
-  <script src="{% static "js/blogu-jquery.js" %}"></script>
+<script type="text/javascript">
+$('#id_blog_content').html("{{ quick_blog_text }}");
+</script>
 {% endif %}
 {% endblock %}
