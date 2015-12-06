@@ -41,6 +41,7 @@
                     <h3 class="panel-title">Commments:</h3>
                     <div class="panel-body">
                         <div class="list-group">
+                            <div id="wrapper">
                             {% if comments %}
                             {% for comment,comment_by_name in comments %}
                                 <div class="list-group-item">
@@ -50,8 +51,8 @@
                                     {% if user.is_authenticated %}
                                     {% for key,value in show_comment.items %}
                                     {% if key == comment.id and value == "yes" %}
-                                    <button id="comment_like" data-blogid="{{ comment.id }}" class="btn btn-primary" type="button">
-                                    <span class="glyphicon glyphicon-thumbs-up"> </span>
+                                    <button id="comment {{ comment.id }}" data-blogid="{{ comment.id }}" class="btn btn-primary comment-lyk" type="button">
+                                    <span class="glyphicon glyphicon-thumbs-up"></span>
                                     Like</button>
                                     {% endif %}
                                     {% endfor %}
@@ -59,15 +60,18 @@
                                 </div>
                             {% endfor %}
                             {% endif %}
-                            <div class="list-group-item" id="new_comment">
-                                    <h4 class="list-group-item-heading" id="new_comment_by" > </h4>
+                        </div>
+                            <!--<div class="list-group-item" id="new_comment">
+                                    <h4 class="list-group-item-heading" id="new_comment_by" ></h4>
                                     <p class="list-group-item-text" id="new_comment_text" ></p><br />
                                     <p style="color:gray;"><font color="black" id="new_comment_like"></font> like(s)</p>
-                            </div>
+                            </div>-->
                             {% if user.is_authenticated %}
                             <div class="list-group">
                                 <h4 class="list-group-item-heading">{{ up.name }}</h4>
-                                <p class="list-group-item-text"><textarea id="comment_text" cols="75" rows="4" style="resize:none;"></textarea><br /></p>
+                                <p class="list-group-item-text">
+                                    <textarea id="comment_text" cols="75" rows="4" style="resize:none;"></textarea><br />
+                                </p>
                                 <button id="comment" type="button" data-blogid="{{ blog.id }}" data-uid="{{ u.id }}" data-uname="{{ up.name }}" class="btn btn-primary">Comment</button>
                             </div>
                             {% endif %}

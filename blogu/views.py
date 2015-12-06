@@ -106,13 +106,13 @@ def category(request,category_name_slug):
                         break
                     else:
                         show[i]=True
+            show_cat="yes"
+            for cat in user2.liked_categories.all():
+                if cat == category:
+                    show_cat=None
+                    break
         except:
-            pass
-        show_cat="yes"
-        for cat in user2.liked_categories.all():
-            if cat == category:
-                show_cat=None
-                break
+            show_cat=None
         b_time=[]
         comments_number={}
         for b in blog_list:
@@ -135,7 +135,6 @@ def category(request,category_name_slug):
         context_dict['zipped_data']=zipped_data
     except Category.DoesNotExist:
         context_dict['category_name']=category_name_slug
-
     return render(request,'blogu/category.html',context_dict)
 
 
@@ -171,59 +170,29 @@ def blog(request,blog_title_slug):
     except Blog.DoesNotExist:
         pass
     #print type(b.text)
-    up=UserProfile.objects.get(user=request.user)
-    liked_comments=up.liked_comments.all()
-    show=True
-    show_comment={}
-    for bl in up.liked_blogs.all():
-        if(bl==b):
-            show=False
-            break;
-    for co in c:
-        show_comment[co.id]="yes"
-        for comment in liked_comments:
-            if comment==co:
-                show_comment[co.id]=None
-                break
-    print show_comment
-    days=(datetime.now(utc)-b.datetime_added).days
-    seconds=(datetime.now(utc) - b.datetime_added).seconds
-    minutes=seconds/60
-    hours=minutes/60
-    if  days>= 1:
-        b_time=str(days)+" days ago"
-    elif minutes>60:
-        b_time=str(hours)+" hours ago"
-    elif seconds>60:
-        b_time=str(minutes)+" minutes ago"
-    else:
-        b_time="Just now"
-    return render(request,'blogu/blog.html',{'blog':b,'comments':comments,'b_time':b_time,'show':show,'u':request.user,'up':up,'comments_number':comments_number,'show_comment':show_comment})
-
-def blog_r(request,blog_title_slug):
-    b=None
-    c=None
-    b_time=None
     try:
         b=Blog.objects.get(slug=blog_title_slug)
-        #print b.blog_content
-        c=Comment.objects.filter(comment_to=b).order_by('-likes')
-        comments_number=len(c)
-        comment_by_name=[]
+        us=request.user
+        up=UserProfile.objects.get(user=request.user)
+        liked_comments=up.liked_comments.all()
+        show=True
+        show_comment={}
+        for bl in up.liked_blogs.all():
+            if bl==b:
+                show=False
+                break;
         for co in c:
-            u=co.comment_by
-            up=UserProfile.objects.get(user=u)
-            comment_by_name.append(up.name)
-        comments=zip(c,comment_by_name)
-    except Blog.DoesNotExist:
-        pass
-    #print type(b.text)
-    #up=UserProfile.objects.get(user=request.user)
-    #show=False
-    #for bl in up.liked_blogs.all():
-     #   if(bl==b):
-      #      show=True
-       #     break;
+            show_comment[co.id]="yes"
+            for comment in liked_comments:
+                if comment==co:
+                    show_comment[co.id]=None
+                    break
+    except:
+        up=None
+        us=None
+        show=None
+        show_comment=None
+    #print show_comment
     days=(datetime.now(utc)-b.datetime_added).days
     seconds=(datetime.now(utc) - b.datetime_added).seconds
     minutes=seconds/60
@@ -236,8 +205,7 @@ def blog_r(request,blog_title_slug):
         b_time=str(minutes)+" minutes ago"
     else:
         b_time="Just now"
-    return render(request,'blogu/blog.html',{'blog':b,'comments':comments,'b_time':b_time,'comments_number':comments_number})
-
+    return render(request,'blogu/blog.html',{'blog':b,'comments':comments,'b_time':b_time,'show':show,'u':us,'up':up,'comments_number':comments_number,'show_comment':show_comment})
 
 @login_required
 def like_category(request):
@@ -367,7 +335,6 @@ def add_blog2(request,category_name_slug):
             blog1=Blog(title=title,blog_content=blog_content)
             blog1.datetime_added=datetime.now()
             blog1.category=cat
-            blog1.id=cat.id
             blog1.written_by=request.user
             blog1.save()
             return blog(request,slugify(blog1.title))

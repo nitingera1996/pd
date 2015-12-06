@@ -1,5 +1,6 @@
 from django import template
 from blogu.models import Category,Blog,UserProfile,Follow
+from django.contrib.auth.models import User
 
 register = template.Library()
 

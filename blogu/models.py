@@ -124,7 +124,7 @@ class UserProfile(models.Model):
     dob_date = models.IntegerField(default=1)
     dob_month = models.IntegerField(default=1)
     dob_year = models.IntegerField(default=2000)
-    myreading_list=models.ManyToManyField(BlogId,null=True)
+    myreading_list=models.ManyToManyField(BlogId,blank=True)
     liked_discussions=models.ManyToManyField(Discussion)
     liked_discusses=models.ManyToManyField(Discuss)
     liked_comments=models.ManyToManyField('blogu.Comment')

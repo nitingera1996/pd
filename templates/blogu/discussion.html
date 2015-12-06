@@ -27,6 +27,7 @@
                     <br /><br />
                     <div class="panel-body">
                         <div class="list-group">
+                            <div id="wrapper">
                             {% if discuss_list %}
                             {% for discuss in discuss_list %}
                                 <div class="list-group-item" style="width:75%;">
@@ -35,7 +36,7 @@
 									<p style="color:gray;"><span id="{{ discuss.id }}" style="color:black">{{ discuss.likes }}</span> like(s)</p>
                         {% for key,value in show_discuss.items %}
                         {% if key == discuss.id and value == "yes" %}
-                        <button id="discuss_like" data-blogid="{{ discuss.id }}" class="btn btn-primary" type="button" style="font-size:14px;padding:2px;">
+                        <button id="discuss {{ discuss.id }}" data-blogid="{{ discuss.id }}" class="btn btn-primary discuss-lyk" type="button" style="font-size:14px;padding:2px;">
                         <span class="glyphicon glyphicon-thumbs-up"> </span>
                         Like</button>
                         {% endif %}
@@ -43,13 +44,13 @@
                                 </div>
                             {% endfor %}
                             {% endif %}
+                        </div>
                             <br />
-                            <br />
-                            <div class="list-group-item" id="new_discuss">
+                            <!--<div class="list-group-item" id="new_discuss">
                                     <h4 class="list-group-item-heading" id="new_discuss_by" > </h4>
                                     <p class="list-group-item-text" id="new_discuss_text" ></p><br />
                                     <p style="color:gray;"><font color="black" id="new_discuss_like"></font> like(s)</p>
-                            </div>
+                            </div>-->
                             <div class="list-group">
                                 <h4 class="list-group-item-heading" style="font-weight:bold;">{{ up.name }}:</h4>
                                 <p class="list-group-item-text"><textarea id="discuss_text" cols="90" rows="6" style="resize:none;"></textarea><br/></p>

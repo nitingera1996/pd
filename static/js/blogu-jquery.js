@@ -65,7 +65,7 @@ $(document).ready(function(){
 			});
     });
 
-$('#comment_like').click(function(event){
+$(".comment-lyk").click(function(event){
     //console.log("Hello");
     var comment_id;
     comment_id = $(this).attr("data-blogid");
@@ -87,7 +87,7 @@ $('#discussion_like').click(function(){
       });
     });
 
-$('#discuss_like').click(function(event){
+$(".discuss-lyk").click(function(event){
     //console.log("Hello");
     var discuss_id;
     discuss_id = $(this).attr("data-blogid");
@@ -142,12 +142,29 @@ $('#discuss_like').click(function(event){
     user_id = $(this).attr("data-uid");
     blog_id = $(this).attr("data-blogid");
     up_name=$(this).attr("data-uname");
+    console.log("up_name");
     comment_text=$('#comment_text').val();
-    $.get('/blogu/comment/',{user_id: user_id,blog_id:blog_id,comment_text:comment_text},function(data){
-      $('#new_comment_like').html(data);
+    $.get('/blogu/comment/',{user_id: user_id,blog_id:blog_id,comment_text:comment_text},function(newdata){
+      $('<div class="list-group-item"><h4 class="list-group-item-heading" id="new_comment_by" >'+up_name+'</h4><p class="list-group-item-text" id="new_comment_text" >'+comment_text+'</p><br /><p style="color:gray;"><font color="black" id="new_comment_like">'+newdata+'</font> like(s)</p></div>').appendTo("#wrapper");
+      /*$('#new_comment_like').html(data);
       $('#new_comment_text').html(comment_text);
       $('#new_comment_by').html(up_name);
-        $('#new_comment').show();
+      $('#new_comment').show();*/
+      });
+  });
+
+  $('#discuss').click(function(){
+    var user_id,blog_id;
+    up_name=$(this).attr('data-upname');
+    user_id = $(this).attr("data-upid");
+    discussion_id = $(this).attr("data-discussionid");
+    discuss_text=$('#discuss_text').val();
+    $.get('/blogu/discuss/',{user_id:user_id,discussion_id:discussion_id,discuss_text:discuss_text},function(data){
+      $('<div class="list-group-item"><h4 class="list-group-item-heading" id="new_discuss_by" > '+up_name+'</h4><p class="list-group-item-text" id="new_discuss_text" >'+discuss_text+'</p><br /><p style="color:gray;"><font color="black" id="new_discuss_like">'+data+'</font> like(s)</p></div>').appendTo('#wrapper');
+      /*$('#new_discuss_like').html(data);
+      $('#new_discuss_text').html(discuss_text);
+      $('#new_discuss_by').html(up_name);
+        $('#new_discuss').show();*/
       });
   });
 
@@ -165,20 +182,6 @@ $('#discuss_like').click(function(event){
     console.log('Hello');
     var url= "/blogu/"+ cat_slug + "/add_blog/" ;
     $('#blog_form2').attr("action",url);
-  });
-
-  $('#discuss').click(function(){
-    var user_id,blog_id;
-    up_name=$(this).attr('data-upname');
-    user_id = $(this).attr("data-upid");
-    discussion_id = $(this).attr("data-discussionid");
-    discuss_text=$('#discuss_text').val();
-    $.get('/blogu/discuss/',{user_id:user_id,discussion_id:discussion_id,discuss_text:discuss_text},function(data){
-      $('#new_discuss_like').html(data);
-      $('#new_discuss_text').html(discuss_text);
-      $('#new_discuss_by').html(up_name);
-        $('#new_discuss').show();
-      });
   });
 
   $('.skip').click(function(event){
