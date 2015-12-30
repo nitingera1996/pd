@@ -119,7 +119,6 @@ class UserProfile(models.Model):
     profile_tag_line=models.CharField(max_length=300,null=True,blank=True)
     languages=models.IntegerField(default=1)#English=1,Hindi=2,English And Hindi both =3
     followed_tags=models.ManyToManyField(Tag)
-    google_registered=models.BooleanField(default=False)
     login=models.IntegerField(default=0)#0=manual,1=google,2=facebook,3=linkedin,4=twitter
     dob_date = models.IntegerField(default=1)
     dob_month = models.IntegerField(default=1)
