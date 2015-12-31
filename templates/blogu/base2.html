@@ -32,11 +32,6 @@
 				    <u1 class="nav navbar-nav navbar-right" style="background:rgb(70,94,170);">
 				    		<li><a href="{% url 'discussions' %}"><span class="glyphicon glyphicon-blackboard"></span>&nbsp Discussions</a></li>
 				    	    {% if user.is_authenticated %}
-			                <li><a href="/{{ user.username }}/"><span class="glyphicon glyphicon-user"></span>&nbsp Profile</a></li>
-			                {% else %}
-			                <li><a href="{% url 'login_signup' %}"><span class="glyphicon glyphicon-lock"></span>&nbsp SignIn/SignUp</a></li>
-			                {% endif %}
-			                {% if user.is_authenticated %}
 			                {% if category %}
 				    	    <li><a href="/blogu/{{ category.slug }}/add_blog/"><span class="glyphicon glyphicon-pencil"></span>&nbsp Write </a></li>
 				    	    {% else %}
@@ -45,6 +40,12 @@
 				    	    {% else %}
 				    	    <li><a href="#" id="hide_write"><span class="glyphicon glyphicon-pencil"></span>&nbsp Write </a></li>
 				    	    {% endif %}
+				    	    {% if user.is_authenticated %}
+			                <li><a href="/{{ user.username }}/"><span class="glyphicon glyphicon-user"></span>&nbsp Profile</a></li>
+			                {% else %}
+			                <li><a href="{% url 'login_signup' %}"><span class="glyphicon glyphicon-lock"></span>&nbsp SignIn/SignUp</a></li>
+			                {% endif %}
+			                
 				    </u1>
 		         </div>
 		    </div>

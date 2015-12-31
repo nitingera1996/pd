@@ -39,6 +39,6 @@ body
 {% else %}
 <a class="discuss_topic" href="#">{{ discussion.topic }}</a>
 {% endif %}
-    &nbsp &nbsp <span style="color:gray;">started by</span> <span style="font-weight:bold;font-size:16px;color:black;">{{ discussion.started_by }}</span><br />on {{ discussion.started_on }}<br />{{ discussion.likes }} like(s)  <hr>
+    &nbsp &nbsp <span style="color:gray;">started by</span> <img src="{{ discussion.started_by.picture.url }}" class="pro_pic"/> <span style="font-weight:bold;font-size:16px;color:black;">{{ discussion.started_by }}</span><br />on {{ discussion.started_on }}<br />{{ discussion.likes }} like(s)  <hr>
 {% endfor %}
 {% endblock %}

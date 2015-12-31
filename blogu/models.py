@@ -110,23 +110,23 @@ class Discuss(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     name = models.CharField(max_length=200)
-    picture = models.ImageField(upload_to='profile_images',blank=True)
-    liked_blogs=models.ManyToManyField(Blog)
-    liked_categories=models.ManyToManyField(Category)
+    picture = models.ImageField(upload_to='profile_images',default='profile_images/default.jpg')
+    liked_blogs=models.ManyToManyField(Blog,blank=True)
+    liked_categories=models.ManyToManyField(Category,blank=True)
     level=models.IntegerField(default=1)
     date_registered=models.DateTimeField(default=datetime.now())
     google_registered=models.BooleanField(default=False)
     profile_tag_line=models.CharField(max_length=300,null=True,blank=True)
     languages=models.IntegerField(default=1)#English=1,Hindi=2,English And Hindi both =3
-    followed_tags=models.ManyToManyField(Tag)
+    followed_tags=models.ManyToManyField(Tag,blank=True)
     login=models.IntegerField(default=0)#0=manual,1=google,2=facebook,3=linkedin,4=twitter
     dob_date = models.IntegerField(default=1)
     dob_month = models.IntegerField(default=1)
     dob_year = models.IntegerField(default=2000)
     myreading_list=models.ManyToManyField(BlogId,blank=True)
-    liked_discussions=models.ManyToManyField(Discussion)
-    liked_discusses=models.ManyToManyField(Discuss)
-    liked_comments=models.ManyToManyField('blogu.Comment')
+    liked_discussions=models.ManyToManyField(Discussion,blank=True)
+    liked_discusses=models.ManyToManyField(Discuss,blank=True)
+    liked_comments=models.ManyToManyField('blogu.Comment',blank=True)
     def __unicode__(self):
         return self.user.username
 

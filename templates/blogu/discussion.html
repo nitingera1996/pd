@@ -18,9 +18,7 @@
                     {% endif %}
                     {% endif %}<br>
                     {% if user.is_authenticated %}
-                
     <a id="share" href="/blogu/post_to_facebook_discussion/{{ discussion.id }}/"> <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Share</a>
-
     {% else %}
     <a id="share" href="{% url 'socialauth_begin' 'facebook' %}"> <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Share</a>
     {% endif %}
@@ -31,8 +29,8 @@
                             {% if discuss_list %}
                             {% for discuss in discuss_list %}
                                 <div class="list-group-item" style="width:75%;">
-                                    <h4 class="list-group-item-heading" style="font-weight:bold;">{{ discuss.discuss_by.name }}</h4>
-									<p class="list-group-item-text">{{ discuss.discuss_text }}</p><br />
+                                    <h4 class="list-group-item-heading" style="font-weight:bold;"><img src="{{ discuss.discuss_by.picture.url }}" class="pro_pic_2"/> {{ discuss.discuss_by }}</h4>
+									<p class="list-group-item-text">{{ discuss.discuss_text }}</p>
 									<p style="color:gray;"><span id="{{ discuss.id }}" style="color:black">{{ discuss.likes }}</span> like(s)</p>
                         {% for key,value in show_discuss.items %}
                         {% if key == discuss.id and value == "yes" %}

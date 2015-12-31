@@ -148,3 +148,11 @@ a#written_by:hover
 	height:150px;
 	overflow: hidden;
 }
+.pro_pic
+{
+	height:50px;
+	width:50px;
+	-webkit-border-radius:50% 50%;
+	-moz-border-radius:50% 50%;
+	border-radius:50% 50%;
+}

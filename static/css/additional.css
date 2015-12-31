@@ -170,3 +170,15 @@ padding: 3px;
 {
 	color:white;
 }
+.pro_pic_2
+{
+	height:30px;
+	width:30px;
+	-webkit-border-radius:50% 50%;
+	-moz-border-radius:50% 50%;
+	border-radius:50% 50%;
+}
+.django-ckeditor-widget
+{
+	border:none;
+}

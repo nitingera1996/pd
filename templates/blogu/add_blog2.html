@@ -55,7 +55,8 @@ body
 </form>
 
 {% else %}
-<strong>Select a category :</strong><select id ="select-category" name="dropdown">
+<strong>Select a category :</strong><select required id="select-category" name="dropdown">
+    <option value="">-- Select a category --</option>
     {% for category in category_list %}
   <option value="{{ category.slug }}">{{ category.name }}</option>
     {% endfor %}
@@ -68,11 +69,32 @@ body
     {{ myform.title }}<br>
     {{ myform.blog_content }}
     </div>
-    <button class = "btn btn-primary" type = "submit" name ="submit">Done!</button>
+    <button class= "btn btn-primary" type = "submit" name ="submit">Done!</button>
 </form>
 <script src="{% static "js/jquery-1.11.3.min.js" %}"></script>
 <script type="text/javascript">
 $('#id_blog_content').html("{{ quick_blog_text }}");
+$('.btn-primary').click(function(event){
+    if($('#select-category').val()=="")
+    {
+        event.preventDefault();
+        alert('Please select a category');
+    }
+    else if($('#id_title').val()=="")
+    {
+        event.preventDefault();
+        alert('Please give a title');
+    }
+    /*else if($('.cke_contents_ltr>p').html()=="")
+    {
+        event.preventDefault();
+        alert('Please add content');
+    }*/
+    else
+    {
+        $("#blog_form2").submit();
+    }
+});
 </script>
 {% endif %}
 {% endblock %}
