@@ -4,7 +4,23 @@ $(document).ready(function(){
     $('#new_discuss').hide();
     $('#id_title').attr({size:"50",placeholder:"Title"});
     $('#id_blog_content').attr({ cols:"75",rows:"15",placeholder:"Write"});
-    
+
+    $('#edit_lang').click(function(event){
+      var language=$('input[name="language"]:checked').val();
+      $.ajax({
+      type: "GET",
+      url: "/blogu/edit_language/",
+      data: {language: language},
+      success: function(data){
+        if(data=='Done')
+        {
+          alert('Done!');
+        }
+      }
+    });
+    event.stopImmediatePropagation();
+    });
+
     $('#id_title').change(function(){
         var blog_title=$('#id_title').val();
         console.log(blog_title);
@@ -219,13 +235,15 @@ $(".discuss-lyk").click(function(event){
   $('.text_div').click(function(event)
   {
     $(this).toggleClass('active_text');
-    /*if(ele.attr("height")=="150px")
-    { 
-      ele.attr("height","250px");
-    }*/
   });
   $('.discuss_topic').click(function(event){
     event.preventDefault();
     alert("You need to log in first!");
   });
 });
+
+  $('#edit_language').click(function(event){
+      $('#language_id').toggleClass("language1");
+      $('#language_id').toggleClass("language2");
+      event.stopImmediatePropagation();
+    });

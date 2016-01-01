@@ -733,7 +733,6 @@ def blog_title(request):
         if blog.slug==title:
             resp="error"
             break
-    print "yo"
     return HttpResponse(resp)
 
 def discussion_topic(request):
@@ -746,3 +745,11 @@ def discussion_topic(request):
             break
     print "yo"
     return HttpResponse(resp)
+
+def edit_language(request):
+    user=request.user
+    language=request.GET["language"]
+    u=UserProfile.objects.get(user=user)
+    u.languages=int(language)
+    u.save()
+    return HttpResponse('Done')
