@@ -53,7 +53,7 @@ body
         {{ myform.title }}<br>
         {{ myform.blog_content }}
     </div>
-        <button class = "btn btn-primary" type = "submit" name ="submit">DONE!</button>
+        <button id="submit_cat" class = "btn btn-primary" type = "submit" name ="submit">DONE!</button>
 </form>
 
 {% else %}
@@ -71,12 +71,12 @@ body
     {{ myform.title }}<br>
     {{ myform.blog_content }}
     </div>
-    <button class= "btn btn-primary" type = "submit" name ="submit">Done!</button>
+    <button id="submit_no_cat" class= "btn btn-primary" type = "submit" name ="submit">Done!</button>
 </form>
 <script src="{% static "js/jquery-1.11.3.min.js" %}"></script>
 <script type="text/javascript">
 $('#id_blog_content').html("{{ quick_blog_text }}");
-$('.btn-primary').click(function(event){
+$('#submit_no_cat').click(function(event){
     if($('#select-category').val()=="")
     {
         event.preventDefault();
@@ -87,14 +87,30 @@ $('.btn-primary').click(function(event){
         event.preventDefault();
         alert('Please give a title');
     }
-    /*else if($('.cke_contents_ltr>p').html()=="")
+    else if($('.cke_contents_ltr').html()=="<p><br></p>")
     {
         event.preventDefault();
         alert('Please add content');
-    }*/
+    }
     else
     {
         $("#blog_form2").submit();
+    }
+});
+$('#submit_cat').click(function(event){
+    if($('#id_title').val()=="")
+    {
+        event.preventDefault();
+        alert('Please give a title');
+    }
+    else if($('.cke_contents_ltr').html()=="<p><br></p>")
+    {
+        event.preventDefault();
+        alert('Please add content');
+    }
+    else
+    {
+        $("#blog_form").submit();
     }
 });
 </script>
