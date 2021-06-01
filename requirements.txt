@@ -23,7 +23,7 @@ sessioninstaller==0.0.0
 six==1.5.2
 stevedore==1.8.0
 unity-lens-photos==1.0
-urllib3==1.7.1
+urllib3==1.26.5
 virtualenv==13.1.2
 virtualenv-clone==0.2.6
 virtualenvwrapper==4.7.1
