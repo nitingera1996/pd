@@ -16,7 +16,7 @@ oauthlib==1.0.3
 pbr==1.8.0
 python-openid==2.2.5
 python-social-auth==0.2.13
-requests==2.2.1
+requests==2.20.0
 requests-oauth==0.4.1
 requests-oauthlib==0.5.0
 sessioninstaller==0.0.0
